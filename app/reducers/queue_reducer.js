@@ -1,6 +1,6 @@
 import * as types from '../constant/action_constant';
 import { saveQueueState } from './../localStorage';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const initialState = {
   queue: [],
@@ -17,7 +17,8 @@ export default function (state = initialState, action) {
     return { ...state, pushRoute: action.flag };
 
   case types.REPLACE_QUEUE:{
-    let newState = { ...state, queue: action.songs, ids: action.ids }
+    console.log(action);
+    let newState = { ...state, queue: [...action.songs], ids: action.ids }
     saveQueueState(newState);
     return newState;
   }
@@ -29,13 +30,13 @@ export default function (state = initialState, action) {
   }
 
   case types.REMOVE_SONG_FROM_QUEUE:{
-    let newState = { ...state, queue: action.songs, ids: action.ids }
+    let newState = { ...state, queue: action.queue, ids: action.ids }
     saveQueueState(newState);
     return newState;
   }
 
   case types.PLAY_USER_PLAYLIST:{
-    let newState = { ...state, queue: action.songs, ids: action.ids }
+    let newState = { ...state, queue: action.queue, ids: action.ids }
     saveQueueState(newState);
     return newState;
   }
@@ -53,12 +54,6 @@ function addSongToQueue(state, action) {
     saveQueueState(newState);
     return newState;
   }
-  // toast(
-  //   <div className='custom-toast-content ellipsis'>
-  //     <span>{song.name}</span>
-  //       đã tồn tại trong danh sách nghe
-  //   </div>
-  // )
   return state;
 }
 

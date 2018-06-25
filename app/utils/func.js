@@ -59,6 +59,11 @@ export function isObject(obj) {
   return Object.prototype.toString.call(obj) === '[object Object]';
 }
 
+export function isArray(arr) {
+  return Object.prototype.toString.call(obj) === '[object Array]';
+}
+
+
 export function findIndex(arr, entry, value) {
   for (let i = 0, length = arr.length; i < length; i++) {
     if (arr[i][entry] === value) return i;

@@ -11,7 +11,6 @@ export function addSongToQueue(song) {
 
     if (!queue.length) {
       // if the queue doesn't have any songs, fetch this song and play it
-
       dispatch(fetchSong(name, id));
     } else {
       dispatch({ type: types.ADD_SONG_TO_QUEUE, song });
@@ -28,7 +27,10 @@ export function removeSongFromQueue(id) {
     const queueIds = removeById([...queueState.ids], id);
 
     dispatch({ type: types.REMOVE_SONG_FROM_QUEUE, queue: newQueue, ids: queueIds });
-    if (queueIds.length == 0) dispatch(toggleQueue());
+    if (queueIds.length == 0){
+      dispatch(toggleQueue());
+      dispatch(resetSongData());
+    } 
   };
 }
 
@@ -61,6 +63,7 @@ function tweakSongs(songs) {
 
 export function replaceQueue(songs) {
   return (dispatch, getState) => {
+    console.log(...tweakSongs([...songs]))
     const songData = getState().songData.data;
     // play the first song in the queue if there is no song playing
     if (isEmpty(songData)) {

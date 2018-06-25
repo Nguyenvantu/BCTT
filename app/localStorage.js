@@ -1,3 +1,5 @@
+// import { isArray } from './utils/func';
+
 export function loadQueueState() {
   try {
     const serializedQueueState = localStorage.getItem('queueState');

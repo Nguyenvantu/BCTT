@@ -6,7 +6,8 @@ import LazyloadImage from '../LazyloadImage';
 
 const Li = ({ name, id, thumbnail, alias, artist, artists, removeSongFromQueue, fetchSongOnly, songData }) => {
   return (
-    <li style={{background: songData.data.id !== id ? "#fff" : "linear-gradient(to right, #02ccba59, #f2f2f2)"}}>
+    <li >
+      {songData.data.id === id ? <canvas id="analyser_render_2"></canvas> : null}
       <LazyloadImage
         src={thumbnail || 'http://zmp3-photo-td.zadn.vn/noimagex'}
         className="queue-list-thumb"
@@ -16,15 +17,16 @@ const Li = ({ name, id, thumbnail, alias, artist, artists, removeSongFromQueue, 
           <Link to={getSongUrl(alias || name, id)}>{name}</Link>
         </div>
         <div className="queue-track-artist ellipsis">
-           {artist || (artists && (Array.isArray(artists) ? artists.map(artist => artist.name).join(', ') : artists))}
+          {artist || (artists && (Array.isArray(artists) ? artists.map(artist => artist.name).join(', ') : artists))}
         </div>
       </div>
+
       <div className="queue-track-actions">
         {songData.data.id !== id ?
-          <i className='ion-play' 
+          <i className='ion-play'
             onClick={() => fetchSongOnly(name, id)} title="play"></i>
-        :
-          <i className='ion-play' style={{color: "#85929e", cursor: "unset"}} title="playing..."></i>
+          :
+          <i className='ion-play' style={{ color: "#85929e", cursor: "unset" }} title="playing..."></i>
         }
         <i className="ion-trash-b" onClick={() => removeSongFromQueue(id)} title="remove from list"></i>
       </div>
@@ -40,8 +42,8 @@ export default function QueueList({ songs, removeSongFromQueue, fetchSongOnly, s
         transitionEnterTimeout={500}
         transitionLeaveTimeout={300}>
         {songs.map(song =>
-          <Li key={`queue-${song.id}`} {...song} removeSongFromQueue={removeSongFromQueue} 
-            songData={songData} fetchSongOnly={fetchSongOnly}/>
+          <Li key={`queue-${song.id}`} {...song} removeSongFromQueue={removeSongFromQueue}
+            songData={songData} fetchSongOnly={fetchSongOnly} />
         )}
       </ReactCSSTransitionGroup>
     </ul>

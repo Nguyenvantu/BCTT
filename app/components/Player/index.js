@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import InputRange from 'react-input-range';
 import { Link, browserHistory } from 'react-router';
 import PlayerLoader from './PlayerLoader';
-import initAnalyzer from '../../utils/initAnalyzer';
+import {initAnalyzer, continu} from '../../utils/initAnalyzer';
+import {cancel} from '../../utils/initAnalyzer';
 import LinksByComma from '../LinksByComma';
 import { requestInterval, clearRequestInterval } from '../../requestInterval';
 import { changeAlias, getSongUrl, isTwoObjectEqual, formatTime } from '../../utils/func';
@@ -24,7 +25,7 @@ class Player extends React.PureComponent {
   }
 
   componentDidMount() {
-    window.addEventListener('blur', this.windowBlur.bind(this));
+    // window.addEventListener('blur', this.windowBlur.bind(this));
     this.audio = this.refs.audio;
     this.audio.addEventListener('loadeddata', this.onLoadedData.bind(this));
     this.audio.addEventListener('play', this.onPlay.bind(this));
@@ -35,14 +36,16 @@ class Player extends React.PureComponent {
     initAnalyzer(this.audio);
   }
 
-  windowBlur() {
-    if (this.state.isPlaying) {
-      clearInterval(this.timer);
-    }
-  }
+  // windowBlur() {
+  //   if (this.state.isPlaying) {
+  //     clearInterval(this.timer);
+  //   }
+  // }
 
   componentWillUnmount() {
     clearRequestInterval(this.timer);
+    this.audio = null;
+    this.refs.audio = null;
   }
 
   onLoadedData() {
@@ -57,15 +60,15 @@ class Player extends React.PureComponent {
   }
 
   onPause() {
+    cancel();
     clearRequestInterval(this.timer);
-    this.setState({ isPlaying: false });
+    // this.setState({ isPlaying: false });
   }
 
   onEnded() {
-    this.playPrevOrNextSong(this.state.isRandom ? 'random' : 'next');
     clearRequestInterval(this.timer);
+    this.playPrevOrNextSong(this.state.isRandom ? 'random' : 'next');
   }
-
 
   componentWillUpdate(nextProps, nextState) {
     if (nextState.isPlaying !== this.state.isPlaying) {
@@ -130,6 +133,7 @@ class Player extends React.PureComponent {
 
   playPrevOrNextSong(prevOrnext) {
     const prevOrnextSong = this.findSong(prevOrnext);
+    cancel();
 
     if (!prevOrnextSong) return;
 
@@ -138,14 +142,22 @@ class Player extends React.PureComponent {
     this.props.togglePushRoute(true); // enable .push for browserHistory
 
     if (alias) {
-      this.props.fetchSong(alias, id);
+      this.props.fetchSong(alias, id)
+      // .then(() => {
+      //   continu();
+      // })
     } else {
-      this.props.fetchSong(changeAlias(name), id); // changeAlias {func}: escape ut8 character
+      this.props.fetchSong(changeAlias(name), id) // changeAlias {func}: escape ut8 character
+      // .then(() => {
+      //   continu();
+      // })
     }
   }
 
   togglePlayBtn() {
     this.setState({ isPlaying: !this.state.isPlaying });
+    if (!this.state.isPlaying)
+      continu();
   }
 
   updateProgressbar() {

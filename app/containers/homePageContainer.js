@@ -4,11 +4,23 @@ import { HomePage } from '../components';
 import { changeActiveChart } from '../actions/chart';
 import { fetchTracks } from '../actions/home';
 import { download } from '../actions/song';
+import PropTypes from 'prop-types';
 
 class HomePageContainer extends Component {
+  static contextTypes = {
+    router: PropTypes.object,
+  }
+
+  downloadSong = (criteria) => {
+    if (!this.props.authenticated) {
+      return this.context.router.push('/login');
+    }
+    return this.props.download(criteria);
+  }
+
   render() {
     return (
-      <HomePage {...this.props} />
+      <HomePage {...this.props} download={this.downloadSong} />
     );
   }
 }

@@ -7,7 +7,6 @@ const Analyzer = ({ show }) =>
     <canvas id="analyser_render"></canvas>
   </div>;
 
-
 Analyzer.propTypes = {
   show: PropTypes.bool.isRequired,
 };

@@ -3,6 +3,7 @@ import { browserHistory } from 'react-router';
 import * as types from '../constant/action_constant';
 import { ROOT_URL, MEDIA_ENDPOINT } from '../constant/endpoint_constant';
 import { togglePushRoute } from './queue';
+import { continu } from '../utils/initAnalyzer';
 import {
   startDownloading,
   updateDownloadProgress,
@@ -14,26 +15,28 @@ export function fetchSong(name, id) {
     dispatch({ type: types.START_FETCHING_SONG });
 
     axios.get(`/api/media/song?name=${name}&id=${id}`)
-    .then(({ data }) => {
-      data.cover = data.artist.cover;
-      const ids = {
-        songId: data.id,
-        artistId: data.artist.id,
-      };
-      dispatch(fetchSuggestedSongs(ids));
+      .then(({ data }) => {
+        data.cover = data.artist.cover;
+        const ids = {
+          songId: data.id,
+          artistId: data.artist.id,
+        };
+        dispatch(fetchSuggestedSongs(ids));
 
-      delete data.artist;
-      dispatch({ type: types.FETCH_SONG_SUCCESS, data });
-      dispatch(togglePushRoute(false));
-      dispatch({ type: types.ADD_SONG_TO_QUEUE,
-        song: { name: data.name, id, artists: data.artists, thumbnail: data.thumbnail },
+        delete data.artist;
+        dispatch(togglePushRoute(false));
+        dispatch({
+          type: types.ADD_SONG_TO_QUEUE,
+          song: { name: data.name, id, artists: data.artists, thumbnail: data.thumbnail },
+        });
+        dispatch({ type: types.FETCH_SONG_SUCCESS, data });
+        continu();
+      })
+      .catch(err => {
+        console.log(err);
+        dispatch({ type: types.FETCH_SONG_FAILURE });
+        browserHistory.push('/notfound/song');
       });
-    })
-    .catch(err => {
-      console.log(err);
-      dispatch({ type: types.FETCH_SONG_FAILURE });
-      browserHistory.push('/notfound/song');
-    });
   };
 }
 
@@ -48,21 +51,21 @@ export function fetchSongOnly(name, id) {
     // dispatch({ type: types.START_FETCHING_SONG });
 
     axios.get(`/api/media/song?name=${name}&id=${id}`)
-    .then(({ data }) => {
-      data.cover = data.artist.cover;
-      const ids = {
-        songId: data.id,
-        artistId: data.artist.id,
-      };
+      .then(({ data }) => {
+        data.cover = data.artist.cover;
+        const ids = {
+          songId: data.id,
+          artistId: data.artist.id,
+        };
 
-      delete data.artist;
-      dispatch({ type: types.FETCH_SONG_SUCCESS, data });
+        delete data.artist;
+        dispatch({ type: types.FETCH_SONG_SUCCESS, data });
 
-    })
-    .catch(err => {
-      dispatch({ type: types.FETCH_SONG_FAILURE });
-      browserHistory.push('/notfound/song');
-    });
+      })
+      .catch(err => {
+        dispatch({ type: types.FETCH_SONG_FAILURE });
+        browserHistory.push('/notfound/song');
+      });
   };
 }
 
@@ -103,7 +106,7 @@ export function download({ songName, id, filename }) {
         link.href = window.URL.createObjectURL(blob);
         link.download = `${songName}.mp3`;
         link.click();
-        setTimeout(() => dispatch(finishDownloading()), 1000)
+        setTimeout(() => dispatch(finishDownloading()), 2000)
       })
       .catch(err => { dispatch(finishDownloading()); throw err; });
   };

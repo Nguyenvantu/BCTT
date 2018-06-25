@@ -21,7 +21,7 @@ class Modal extends Component {
     this.setState({ leave: true });
     setTimeout(() => {
       this.props.dispatch(toggleModal());
-    }, 700);
+    }, 500);
   }
 
   componentDidMount() {
@@ -36,7 +36,7 @@ class Modal extends Component {
     this.setState({ leave: true });
     setTimeout(() => {
       this.props.dispatch(toggleModal());
-    }, 700);
+    }, 500);
   }
 
   handleOnClick() {
