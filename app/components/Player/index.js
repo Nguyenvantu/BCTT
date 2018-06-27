@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import InputRange from 'react-input-range';
 import { Link, browserHistory } from 'react-router';
 import PlayerLoader from './PlayerLoader';
-import {initAnalyzer, continu} from '../../utils/initAnalyzer';
-import {cancel} from '../../utils/initAnalyzer';
+import { initAnalyzer, continu, cancel } from '../../utils/initAnalyzer';
 import LinksByComma from '../LinksByComma';
 import { requestInterval, clearRequestInterval } from '../../requestInterval';
 import { changeAlias, getSongUrl, isTwoObjectEqual, formatTime } from '../../utils/func';
@@ -60,7 +59,6 @@ class Player extends React.PureComponent {
   }
 
   onPause() {
-    cancel();
     clearRequestInterval(this.timer);
     // this.setState({ isPlaying: false });
   }
@@ -82,7 +80,7 @@ class Player extends React.PureComponent {
     if (!isTwoObjectEqual(nextProps.queueIds, this.props.queueIds) &&
       !nextProps.queueIds.includes(this.props.songData.id) &&
       nextProps.queue[0]
-      ) {
+    ) {
       const { name, id } = nextProps.queue[0];
       this.props.fetchSong(changeAlias(name), id); // changeAlias {func}: escape ut8 character
       if (/\/song\//.test(window.location.href)) {
@@ -94,7 +92,7 @@ class Player extends React.PureComponent {
     const nextPercent = nextProps.playerState.playedPercent;
     const currentPercent = this.props.playerState.playedPercent;
 
-    if (nextPercent != currentPercent  && nextPercent) {
+    if (nextPercent != currentPercent && nextPercent) {
       this.audio.currentTime = this.audio.duration * nextPercent / 100;
     }
   }
@@ -109,20 +107,20 @@ class Player extends React.PureComponent {
         random = Math.floor(Math.random() * queue.length);
       if (queue[i].id === currId) {
         switch (prevOrnext) {
-        case 'next':
-          index = (i + 1) % length;
-          // replay the queue if the index is equal the queue length otherwise play the next song
-          break;
-        case 'prev':
-          index = (i + length - 1) % length;
-          // play the last song in the queue if the index is 0 otherwise play the prev song
-          break;
-        case 'random':
-          index = random;
-          // play the random song with next index will be different the prev index
-          break;
-        default:
-          return null;
+          case 'next':
+            index = (i + 1) % length;
+            // replay the queue if the index is equal the queue length otherwise play the next song
+            break;
+          case 'prev':
+            index = (i + length - 1) % length;
+            // play the last song in the queue if the index is 0 otherwise play the prev song
+            break;
+          case 'random':
+            index = random;
+            // play the random song with next index will be different the prev index
+            break;
+          default:
+            return null;
         }
         return queue[index];
       }
@@ -156,13 +154,12 @@ class Player extends React.PureComponent {
 
   togglePlayBtn() {
     this.setState({ isPlaying: !this.state.isPlaying });
-    if (!this.state.isPlaying)
-      continu();
+    this.state.isPlaying ? cancel() : continu();
   }
 
   updateProgressbar() {
     let val = 0;
-    if (this.audio.currentTime > 0) {
+    if (!!this.audio && this.audio.currentTime > 0) {
       val = (this.audio.currentTime / this.audio.duration * 100).toFixed(2);
     }
     if (!this.state.isSeeking) {
@@ -172,7 +169,7 @@ class Player extends React.PureComponent {
 
   update() {
     const lyric = this.props.songData.lyric;
-    if (!lyric.length) {
+    if (!lyric.length || !this.audio) {
       clearInterval(this.timer);
       return;
     }
@@ -209,7 +206,7 @@ class Player extends React.PureComponent {
       updateLyricPercent(null, 0);
       let width = (this.audio.currentTime - lyric2.start) / (lyric2.end - lyric2.start) * 100;
       width = Math.ceil(width);
-      width = width <=  0 ? 0 : (width > 96 ? 100 : width); // fill the karaoke text
+      width = width <= 0 ? 0 : (width > 96 ? 100 : width); // fill the karaoke text
       updateLyricPercent(100, width);
     }
   }
@@ -264,7 +261,7 @@ class Player extends React.PureComponent {
             definePath={(link) => link.replace('/nghe-si/', '/artist/')}
             defineTitle={(title) => title.replace('Nhiều nghệ sĩ', 'Various artists')}
           />
-         {/*  <Link
+          {/*  <Link
             to={`/artist/${changeAlias(artists[0])}`}
             className='ellipsis'
             title={songData.artist}
@@ -301,7 +298,7 @@ class Player extends React.PureComponent {
             onChangeComplete={this.handleChangeComplete.bind(this)}
           />
           <span>
-            { this.audio &&
+            {this.audio &&
               (!isNaN(this.audio.duration) && formatTime(this.audio.duration))
             }
           </span>
@@ -329,7 +326,7 @@ class Player extends React.PureComponent {
             <img src='/svg/playlist.svg' />
           </button>
         </div>
-        { this.props.isFetching && <PlayerLoader /> }
+        {this.props.isFetching && <PlayerLoader />}
       </div>
     );
   }

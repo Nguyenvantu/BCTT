@@ -8,7 +8,6 @@ class App extends React.Component {
   render() {
     const { showPlayer, showAnalyzer: show, showQueue, slideInRight } = this.props;
     const className = `container animated ${slideInRight && 'slideInRight'}`;
-
     return (
       <div>
         <Nav auth={this.props.auth} dispatch={this.props.dispatch} />

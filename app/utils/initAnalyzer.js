@@ -12,6 +12,7 @@ let barX;
 let barWidth;
 let barHeight;
 let id;
+let isPlay = true;
 
 export function initAnalyzer(audio) {
   context = new AudioContext();
@@ -25,12 +26,12 @@ export function initAnalyzer(audio) {
 }
 
 export function cancel() {
-  // console.log(window);
-  clearTimeout(id);
+  // window.clearTimeout(id);
+  isPlay = false;
 };
 
 export function continu(){
-  
+  isPlay = true;
   frameLooper();
 }
 
@@ -61,5 +62,5 @@ function frameLooper() {
     if (!!ctx2)
       ctx2.fillRect(barX, canvas.height, barWidth, barHeight);
   }
-  id = window.setTimeout(() => frameLooper(), 15);
+  isPlay && window.setTimeout(() => frameLooper(), 20);
 }

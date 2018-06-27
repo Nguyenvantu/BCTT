@@ -3,7 +3,7 @@ import { browserHistory } from 'react-router';
 import * as types from '../constant/action_constant';
 import { ROOT_URL, MEDIA_ENDPOINT } from '../constant/endpoint_constant';
 import { togglePushRoute } from './queue';
-import { continu } from '../utils/initAnalyzer';
+import { continu, cancel } from '../utils/initAnalyzer';
 import {
   startDownloading,
   updateDownloadProgress,
@@ -49,7 +49,7 @@ export function resetSongData() {
 export function fetchSongOnly(name, id) {
   return dispatch => {
     // dispatch({ type: types.START_FETCHING_SONG });
-
+    cancel();
     axios.get(`/api/media/song?name=${name}&id=${id}`)
       .then(({ data }) => {
         data.cover = data.artist.cover;
@@ -60,7 +60,7 @@ export function fetchSongOnly(name, id) {
 
         delete data.artist;
         dispatch({ type: types.FETCH_SONG_SUCCESS, data });
-
+        continu();
       })
       .catch(err => {
         dispatch({ type: types.FETCH_SONG_FAILURE });
@@ -106,7 +106,7 @@ export function download({ songName, id, filename }) {
         link.href = window.URL.createObjectURL(blob);
         link.download = `${songName}.mp3`;
         link.click();
-        setTimeout(() => dispatch(finishDownloading()), 2000)
+        setTimeout(() => dispatch(finishDownloading()), 1000)
       })
       .catch(err => { dispatch(finishDownloading()); throw err; });
   };

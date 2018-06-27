@@ -2,7 +2,7 @@ import * as types from '../constant/action_constant';
 import { toggleQueue } from './ui';
 import { fetchSong, resetSongData } from './song';
 import { removeById, changeAlias, isEmpty } from '../utils/func';
-// import { toast } from 'react-toastify';
+import { cancel } from '../utils/initAnalyzer';
 
 export function addSongToQueue(song) {
   const { name, id } = song;
@@ -30,6 +30,7 @@ export function removeSongFromQueue(id) {
     if (queueIds.length == 0){
       dispatch(toggleQueue());
       dispatch(resetSongData());
+      cancel();
     } 
   };
 }
@@ -88,6 +89,7 @@ export function clearQueue() {
     dispatch({ type: types.CLEAR_QUEUE });
     dispatch(toggleQueue());
     dispatch(resetSongData());
+    cancel();
   };
 }
 
