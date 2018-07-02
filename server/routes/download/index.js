@@ -17,7 +17,7 @@ router.get('/song/:songTitle/:id', (req, res, next) => {
     const resource = yield request(`https://mp3.zing.vn/xhr/${matchUrl}`);
     const data = JSON.parse(resource).data;
     const songURI = `http:${data.source['128']}`;
-    console.log(songURI);
+    // console.log(songURI);
     res.header('Content-disposition', `attachment; filename=${songTitle}.mp3`);
     request(songURI).pipe(res);
   })

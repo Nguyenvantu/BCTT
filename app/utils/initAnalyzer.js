@@ -1,5 +1,3 @@
-import { requestInterval, clearRequestInterval } from '../requestInterval';
-
 let canvas;
 let ctx;
 let canvas2;
@@ -13,8 +11,7 @@ const bars = 150;
 let barX;
 let barWidth;
 let barHeight;
-let isPlay = true;
-let id;
+// let id;
 
 export function initAnalyzer(audio) {
   context = new AudioContext();
@@ -26,28 +23,28 @@ export function initAnalyzer(audio) {
   analyser.connect(context.destination);
 }
 
-export function stop() {
-  window.cancelAnimationFrame ?
-    window.cancelAnimationFrame(id) :
-    window.webkitCancelAnimationFrame ?
-    window.webkitCancelAnimationFrame(id) :
-    window.webkitCancelRequestAnimationFrame ?
-    window.webkitCancelRequestAnimationFrame(id) :
-    /* Support for legacy API */
-    window.mozCancelRequestAnimationFrame ?
-    window.mozCancelRequestAnimationFrame(id) :
-    window.oCancelRequestAnimationFrame ?
-    window.oCancelRequestAnimationFrame(id) :
-    window.msCancelRequestAnimationFrame ?
-    window.msCancelRequestAnimationFrame(id) :
-    clearInterval(id);
-};
+// export function stop() {
+//   window.cancelAnimationFrame ?
+//     window.cancelAnimationFrame(id) :
+//     window.webkitCancelAnimationFrame ?
+//     window.webkitCancelAnimationFrame(id) :
+//     window.webkitCancelRequestAnimationFrame ?
+//     window.webkitCancelRequestAnimationFrame(id) :
+//     /* Support for legacy API */
+//     window.mozCancelRequestAnimationFrame ?
+//     window.mozCancelRequestAnimationFrame(id) :
+//     window.oCancelRequestAnimationFrame ?
+//     window.oCancelRequestAnimationFrame(id) :
+//     window.msCancelRequestAnimationFrame ?
+//     window.msCancelRequestAnimationFrame(id) :
+//     clearInterval(id);
+// };
 
-export function start() {
-  id = requestAnimationFrame(frameLooper);
-}
+// export function start() {
+//   id = requestAnimationFrame(frameLooper);
+// }
 
-function frameLooper() {
+export function frameLooper() {
   canvas2 = document.getElementById('analyser_render_2');
   fbcArray = new Uint8Array(analyser.frequencyBinCount);
   analyser.getByteFrequencyData(fbcArray);
@@ -72,5 +69,5 @@ function frameLooper() {
     if (!!ctx2)
       ctx2.fillRect(barX, canvas.height, barWidth, barHeight);
   }
-  id = requestAnimationFrame(frameLooper);
+  // id = requestAnimationFrame(frameLooper);
 }

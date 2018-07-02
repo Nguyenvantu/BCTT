@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import InputRange from 'react-input-range';
 import { Link, browserHistory } from 'react-router';
 import PlayerLoader from './PlayerLoader';
-import { initAnalyzer, start, stop } from '../../utils/initAnalyzer';
+import { initAnalyzer, frameLooper } from '../../utils/initAnalyzer';
 import LinksByComma from '../LinksByComma';
 import { requestInterval, clearRequestInterval } from '../../requestInterval';
 import { changeAlias, getSongUrl, isTwoObjectEqual, formatTime } from '../../utils/func';
@@ -55,12 +55,12 @@ class Player extends React.PureComponent {
   onPlay() {
     this.setState({ isPlaying: true })
     this.timer = requestInterval(this.update.bind(this), 20);
-    start();
+    // start();
   }
 
   onPause() {
     clearRequestInterval(this.timer);
-    stop();
+    // stop();
   }
 
   onEnded() {
@@ -79,7 +79,7 @@ class Player extends React.PureComponent {
 
     if (this.props.songData.id !== nextProps.songData.id && !!this.timer) {
       clearRequestInterval(this.timer);
-      stop();
+      // stop();
     }
 
     if (!isTwoObjectEqual(nextProps.queueIds, this.props.queueIds) &&
@@ -173,8 +173,9 @@ class Player extends React.PureComponent {
     const lyric = this.props.songData.lyric;
     
     this.updateProgressbar();
+    frameLooper();
 
-    if (!lyric.length || !this.audio) {
+    if (!lyric.length) {
       clearRequestInterval(this.timer);
       return;
     }
@@ -183,8 +184,9 @@ class Player extends React.PureComponent {
       updateLyricPercent,
       updateLyric,
     } = this.props;
+    const currentTime = this.audio.currentTime;
     // reset lyric state
-    if (this.audio.currentTime > lyric[lyric.length - 1].end || this.audio.currentTime) {
+    if (currentTime > lyric[lyric.length - 1].end || currentTime) {
       // clear lyric when the this.audio is playing with beat only
       updateLyric([], []);
     }
@@ -192,22 +194,22 @@ class Player extends React.PureComponent {
     for (let i = 0; i < lyric.length; i++) {
       if (i < lyric.length - 1 &&
         i % 2 == 0 &&
-        this.audio.currentTime >= lyric[i].start &&
-        this.audio.currentTime <= lyric[i + 1].end) {
-        updateLyric(lyric[i], lyric[i + 1]);
+        currentTime >= lyric[i].start &&
+        currentTime <= lyric[i + 1].end) {
+        updateLyric(lyric[i], lyric[i + 1]);break;
       }
     }
 
-    if (this.audio.currentTime <= lyric1.end) {
-      let width = (this.audio.currentTime - lyric1.start) / (lyric1.end - lyric1.start) * 100;
-      width = Math.ceil(width);
-      updateLyricPercent(width, 0);
-    } else if (this.audio.currentTime <= lyric2.end) {
-      updateLyricPercent(null, 0);
-      let width = (this.audio.currentTime - lyric2.start) / (lyric2.end - lyric2.start) * 100;
-      width = Math.ceil(width);
-      width = width <= 0 ? 0 : (width > 96 ? 100 : width); // fill the karaoke text
-      updateLyricPercent(100, width);
+    if (currentTime <= lyric1.end) {
+      let width = (currentTime - lyric1.start) / (lyric1.end - lyric1.start) * 100;
+      // width = Math.ceil(width);
+      updateLyricPercent(Math.ceil(width), 0);
+    } else if (currentTime <= lyric2.end) {
+      // updateLyricPercent(null, 0);
+      let width = (currentTime - lyric2.start) / (lyric2.end - lyric2.start) * 100;
+      // width = Math.ceil(width);
+      // width = width <= 0 ? 0 : (width > 96 ? 100 : width); // fill the karaoke text
+      updateLyricPercent(100, Math.ceil(width));
     }
   }
 
@@ -273,19 +275,19 @@ class Player extends React.PureComponent {
             className='sc-ir player-btn'
             onClick={this.playPrevOrNextSong.bind(this, 'prev')}
           >
-            <i className="ion-ios-rewind"></i>
+            <i className="ion-ios-rewind" style={{color: "rgb(173, 181, 189)"}}></i>
           </button>
           <button
             className='sc-ir player-btn'
             onClick={this.togglePlayBtn.bind(this)}
           >
-            <i className={`ion-${this.state.isPlaying ? 'pause' : 'play'}`}></i>
+            <i className={`ion-${this.state.isPlaying ? 'pause' : 'play'}`} style={{color: "rgb(173, 181, 189)"}}></i>
           </button>
           <button
             className='sc-ir player-btn'
             onClick={this.playPrevOrNextSong.bind(this, 'next')}
           >
-            <i className="ion-ios-fastforward"></i>
+            <i className="ion-ios-fastforward" style={{color: "rgb(173, 181, 189)"}}></i>
           </button>
         </div>
         <div className="player-seek">
