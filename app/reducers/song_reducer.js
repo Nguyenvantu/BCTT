@@ -5,23 +5,28 @@ const initialState = {
   data: {},
   suggestedSongs: [],
   isFetching: false,
+  tempData: {}
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
   case types.RESET_SONG_DATA:{
     saveSongDataState({ ...initialState });
-    return { ...initialState };
+    return { ...initialState, tempData: { ...state.tempData } };
   }
     
   case types.FETCH_SONG_SUCCESS:{
-    const newState = { ...state, data: action.data, isFetching: false };
-    saveSongDataState(newState);
+    const newState = { ...state, data: action.data, isFetching: false, 
+      tempData: { ...state.tempData, [action.data.id]: { ...state.tempData[action.data.id], ...action.data} } };
+    saveSongDataState({...newState, tempData: {}});
     return newState;
   }
 
   case types.FETCH_SUGGESTED_SONG_SUCCESS:
-    return { ...state, suggestedSongs: action.songs };
+    const newState = { ...state, suggestedSongs: action.songs, 
+      tempData: { ...state.tempData, [action.songId]: { ...state.tempData[action.songId], suggested: [...action.songs]} } };
+    saveSongDataState({...newState, tempData: {}});
+    return newState;
 
   case types.START_FETCHING_SONG:
     return { ...state, isFetching: true };

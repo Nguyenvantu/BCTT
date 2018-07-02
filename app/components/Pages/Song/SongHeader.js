@@ -58,7 +58,7 @@ const SongHeader = (props) => {
           }}
         ><i className="ion-ios-plus-empty"></i></button>
       </div>
-      { downloadProgress.isDownloading && <span>The song will be downloaded in a few seconds..</span> }
+      { (typeof downloadProgress[songData.id] !== 'undefined' && downloadProgress[songData.id] != -1) && <span>The song will be downloaded in a few seconds..</span> }
     </div>
   );
 };

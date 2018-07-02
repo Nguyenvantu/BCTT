@@ -2,13 +2,11 @@ import * as types from '../constant/action_constant';
 import { toggleQueue } from './ui';
 import { fetchSong, resetSongData } from './song';
 import { removeById, changeAlias, isEmpty } from '../utils/func';
-import { cancel } from '../utils/initAnalyzer';
 
 export function addSongToQueue(song) {
   const { name, id } = song;
   return (dispatch, getState) => {
     const queue = getState().queueState.queue;
-
     if (!queue.length) {
       // if the queue doesn't have any songs, fetch this song and play it
       dispatch(fetchSong(name, id));
@@ -30,7 +28,7 @@ export function removeSongFromQueue(id) {
     if (queueIds.length == 0){
       dispatch(toggleQueue());
       dispatch(resetSongData());
-      cancel();
+
     } 
   };
 }
@@ -64,7 +62,6 @@ function tweakSongs(songs) {
 
 export function replaceQueue(songs) {
   return (dispatch, getState) => {
-    console.log(...tweakSongs([...songs]))
     const songData = getState().songData.data;
     // play the first song in the queue if there is no song playing
     if (isEmpty(songData)) {
@@ -89,7 +86,6 @@ export function clearQueue() {
     dispatch({ type: types.CLEAR_QUEUE });
     dispatch(toggleQueue());
     dispatch(resetSongData());
-    cancel();
   };
 }
 

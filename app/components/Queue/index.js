@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import QueueList from './QueueList';
 import './index.sass';
 
-function Queue({ songs, toggleQueue, clearQueue, removeSongFromQueue, show, fetchSongOnly, songData }) {
+function Queue({ songs, toggleQueue, clearQueue, removeSongFromQueue, show, fetchSong, songData }) {
   return (
     <div className={`queue${show ? ' queue-visible' : ''}`}>
       <div className="queue-panel">
@@ -17,7 +17,7 @@ function Queue({ songs, toggleQueue, clearQueue, removeSongFromQueue, show, fetc
           <button className="sc-ir" onClick={toggleQueue}>Hide queue</button>
         </div>
       </div>
-      <QueueList songData={songData} songs={songs} removeSongFromQueue={removeSongFromQueue} fetchSongOnly={fetchSongOnly}/>
+      <QueueList songData={songData} songs={songs} removeSongFromQueue={removeSongFromQueue} fetchSong={fetchSong}/>
     </div>
   );
 }
@@ -27,7 +27,7 @@ Queue.propTypes = {
   toggleQueue: PropTypes.func.isRequired,
   removeSongFromQueue: PropTypes.func.isRequired,
   show: PropTypes.bool.isRequired,
-  fetchSongOnly: PropTypes.func.isRequired
+  fetchSong: PropTypes.func.isRequired
 };
 
 export default Queue;

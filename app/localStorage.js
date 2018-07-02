@@ -34,6 +34,7 @@ export function loadSongDataState() {
       data: {},
       suggestedSongs: [],
       isFetching: false,
+      tempData: {}
     }
 
     return JSON.parse(serializedSongState);
@@ -42,6 +43,7 @@ export function loadSongDataState() {
       data: {},
       suggestedSongs: [],
       isFetching: false,
+      tempData: {}
     }
   }
 }

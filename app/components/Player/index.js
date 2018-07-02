@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import InputRange from 'react-input-range';
 import { Link, browserHistory } from 'react-router';
 import PlayerLoader from './PlayerLoader';
-import { initAnalyzer, continu, cancel } from '../../utils/initAnalyzer';
+import { initAnalyzer, start, stop } from '../../utils/initAnalyzer';
 import LinksByComma from '../LinksByComma';
 import { requestInterval, clearRequestInterval } from '../../requestInterval';
 import { changeAlias, getSongUrl, isTwoObjectEqual, formatTime } from '../../utils/func';
@@ -21,6 +21,7 @@ class Player extends React.PureComponent {
       loop: false,
       isRandom: false
     };
+    // this.audio = React.createRef();
   }
 
   componentDidMount() {
@@ -43,8 +44,6 @@ class Player extends React.PureComponent {
 
   componentWillUnmount() {
     clearRequestInterval(this.timer);
-    this.audio = null;
-    this.refs.audio = null;
   }
 
   onLoadedData() {
@@ -54,13 +53,14 @@ class Player extends React.PureComponent {
   }
 
   onPlay() {
-    this.timer = requestInterval(this.update.bind(this), 50);
-    this.setState({ isPlaying: true });
+    this.setState({ isPlaying: true })
+    this.timer = requestInterval(this.update.bind(this), 20);
+    start();
   }
 
   onPause() {
     clearRequestInterval(this.timer);
-    // this.setState({ isPlaying: false });
+    stop();
   }
 
   onEnded() {
@@ -75,6 +75,11 @@ class Player extends React.PureComponent {
       } else {
         this.audio.pause();
       }
+    }
+
+    if (this.props.songData.id !== nextProps.songData.id && !!this.timer) {
+      clearRequestInterval(this.timer);
+      stop();
     }
 
     if (!isTwoObjectEqual(nextProps.queueIds, this.props.queueIds) &&
@@ -102,9 +107,6 @@ class Player extends React.PureComponent {
     const currId = this.props.songData.id;
     let index = 0;
     for (let i = 0, length = queue.length; i < length; i++) {
-      let random = Math.floor(Math.random() * queue.length);
-      while (random === i && queue.length > 1)
-        random = Math.floor(Math.random() * queue.length);
       if (queue[i].id === currId) {
         switch (prevOrnext) {
           case 'next':
@@ -116,6 +118,9 @@ class Player extends React.PureComponent {
             // play the last song in the queue if the index is 0 otherwise play the prev song
             break;
           case 'random':
+            let random = Math.floor(Math.random() * queue.length);
+            while (random === i && queue.length > 1)
+              random = Math.floor(Math.random() * queue.length);
             index = random;
             // play the random song with next index will be different the prev index
             break;
@@ -131,8 +136,6 @@ class Player extends React.PureComponent {
 
   playPrevOrNextSong(prevOrnext) {
     const prevOrnextSong = this.findSong(prevOrnext);
-    cancel();
-
     if (!prevOrnextSong) return;
 
     const { name, alias, id } = prevOrnextSong;
@@ -154,7 +157,6 @@ class Player extends React.PureComponent {
 
   togglePlayBtn() {
     this.setState({ isPlaying: !this.state.isPlaying });
-    this.state.isPlaying ? cancel() : continu();
   }
 
   updateProgressbar() {
@@ -169,20 +171,18 @@ class Player extends React.PureComponent {
 
   update() {
     const lyric = this.props.songData.lyric;
-    if (!lyric.length || !this.audio) {
-      clearInterval(this.timer);
-      return;
-    }
-
+    
     this.updateProgressbar();
 
+    if (!lyric.length || !this.audio) {
+      clearRequestInterval(this.timer);
+      return;
+    }
     const {
       playerState: { lyric1, lyric2 },
       updateLyricPercent,
       updateLyric,
     } = this.props;
-
-
     // reset lyric state
     if (this.audio.currentTime > lyric[lyric.length - 1].end || this.audio.currentTime) {
       // clear lyric when the this.audio is playing with beat only
@@ -237,7 +237,7 @@ class Player extends React.PureComponent {
         <audio
           autoPlay
           src={songData.source && songData.source['128']}
-          crossOrigin='anonymous'
+          crossOrigin = 'anonymous'
           ref='audio'
           loop={this.state.loop}
         />
@@ -261,7 +261,7 @@ class Player extends React.PureComponent {
             definePath={(link) => link.replace('/nghe-si/', '/artist/')}
             defineTitle={(title) => title.replace('Nhiều nghệ sĩ', 'Various artists')}
           />
-          {/*  <Link
+          {/* <Link
             to={`/artist/${changeAlias(artists[0])}`}
             className='ellipsis'
             title={songData.artist}

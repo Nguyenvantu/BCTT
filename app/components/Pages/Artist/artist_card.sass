@@ -1,21 +1,26 @@
 @import "colors"
 
 .artist
+  &-image
+    &:hover
+      transform: scale(1.15, 1.15)
+    transition: transform .2s
   &-card
     width: 20%
     padding-right: 25px
     float: left
+    min-width: 170px
     img
       width: 170px
       height: 170px
   &-detail
-    width: 100%
+    width: 170px
     height: 50px
     line-height: 50px
     vertical-align: middle
     text-align: center
   &-title
     a
-      color: #5D6D7E
+      color: #056373
       &:hover
         color: #48C9B0

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import chunk from 'lodash.chunk';
 import Pagination from '../Pagination';
 import './index.sass';
+import { changeAlias } from '../../utils/func';
 
 const MainView = (props) => {
   const { type, isLoading } = props;
@@ -91,16 +92,27 @@ const Default = ({ origins, Card, chunkSize }) => (
   </div>
 );
 
-const DefaultCards = ({ title, id, albums, artists, Card, chunkSize }) => (
-  <div className="view-cards">
+const DefaultCards = ({ title, id, albums, artists, Card, chunkSize }) => {
+  let href = '#';
+  switch (id){
+    case 'IWZ9Z08I': href = albums ? `/albums/Viet-Nam/${id}` : `/artists/Viet-Nam/${id}`; break;
+    case 'IWZ9Z08O': href = albums ? `/albums/Au-My/${id}` : `/artists/Au-My/${id}`; break;
+    case 'IWZ9Z08W': href = albums ? `/albums/Han-Quoc/${id}` : `/artists/Han-Quoc/${id}`; break;
+    case 'IWZ9Z086': href = albums ? `/albums/Khong-Loi/${id}` : `/artists/Khong-Loi/${id}`; break;
+    default: break;
+  }
+  return <div className="view-cards">
     <div className="view-cards-title">
-      <a href='#'>{title} <i className='ion-chevron-right'></i></a>
+      <a href={href}>
+        {title} <i className='ion-chevron-right'></i>
+      </a>
     </div>
     { chunk(albums || artists, chunkSize).map((chunk, index) => (
       <Row key={`row-chunk${index}`} chunk={chunk} Card={Card} chunkSize={chunkSize}/>
     ))}
   </div>
-);
+  
+};
 
 const Row = ({ chunk, Card }) => (
   <div className="view-cards-row">

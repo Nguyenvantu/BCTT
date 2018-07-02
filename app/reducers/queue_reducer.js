@@ -1,6 +1,7 @@
 import * as types from '../constant/action_constant';
 import { saveQueueState } from './../localStorage';
 import { toast } from 'react-toastify';
+import React from 'react';
 
 const initialState = {
   queue: [],
@@ -52,8 +53,25 @@ function addSongToQueue(state, action) {
   if (typeof con === 'undefined') {
     let newState = { queue: [...state.queue, action.song], ids: [...state.ids, action.song.id] }
     saveQueueState(newState);
+    toast.success(
+      <div className='custom-toast-content ellipsis'
+        title={`${action.song.name} was added to playlist`}
+      >
+        <span>{action.song.name}</span>
+        đã được thêm vào danh sách nghe
+      </div>
+    );
     return newState;
   }
+  toast.warn(
+    <div className='custom-toast-content ellipsis'
+      title={`${action.song.name} was exists in playlist`}
+    >
+      <span>{action.song.name}</span>
+      đã có sẵn trong danh sách nghe
+    </div>
+  );
+  
   return state;
 }
 

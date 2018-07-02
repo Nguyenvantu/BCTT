@@ -56,8 +56,8 @@ const ChartFirstItem = ({ name, order, id, artists, thumbnail, renderDropDown, t
       </div>
       <div className="chart-item-detail-right">
         {
-          downloadProgress.isDownloading && id === downloadProgress.id
-            ? <CircularProgressbar percentage={downloadProgress.percent} />
+          typeof downloadProgress[id] !== 'undefined' && downloadProgress[id] != -1
+            ? <CircularProgressbar percentage={downloadProgress[id]} />
             :
             <button className='sc-ir' onClick={() => download({
               songName: changeAlias(name),
@@ -107,8 +107,8 @@ const ChartItem = ({ name, order, id, thumbnail, artists, renderDropDown, toggle
       </div>
       <div className="chart-item-detail-right">
         {
-          downloadProgress.isDownloading === true && id === downloadProgress.id
-            ? <CircularProgressbar percentage={downloadProgress.percent} />
+          typeof downloadProgress[id] !== 'undefined' && downloadProgress[id] != -1
+            ? <CircularProgressbar percentage={downloadProgress[id]} />
             :
             <button className='sc-ir' onClick={() => download({
               songName: changeAlias(name),

@@ -1,30 +1,41 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import _throttle from 'lodash.throttle';
+// import _throttle from 'lodash.throttle';
 import rootReducer from './reducers';
 import { loadSongDataState, loadQueueState, loadUserData } from './localStorage';
 
 let middleware = [thunk];
 // apply logger middleware in the development environment
 
-if (process.env.NODE_ENV !== 'production') {
-  // const logger = require('./logger').default;
+// if (process.env.NODE_ENV !== 'production') {
+//   // const logger = require('./logger').default;
 
-  middleware = [...middleware /*, logger*/ ];
-}
+//   middleware = [...middleware /*, logger*/ ];
+// }
 
 const queueFromLocalStorage = loadQueueState();
-
+const userData = loadUserData();
 const persistedData = {
   songData: loadSongDataState(),
   queueState: queueFromLocalStorage,
   auth: {
-    authenticated: Boolean(loadUserData()),
-    user: loadUserData(),
+    authenticated: Boolean(userData),
+    user: userData,
     errors: {},
   },
 };
-const store = createStore(rootReducer, persistedData, applyMiddleware(...middleware));
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(rootReducer, persistedData, composeEnhancers(
+    applyMiddleware(...middleware)
+  ));
+
+// const enhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+//   applyMiddleware(...middleware),
+//   persistedData
+// });
+
+// const store = createStore(rootReducer, persistedData, applyMiddleware(...middleware) );
 
 // store.subscribe(_throttle(() => {
 //   saveQueueState(store.getState().queueState);

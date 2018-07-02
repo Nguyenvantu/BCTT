@@ -9,9 +9,9 @@ const initialState = {
   isLoading: false,
   isFading: false,
   downloadProgress: {
-    isDownloading: false,
-    id: '',
-    percent: 0,
+    // isDownloading: false,
+    // id: '',
+    // percent: 0,
   },
 };
 
@@ -45,27 +45,30 @@ export default function (state = initialState, action) {
   case types.STOP_FADING:
     return { ...state, isFading: false };
 
-  case types.START_DOWNLOADING:
-    return {
-      ...state,
-      downloadProgress: {
-        isDownloading: true,
-        id: action.id,
-        percent: 0,
-      },
-    };
+  // case types.START_DOWNLOADING:
+  //   return {
+  //     ...state,
+  //     downloadProgress: {
+  //       ...state.downloadProgress, [action.id]: action.percent
+  //     },
+  //   };
 
-  case types.UPDATE_DOWNLOAD_PROGRESS:
-    return { ...state, downloadProgress: { ...state.downloadProgress, percent: action.percent } };
+  case types.UPDATE_DOWNLOAD_PROGRESS:{
+    // let { downloadProgress } = state;
+    // delete downloadProgress[action.id]
 
-  case types.FINISH_DOWNLOADING:
-    return {
-      ...state,
-      downloadProgress: {
-        isDownloading: false,
-        id: '',
-      },
-    };
+    return { ...state, downloadProgress: { ...state.downloadProgress, [action.id]: action.percent } };
+  }
+
+  // case types.FINISH_DOWNLOADING:{
+  //   // let { downloadProgress } = state;
+  //   // delete downloadProgress[action.id]
+
+  //   return {
+  //     ...state, downloadProgress: { ...state.downloadProgress, [action.id]: -1 }
+  //   };
+  // }
+    
 
   case types.START_LOADING:
     return { ...state, isLoading: true };

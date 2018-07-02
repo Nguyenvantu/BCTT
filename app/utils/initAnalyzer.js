@@ -1,18 +1,20 @@
-// Code is copied and modified a bit from stackoverflow
+import { requestInterval, clearRequestInterval } from '../requestInterval';
 
 let canvas;
 let ctx;
+let canvas2;
+let ctx2;
 
 let source;
 let context;
 let analyser;
 let fbcArray;
-let bars;
+const bars = 150;
 let barX;
 let barWidth;
 let barHeight;
-let id;
 let isPlay = true;
+let id;
 
 export function initAnalyzer(audio) {
   context = new AudioContext();
@@ -22,22 +24,31 @@ export function initAnalyzer(audio) {
   source = context.createMediaElementSource(audio);
   source.connect(analyser);
   analyser.connect(context.destination);
-  frameLooper();
 }
 
-export function cancel() {
-  // window.clearTimeout(id);
-  isPlay = false;
+export function stop() {
+  window.cancelAnimationFrame ?
+    window.cancelAnimationFrame(id) :
+    window.webkitCancelAnimationFrame ?
+    window.webkitCancelAnimationFrame(id) :
+    window.webkitCancelRequestAnimationFrame ?
+    window.webkitCancelRequestAnimationFrame(id) :
+    /* Support for legacy API */
+    window.mozCancelRequestAnimationFrame ?
+    window.mozCancelRequestAnimationFrame(id) :
+    window.oCancelRequestAnimationFrame ?
+    window.oCancelRequestAnimationFrame(id) :
+    window.msCancelRequestAnimationFrame ?
+    window.msCancelRequestAnimationFrame(id) :
+    clearInterval(id);
 };
 
-export function continu(){
-  isPlay = true;
-  frameLooper();
+export function start() {
+  id = requestAnimationFrame(frameLooper);
 }
 
 function frameLooper() {
-  let canvas2 = document.getElementById('analyser_render_2');
-  let ctx2;
+  canvas2 = document.getElementById('analyser_render_2');
   fbcArray = new Uint8Array(analyser.frequencyBinCount);
   analyser.getByteFrequencyData(fbcArray);
   ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
@@ -52,7 +63,6 @@ function frameLooper() {
     ctx2.fillStyle = '#45B39D';
   }
 
-  bars = 150;
   for (let i = 0; i < bars; i++) {
     barX = i * 2;
     barWidth = 1;
@@ -62,5 +72,5 @@ function frameLooper() {
     if (!!ctx2)
       ctx2.fillRect(barX, canvas.height, barWidth, barHeight);
   }
-  isPlay && window.setTimeout(() => frameLooper(), 20);
+  id = requestAnimationFrame(frameLooper);
 }

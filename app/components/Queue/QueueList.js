@@ -4,7 +4,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { getSongUrl } from '../../utils/func';
 import LazyloadImage from '../LazyloadImage';
 
-const Li = ({ name, id, thumbnail, alias, artist, artists, removeSongFromQueue, fetchSongOnly, songData }) => {
+const Li = ({ name, id, thumbnail, alias, artist, artists, removeSongFromQueue, fetchSong, songData }) => {
   return (
     <li >
       {songData.data.id === id ? <canvas id="analyser_render_2"></canvas> : null}
@@ -24,7 +24,7 @@ const Li = ({ name, id, thumbnail, alias, artist, artists, removeSongFromQueue, 
       <div className="queue-track-actions">
         {songData.data.id !== id ?
           <i className='ion-play'
-            onClick={() => fetchSongOnly(name, id)} title="play"></i>
+            onClick={() => fetchSong(name, id)} title="play"></i>
           :
           <i className='ion-play' style={{ color: "#85929e", cursor: "unset" }} title="playing..."></i>
         }
@@ -34,7 +34,7 @@ const Li = ({ name, id, thumbnail, alias, artist, artists, removeSongFromQueue, 
   );
 };
 
-export default function QueueList({ songs, removeSongFromQueue, fetchSongOnly, songData }) {
+export default function QueueList({ songs, removeSongFromQueue, fetchSong, songData }) {
   return (
     <ul className="queue-list">
       <ReactCSSTransitionGroup
@@ -43,7 +43,7 @@ export default function QueueList({ songs, removeSongFromQueue, fetchSongOnly, s
         transitionLeaveTimeout={300}>
         {songs.map(song =>
           <Li key={`queue-${song.id}`} {...song} removeSongFromQueue={removeSongFromQueue}
-            songData={songData} fetchSongOnly={fetchSongOnly} />
+            songData={songData} fetchSong={fetchSong} />
         )}
       </ReactCSSTransitionGroup>
     </ul>

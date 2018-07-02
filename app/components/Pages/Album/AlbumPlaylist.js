@@ -40,10 +40,10 @@ class AlbumPlaylist extends React.Component {
         </div>
         <div className="album-playlist-content">
           {
-            isPlaying && <Karaoke
-              className='karaoke-album-playlist'
-              fontSize="23px"
-            />
+            // isPlaying && <Karaoke
+            //   className='karaoke-album-playlist'
+            //   fontSize="23px"
+            // />
           }
           <div className='playlist-play-btn'>
             <button onClick={() => replaceQueue(playlist.songs)} className="sc-ir" title="play">

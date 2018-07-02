@@ -78,7 +78,8 @@ class SongPageBody extends React.Component {
             </div>
           </div>
         </div> */}
-        <SuggestedSection songs={this.props.suggestedSongs}/>
+        <SuggestedSection songs={this.props.suggestedSongs} fetchSong={this.props.fetchSong}
+          addSongToQueue={this.props.addSongToQueue}/>
       </div>
     );
   }

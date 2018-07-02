@@ -6,6 +6,7 @@ import { Pages } from '../components';
 import { fetchSong, fetchSuggestedSongs, download } from '../actions/song';
 import { addSongToStoreTemporarily } from '../actions/user_playlist';
 import { showAnalyzer, toggleModal } from '../actions/ui';
+import { addSongToQueue } from '../actions/queue';
 import { getSongUrl, isEmpty } from '../utils/func';
 
 class SongPage extends React.Component {
@@ -38,9 +39,9 @@ class SongPage extends React.Component {
     if (((!currLoc && nextLoc) ||
       (currLoc && nextLoc && currLoc.pathname !== nextLoc.pathname)) &&
       /song\/.+/.test(nextLoc.pathname)) {
-      if (this.props.params.id !== nextId) {
-        return;
-      }
+      // if (this.props.params.id !== nextId) {
+      //   return;
+      // }
 
       const { name, id } = nextProps.params;
       this.props.fetchSong(name, id);
@@ -58,7 +59,9 @@ class SongPage extends React.Component {
           addSongToStoreTemporarily={this.props.addSongToStoreTemporarily}
         />
         <KarokeContainer className='karaoke-song-page'/>
-        <Pages.SongPageBody suggestedSongs={this.props.suggestedSongs}/>
+        <Pages.SongPageBody suggestedSongs={this.props.suggestedSongs} fetchSong={this.props.fetchSong}
+          addSongToQueue={this.props.addSongToQueue}
+        />
       </div>
     );
   }
@@ -81,6 +84,7 @@ export default connect(mapStateToProps,
     fetchSuggestedSongs,
     download,
     addSongToStoreTemporarily,
+    addSongToQueue,
     toggleModal,
   })(SongPage);
 

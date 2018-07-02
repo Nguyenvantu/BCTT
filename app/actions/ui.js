@@ -43,25 +43,27 @@ export function resetSlideInRight() {
   };
 }
 
-export function startDownloading(id) {
+// export function startDownloading(id) {
+//   return {
+//     type: types.START_DOWNLOADING,
+//     id,
+//   };
+// }
+
+export function updateDownloadProgress(id, percent) {
   return {
-    type: types.START_DOWNLOADING,
+    type: types.UPDATE_DOWNLOAD_PROGRESS, 
     id,
+    percent
   };
 }
 
-export function updateDownloadProgress(percent) {
-  return {
-    type: types.UPDATE_DOWNLOAD_PROGRESS,
-    percent,
-  };
-}
-
-export function finishDownloading() {
-  return {
-    type: types.FINISH_DOWNLOADING,
-  };
-}
+// export function finishDownloading(id) {
+//   return {
+//     type: types.FINISH_DOWNLOADING,
+//     id
+//   };
+// }
 
 export function startLoading() {
   return {

@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { Queue } from '../components';
 import { clearQueue, removeSongFromQueue } from '../actions/queue';
 import { toggleQueue } from '../actions/ui';
-import { fetchSongOnly } from '../actions/song';
+import { fetchSong } from '../actions/song';
 
 class QueueContainer extends Component {
-  componentWillUnmount() {
-    console.log('unmount');
-  }
+  // componentWillUnmount() {
+  //   console.log('unmount');
+  // }
 
   render() {
     //console.log(this.props);
@@ -24,4 +24,4 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps,
-{ toggleQueue, clearQueue, removeSongFromQueue, fetchSongOnly })(QueueContainer);
+{ toggleQueue, clearQueue, removeSongFromQueue, fetchSong })(QueueContainer);
