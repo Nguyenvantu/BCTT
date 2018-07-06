@@ -7,6 +7,8 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   username: { type: String, unique: true },
   password: String,
+  removed: { type: Boolean, default: false },
+  date_create: {type: Date, default: new Date()},
   access_token: String,
 });
 

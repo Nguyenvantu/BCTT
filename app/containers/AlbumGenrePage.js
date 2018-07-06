@@ -8,7 +8,7 @@ class AlbumGenrePage extends Component {
   componentDidMount() {
     const { id, genre } = this.props.params;
     if (id && genre) {
-      this.props.fetchAlbums(genre, id);
+      this.props.fetchAlbums(genre, id, this.props.location.query.page || "");
     } else {
       this.props.fetchDefaultAlbums();
     }

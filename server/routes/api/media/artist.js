@@ -1,5 +1,5 @@
-const PageScraper = require('lib/PageScraper');
-const { request } = require('utils');
+const PageScraper = require('../../../lib/PageScraper');
+const { request } = require('../../../utils');
 const cheerio = require('cheerio');
 
 const rq = (type, name, page) => {

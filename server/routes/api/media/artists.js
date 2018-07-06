@@ -12,6 +12,7 @@ module.exports = function getAlbums(req, res, next) {
         .setKey('artist')
         .extractAttr('src', 'img', 'thumb')
         .extractAttr('text', 'a.txt-primary', 'name')
+        .extractAttr('href', 'a.txt-primary', 'link')
         .paginate();
 
       res.json(parser.get());

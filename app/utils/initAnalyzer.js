@@ -11,7 +11,6 @@ const bars = 150;
 let barX;
 let barWidth;
 let barHeight;
-// let id;
 
 export function initAnalyzer(audio) {
   context = new AudioContext();
@@ -23,27 +22,6 @@ export function initAnalyzer(audio) {
   analyser.connect(context.destination);
 }
 
-// export function stop() {
-//   window.cancelAnimationFrame ?
-//     window.cancelAnimationFrame(id) :
-//     window.webkitCancelAnimationFrame ?
-//     window.webkitCancelAnimationFrame(id) :
-//     window.webkitCancelRequestAnimationFrame ?
-//     window.webkitCancelRequestAnimationFrame(id) :
-//     /* Support for legacy API */
-//     window.mozCancelRequestAnimationFrame ?
-//     window.mozCancelRequestAnimationFrame(id) :
-//     window.oCancelRequestAnimationFrame ?
-//     window.oCancelRequestAnimationFrame(id) :
-//     window.msCancelRequestAnimationFrame ?
-//     window.msCancelRequestAnimationFrame(id) :
-//     clearInterval(id);
-// };
-
-// export function start() {
-//   id = requestAnimationFrame(frameLooper);
-// }
-
 export function frameLooper() {
   canvas2 = document.getElementById('analyser_render_2');
   fbcArray = new Uint8Array(analyser.frequencyBinCount);
@@ -52,7 +30,7 @@ export function frameLooper() {
   // const gradient = ctx.createLinearGradient(0, 0, 0, 512);
   // gradient.addColorStop(0.15, '#114357');
   // gradient.addColorStop(0.3, '#45B39D');
-  //gradient.addColorStop(0.3, '#28B463');
+  // gradient.addColorStop(0.3, '#28B463');
   ctx.fillStyle = '#45B39D';
   if (!!canvas2){
     ctx2 = canvas2.getContext('2d');
@@ -64,10 +42,8 @@ export function frameLooper() {
     barX = i * 2;
     barWidth = 1;
     barHeight = -(fbcArray[i] / 2);
-    // ctx.fillRect( x, y, width, height ) // Explanation of the parameters below
     ctx.fillRect(barX, canvas.height, barWidth, barHeight);
     if (!!ctx2)
       ctx2.fillRect(barX, canvas.height, barWidth, barHeight);
   }
-  // id = requestAnimationFrame(frameLooper);
 }

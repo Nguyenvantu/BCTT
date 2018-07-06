@@ -42,7 +42,6 @@ export function fetchSong(name, id, fetchSuggest = true) {
             artistId: data.artistId
           };
           fetchSuggest && dispatch(fetchSuggestedSongs(ids));
-          // console.log(getState())
           dispatch(togglePushRoute(false));
           state.queueState.ids.indexOf(id) === -1 &&
             dispatch({

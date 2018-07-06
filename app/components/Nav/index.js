@@ -85,22 +85,22 @@ class Nav extends React.Component {
           <ul className="nav-menu">
             <li>
               <IndexLink to="/" className="animating_link" activeClassName="nav-menu-link-active">
-                Home
+                Trang chủ
               </IndexLink>
             </li>
             <li>
               <Link to="/charts" className="animating_link" activeClassName="nav-menu-link-active">
-                Charts
+                Bảng xếp hạng
               </Link>
             </li>
             <li>
               <Link to="/albums" className="animating_link" activeClassName="nav-menu-link-active">
-                Albums
+                Bộ sưu tập
               </Link>
             </li>
             <li>
               <Link to="/artists" className="animating_link" activeClassName="nav-menu-link-active">
-                Artists
+                Nghệ sĩ
               </Link>
             </li>
           </ul>
@@ -110,10 +110,10 @@ class Nav extends React.Component {
           ? <div className="auth-btns">
             <Link to="/login" className="animating_link">
               <img src="/svg/login.svg" />
-              Log In
+              Đăng nhập
             </Link>
             <Link to="/signup" className="animating_link">
-              Sign Up
+              Đăng ký
             </Link>
           </div>
           : <div className="user">

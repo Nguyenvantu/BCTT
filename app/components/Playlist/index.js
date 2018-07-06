@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import LinksByComma from '../LinksByComma';
-import { getSongUrl } from '../../utils/func';
+import { getSongUrl, changeAlias } from '../../utils/func';
 import './index.sass';
 
 const Playlist = (props) => {
@@ -23,8 +23,8 @@ const Playlist = (props) => {
             {song.artist_text || <LinksByComma
               data={song.artists}
               titleEntry="name"
-              pathEntry="alias"
-              definePath={(alias) => `/artist/${alias}`}
+              pathEntry="name"
+              definePath={(alias) => `/artist/${changeAlias(alias)}`}
             />}
           </div>
           {/* <div className="playlist-track-actions">

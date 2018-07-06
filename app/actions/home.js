@@ -5,9 +5,9 @@ import { MEDIA_ENDPOINT } from '../constant/endpoint_constant';
 import { startFading, stopFading } from '../actions/ui';
 
 // the POP music type id
-let cachedId = 'ZWZB96AB';
+let cachedId = 'ZWZB969E';
 
-export function fetchTracks(page, id = 'ZWZB96AB') {
+export function fetchTracks(page, id = 'ZWZB969E') {
   return dispatch => {
     dispatch({ type: types.START_FETCHING_TRACKS });
     if (id !== cachedId) {
