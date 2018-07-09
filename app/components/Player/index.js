@@ -161,7 +161,7 @@ class Player extends React.PureComponent {
 
   updateProgressbar() {
     let val = 0;
-    if (!!this.audio && this.audio.currentTime > 0) {
+    if (this.audio.currentTime > 0) {
       val = (this.audio.currentTime / this.audio.duration * 100).toFixed(2);
     }
     if (!this.state.isSeeking) {

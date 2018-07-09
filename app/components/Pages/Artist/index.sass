@@ -1,14 +1,11 @@
 .artist-page
-  .pagination
-    width: 80%
   > button
     margin-top: 10px
   &-header
     height: 250px
     position: relative
     background-size: 100%
-    width: 80%
-    margin-left: 10px
+    width: 100%
 
 .artist-box
   height: 180px
@@ -36,10 +33,48 @@
   color: white
   float: left
 
-.artist-playlist.playlist-tracks
-  width: 80%
-  margin-left: 10px
-
+.artist-playlist
+  float: left
+  width: 70%
+  .playlist-tracks
+    width: 100% !important
+    margin-top: 10px !important
+   
 .circle-play-icon
   height: 50px
   width: 50px
+
+.suggested-artists
+  float: left
+  width: calc(30% - 15px)
+  margin-top: 10px
+  margin-left: 15px
+  &-title
+    color: #811432
+    font-size: 18px
+   
+.suggested-artist
+  margin-top: 10px
+  overflow: hidden
+  padding-bottom: 10px
+  border-bottom: 1px solid #D5DBDB
+  display: flex
+  
+  &-info
+    float: left
+    height: 50px
+    padding: 3px 0 0 20px
+    font-family: "Roboto", sans-serif
+  &-name
+    display: block
+    font-size: 14px
+    color: #27859b
+    margin-bottom: 5px
+    &:hover
+      text-decoration: underline
+
+  img
+    display: block
+    width: 50px
+    height: 50px
+    float: left

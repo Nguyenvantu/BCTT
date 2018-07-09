@@ -9,6 +9,7 @@ const initialState = {
   pageChunkIndex: 0,
   pageChunks: [],
   playlist: {},
+  suggestedAlbums: []
 };
 
 export default function (state = initialState, action) {
@@ -36,6 +37,9 @@ export default function (state = initialState, action) {
 
   case types.CLEAR_PLAYLIST:
     return { ...state, playlist: {} };
+
+  case types.FETCH_SUGGESTED_ALBUMS:
+    return { ...state, suggestedAlbums: action.data };
 
   default:
     return state;

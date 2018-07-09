@@ -58,9 +58,23 @@ export function fetchArtists(genre, id, page) {
   };
 }
 
+export function fetchSuggestedArtists(name) {
+  return dispatch => {
+    axios.get(`/api/media/suggested-artist?name=${name}`)
+      .then(({ data }) => {
+        dispatch({
+          type: types.FETCH_SUGGESTED_ARTISTS,
+          data: data.datas
+        })
+      })
+      .catch(err => { throw err; });
+  };
+}
+
 export function fetchArtist(name, type = 'songs', page) {
   const pageQuery = page ? `?page=${page}` : '';
   return dispatch => {
+    dispatch(fetchSuggestedArtists(name));
     axios.get(`/api/media/artist/${name}/${type}${pageQuery}`)
       .then(({ data }) => {
         switch (type) {

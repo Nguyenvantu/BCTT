@@ -8,6 +8,7 @@ const initialState = {
   artists: [],
   pageChunkIndex: 0,
   pageChunks: [],
+  suggestedArtists: [],
   artist: {
     song: {
       numberOfPages: 0,
@@ -55,6 +56,11 @@ export default function (state = initialState, action) {
 
   case types.CLEAR_ARTISTS:
     return { ...state, artists: [] };
+
+  case types.FETCH_SUGGESTED_ARTISTS:
+    return {
+      ...state, suggestedArtists: [...action.data]
+    }
 
   default:
     return state;

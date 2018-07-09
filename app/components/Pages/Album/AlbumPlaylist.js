@@ -3,6 +3,8 @@ import Playlist from '../../Playlist';
 import { Karaoke } from '../../../containers';
 import { isEmpty } from '../../../utils/func';
 import './album_playlist.sass';
+import { Link } from 'react-router';
+import LinksByComma from '../../LinksByComma';
 
 class AlbumPlaylist extends React.Component {
   state = { showArtistInfo: false };
@@ -17,11 +19,12 @@ class AlbumPlaylist extends React.Component {
   }
 
   render() {
-    const { playlist, replaceQueue, isPlaying } = this.props;
+    const { playlist, replaceQueue, isPlaying, suggestedAlbums } = this.props;
     const { showArtistInfo } = this.state;
     if (isEmpty(playlist)) return null;
-
+    playlist.genres = playlist.genres.filter(item => item)
     return (
+      <div>
       <div className='album-playlist'>
         <div className="album-playlist-header">
           <div className="album-playlist-thumb image-wrapper">
@@ -73,8 +76,34 @@ class AlbumPlaylist extends React.Component {
           </div>
         </div>
       </div>
+      <div className="suggested-albums">
+        <div className="suggested-albums-title">CÓ THỂ BẠN MUỐN NGHE</div>
+        {suggestedAlbums.map((suggestedAlbum, index) => <ArtistsList key={index} suggestedAlbum={suggestedAlbum}/>)}
+      </div>
+      </div>
     );
   }
 }
 
 export default AlbumPlaylist;
+
+const ArtistsList = ({ suggestedAlbum }) => 
+  <div className="suggested-album">
+    <img src={suggestedAlbum.thumbnail} title={suggestedAlbum.name} />
+    <div className="suggested-album-info">
+      <Link
+        to={`/album/playlist/${suggestedAlbum.link.split('/')[2]}/${suggestedAlbum.id}`}
+        className='suggested-album-name'
+      >
+        {suggestedAlbum.name}
+      </Link>
+      <LinksByComma
+        className="suggested-album-artist"
+        data={suggestedAlbum.artists}
+        titleEntry="name"
+        pathEntry="link"
+        definePath={(link) => link.replace('/nghe-si/', '/artist/')}
+        defineTitle={(title) => title.replace('Nhiều nghệ sĩ', 'Various artists')}
+      />
+    </div> 
+  </div>

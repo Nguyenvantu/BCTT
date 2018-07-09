@@ -10,6 +10,9 @@ const getAlbumPlaylist = require('./album_playlist');
 const getDefaultArtists = require('./default_artists');
 const getArtist = require('./artist');
 const getChart = require('./chart');
+const getSuggestedArtists = require('./suggested_artists');
+const getSuggestedAlbums = require('./suggested_albums');
+
 // const cached = require('middlewares/cached');
 
 const router = express.Router();
@@ -35,5 +38,9 @@ router.get('/artists', getArtists);
 router.get('/artist/:name/:type', getArtist);
 
 router.get('/chart/:id', getChart);
+
+router.get('/suggested-artist', getSuggestedArtists);
+
+router.get('/suggested-album', getSuggestedAlbums);
 
 module.exports = router;

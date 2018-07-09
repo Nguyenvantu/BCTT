@@ -17,21 +17,29 @@ class AlbumPlaylist extends React.Component {
     this.props.fetchAlbumPlaylist(title, id);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.params.id !== this.props.params.id) {
+      this.props.clearPlaylist();
+      this.props.fetchAlbumPlaylist(nextProps.params.title, nextProps.params.id);
+    }
+  }
+
   render() {
     return (
       <Pages.AlbumPlaylist
         playlist={this.props.playlist}
         replaceQueue={this.props.replaceQueue}
         isPlaying={this.props.isPlaying}
+        suggestedAlbums={this.props.suggestedAlbums}
       />
     );
   }
 }
 
 function mapStateToProps(state) {
-  const playlist = state.albumState.playlist;
+  const { playlist, suggestedAlbums } = state.albumState;
   const isPlaying = !isEmpty(state.songData.data);
-  return { playlist, isPlaying };
+  return { playlist, isPlaying, suggestedAlbums };
 }
 
 export default connect(mapStateToProps,

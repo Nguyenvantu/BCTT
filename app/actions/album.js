@@ -61,8 +61,19 @@ export function fetchAlbums(genre, id, page) {
   };
 }
 
+export function fetchSuggestedAlbums(id) {
+  return dispatch => {
+    axios.get(`${MEDIA_ENDPOINT}/suggested-album?id=${id}`)
+      .then(({ data }) => {
+        dispatch({type: types.FETCH_SUGGESTED_ALBUMS, data})
+      })
+      .catch(err => { throw err; });
+  };
+}
+
 export function fetchAlbumPlaylist(title, id) {
   return dispatch => {
+    dispatch(fetchSuggestedAlbums(id));
     axios.get(`${MEDIA_ENDPOINT}/album_playlist?title=${title}&id=${id}`)
       .then(({ data }) => {
         dispatch({ type: types.FETCH_ALBUM_PLAYLIST, playlist: data });

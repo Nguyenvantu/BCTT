@@ -46,7 +46,7 @@ function mapStateToProps(state) {
     artistName,
     song: { songs, numberOfPages } } = state.artistState.artist;
 
-  const { pageChunkIndex, pageChunks } = state.artistState;
+  const { pageChunkIndex, pageChunks, suggestedArtists } = state.artistState;
 
   return {
     cover,
@@ -57,6 +57,7 @@ function mapStateToProps(state) {
     pageChunks,
     pageChunkIndex,
     queueIds: state.queueState.ids,
+    suggestedArtists
   };
 }
 
