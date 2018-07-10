@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Pages } from '../components';
 import { isTwoObjectEqual } from '../utils/func';
 import { fetchDefaultAlbums, fetchAlbums, changePageChunkIndex } from '../actions/album';
+import { translate } from 'react-i18next';
 
 class AlbumGenrePage extends Component {
   componentDidMount() {
@@ -54,6 +55,6 @@ function mapStateToProps(state) {
   return { ...state.albumState, isLoading: state.UIState.isLoading };
 }
 
-export default connect(mapStateToProps,
+export default translate('album')(connect(mapStateToProps,
   { changePageChunkIndex, fetchAlbums, fetchDefaultAlbums }
-)(AlbumGenrePage);
+)(AlbumGenrePage));

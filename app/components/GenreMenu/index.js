@@ -5,29 +5,29 @@ import { changeAlias } from '../../utils/func';
 import { Genres } from '../../../seed';
 import './index.sass';
 
-const GenreMenu = ({ genres = Genres, type }) => {
+const GenreMenu = ({ genres = Genres, type, t }) => {
   return (
     <div>
       <ul className='genre-menu'>
         <ul className='submenu'>
           <li className="submenu-title">
-            <Link to={`/${type}s`} activeClassName='submenu-link-active'>{`${type}s`}</Link>
+            <Link to={`/${type}s`} activeClassName='submenu-link-active'>{t(type)}</Link>
           </li>
         </ul>
         { Object.keys(genres)
-          .map(origin => <SubMenu key={origin} {...genres[origin]} title={origin} type={type}/>)
+          .map(origin => <SubMenu key={origin} {...genres[origin]} title={origin} type={type} t={t}/>)
         }
       </ul>
     </div>
   );
 };
 
-const SubMenu = ({ name, id, title, children, type }) => (
+const SubMenu = ({ name, id, title, children, type, t }) => (
   <ul className='submenu'>
     <li className="submenu-title">
-      <Link to={`/${type}s/${name}/${id}`} activeClassName='submenu-link-active'>{title}</Link>
+      <Link to={`/${type}s/${name}/${id}`} activeClassName='submenu-link-active'>{t(name)}</Link>
     </li>
-    { children.map(obj => <SubMenuLi key={obj.id} {...obj} type={type}/>) }
+    { children.map(obj => <SubMenuLi key={obj.id} {...obj} type={type} t={t} typeName={name}/>) }
   </ul>
 );
 
@@ -36,7 +36,7 @@ const SubMenuLi = (props) => (
     <Link
       to={`/${props.type}s/${changeAlias(props.title)}/${props.id}`}
       activeClassName='submenu-link-active'
-    >{props.title}</Link>
+    >{props.typeName !== "Au-My" ? props.t(props.name) : props.title }</Link>
   </li>
 );
 

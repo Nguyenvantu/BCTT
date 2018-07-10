@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { isAuthenticated } from '../../HOC';
+import { translate } from 'react-i18next';
 import './index.sass';
 
 class DropDown extends React.Component {
@@ -52,7 +53,7 @@ class DropDown extends React.Component {
           onClick={this.handleDropdownNextUp.bind(this)}
         >
           <img src="/svg/queue-add.svg" alt=""/>
-          Add to next up
+          {this.props.t('addToNextUp')}
         </div>
         <div
           className="dropdown-add"
@@ -63,11 +64,11 @@ class DropDown extends React.Component {
             style={{ height: '30px', width: '30px', marginRight: '5px' }}
             alt=""
           />
-          Add to playlist
+          {this.props.t('addToPlaylist')}
         </div>
         <div className="dropdown-share">
           <i className="ion-android-share-alt"></i>
-          Share
+          {this.props.t('share')}
         </div>
       </div>
     );
@@ -98,4 +99,4 @@ DropDown.propTypes = {
   redirectTo: PropTypes.func.isRequired,
 };
 
-export default isAuthenticated(onClickOutside(DropDown));
+export default translate('homePage')(isAuthenticated(onClickOutside(DropDown)));

@@ -14,9 +14,9 @@
   height: 60px
   color: white
   position: relative
-  background: #114357;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right,#114357, #F29492);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #114357, #F29492); /* W3C, IE 1  0+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #114357  /*fallback for old browsers*/
+  background: -webkit-linear-gradient(to right,#114357, #F29492)  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #114357, #F29492) /* W3C, IE 1  0+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
   > span
     position: absolute
@@ -145,10 +145,11 @@
 .suggested-section
   &-heading
     padding-bottom: 10px
-    border-bottom: 1px solid #D5DBDB
+    border-bottom: 1px solid #7b1111
   span
-    color: #34495E
+    color: #7b1111
     font-size: 17px
+    text-transform: uppercase
 
 .suggested-song
   margin-top: 10px
@@ -167,6 +168,9 @@
     font-size: 14px
     color: #5D6D7E
     margin-bottom: 5px
+    text-overflow: ellipsis
+    overflow: hidden
+    white-space: nowrap
     &:hover
       text-decoration: underline
   &-artist

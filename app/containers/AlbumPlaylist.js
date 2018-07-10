@@ -4,6 +4,7 @@ import { Pages } from '../components';
 import { isEmpty } from '../utils/func';
 import { fetchAlbumPlaylist, clearPlaylist } from '../actions/album';
 import { replaceQueue } from '../actions/queue';
+import { translate } from 'react-i18next';
 
 class AlbumPlaylist extends React.Component {
   componentDidMount() {
@@ -31,6 +32,7 @@ class AlbumPlaylist extends React.Component {
         replaceQueue={this.props.replaceQueue}
         isPlaying={this.props.isPlaying}
         suggestedAlbums={this.props.suggestedAlbums}
+        t={this.props.t}
       />
     );
   }
@@ -42,5 +44,5 @@ function mapStateToProps(state) {
   return { playlist, isPlaying, suggestedAlbums };
 }
 
-export default connect(mapStateToProps,
-{ fetchAlbumPlaylist, clearPlaylist, replaceQueue })(AlbumPlaylist);
+export default translate('album')(connect(mapStateToProps,
+{ fetchAlbumPlaylist, clearPlaylist, replaceQueue })(AlbumPlaylist));

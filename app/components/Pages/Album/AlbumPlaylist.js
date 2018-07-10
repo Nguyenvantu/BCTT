@@ -19,7 +19,7 @@ class AlbumPlaylist extends React.Component {
   }
 
   render() {
-    const { playlist, replaceQueue, isPlaying, suggestedAlbums } = this.props;
+    const { playlist, replaceQueue, isPlaying, suggestedAlbums, t } = this.props;
     const { showArtistInfo } = this.state;
     if (isEmpty(playlist)) return null;
     playlist.genres = playlist.genres.filter(item => item)
@@ -35,9 +35,9 @@ class AlbumPlaylist extends React.Component {
               {playlist.album_title}
             </div>
             <div className="ap-artist">{playlist.artist}</div>
-            <div className="ap-releaseY"><span>Release:</span> {playlist.release_year}</div>
+            <div className="ap-releaseY"><span>{t('release')}:</span> {playlist.release_year}</div>
             <div>
-              Genres: {playlist.genres.join(', ')}
+              {t('genres') + ": " + playlist.genres.join(', ')}
             </div>
           </div>
         </div>
@@ -57,7 +57,7 @@ class AlbumPlaylist extends React.Component {
           <Playlist songs={playlist.songs} className='ap' pathEntry="alias" />
 
           <div className='album-playlist-artist-info'>
-            <div className="album-laylist-artist-thumb image-wrapper">
+            <div className="album-playlist-artist-thumb image-wrapper">
               <img src={playlist.artist_thumb} />
             </div>
             <div className='album-playlist-artist-description'>
@@ -69,7 +69,7 @@ class AlbumPlaylist extends React.Component {
                 <button
                   className='sc-ir show-info-btn'
                   onClick={this.showArtistInfo.bind(this)}>
-                  Show full description
+                  {t('showDes')}
                 </button>
               }
             </div>
@@ -77,7 +77,7 @@ class AlbumPlaylist extends React.Component {
         </div>
       </div>
       <div className="suggested-albums">
-        <div className="suggested-albums-title">CÓ THỂ BẠN MUỐN NGHE</div>
+        <div className="suggested-albums-title">{t('suggestedAlbums')}</div>
         {suggestedAlbums.map((suggestedAlbum, index) => <ArtistsList key={index} suggestedAlbum={suggestedAlbum}/>)}
       </div>
       </div>
@@ -93,7 +93,7 @@ const ArtistsList = ({ suggestedAlbum }) =>
     <div className="suggested-album-info">
       <Link
         to={`/album/playlist/${suggestedAlbum.link.split('/')[2]}/${suggestedAlbum.id}`}
-        className='suggested-album-name'
+        className='suggested-album-name' title={suggestedAlbum.name}
       >
         {suggestedAlbum.name}
       </Link>

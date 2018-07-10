@@ -4,6 +4,7 @@ import { Pages } from '../components';
 import { resetSlideInRight } from '../actions/ui';
 import { clearErrors } from '../actions/auth';
 import { isEmpty } from '../utils/func';
+import { translate } from 'react-i18next';
 
 class LogInPage extends Component {
   componentDidMount() {
@@ -20,6 +21,7 @@ class LogInPage extends Component {
     return <Pages.LogInPage
       dispatch={this.props.dispatch}
       auth={this.props.auth}
+      t={this.props.t}
     />;
   }
 }
@@ -28,4 +30,4 @@ function mapStateToProps({ auth, UIState }) {
   return { auth, slideInRight: UIState.slideInRight };
 }
 
-export default connect(mapStateToProps)(LogInPage);
+export default translate('nav')(connect(mapStateToProps)(LogInPage));

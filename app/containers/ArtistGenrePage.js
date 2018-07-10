@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { translate } from 'react-i18next';
 import { fetchDefaultArtists, fetchArtists, clearArtists } from '../actions/artist';
 import { changePageChunkIndex } from '../actions/album';
 import { Pages } from '../components';
@@ -55,5 +56,5 @@ function mapStateToProps(state) {
   return { ...state.artistState, isLoading: state.UIState.isLoading };
 }
 
-export default connect(mapStateToProps,
-{ fetchDefaultArtists, fetchArtists, changePageChunkIndex, clearArtists })(ArtistGenrePage);
+export default translate('album')(connect(mapStateToProps,
+{ fetchDefaultArtists, fetchArtists, changePageChunkIndex, clearArtists })(ArtistGenrePage));

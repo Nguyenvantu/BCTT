@@ -4,6 +4,7 @@ import { fetchArtist, clearArtist, changePageChunkIndex } from '../actions/artis
 import { replaceQueue } from '../actions/queue';
 import { fetchSong, fetchSuggestedSongs } from '../actions/song';
 import { Pages } from '../components';
+import { translate } from 'react-i18next';
 
 class ArtistPage extends Component {
   componentDidMount() {
@@ -14,6 +15,7 @@ class ArtistPage extends Component {
         this.props.clearArtist();
       }
       this.props.fetchArtist(this.props.params.name);
+      this.props.fetchArtist(this.props.params.name, 'biography');
     }
   }
 
@@ -21,6 +23,7 @@ class ArtistPage extends Component {
     if (nextProps.params.name !== this.props.params.name) {
       this.props.clearArtist();
       this.props.fetchArtist(nextProps.params.name);
+      this.props.fetchArtist(nextProps.params.name, 'biography');
     }
     
     const nextPage = nextProps.location.query.page;
@@ -41,7 +44,7 @@ class ArtistPage extends Component {
 }
 
 function mapStateToProps(state) {
-  const { cover,
+  const { cover, description, dateOfBirth,
     avatar,
     artistName,
     song: { songs, numberOfPages } } = state.artistState.artist;
@@ -57,15 +60,15 @@ function mapStateToProps(state) {
     pageChunks,
     pageChunkIndex,
     queueIds: state.queueState.ids,
-    suggestedArtists
+    suggestedArtists, description, dateOfBirth
   };
 }
 
-export default connect(mapStateToProps,
+export default translate('album')(connect(mapStateToProps,
   { fetchArtist,
     clearArtist,
     changePageChunkIndex,
     replaceQueue,
     fetchSong,
     fetchSuggestedSongs,
-  })(ArtistPage);
+  })(ArtistPage));

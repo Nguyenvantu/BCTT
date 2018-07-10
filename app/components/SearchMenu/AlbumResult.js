@@ -6,7 +6,7 @@ function AlbumResult(props) {
   return (
     <ul className='album-result'>
       <div className='search-li-title'>
-        Albums
+        {props.t('albums')}
       </div>
       {
         props.albums.map(album =>

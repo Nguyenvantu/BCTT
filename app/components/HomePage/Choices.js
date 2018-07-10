@@ -2,12 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
 
-const datas = {
-  'ZWZB96AB': 'Popular songs',
-  'ZWZB96DC': 'Popular Korean songs',
-  'ZWZB969E': 'Popular Vietnamese songs',
-};
-
 class Choices extends Component {
   state = { showMenu: false };
 
@@ -28,8 +22,12 @@ class Choices extends Component {
   }
 
   render() {
-    const { activeChoiceId } = this.props;
-
+    const { activeChoiceId, t } = this.props;
+    const datas = {
+      'ZWZB96AB': t('popularUsUk'),
+      'ZWZB96DC': t('popularKr'),
+      'ZWZB969E': t('popularVn'),
+    };
     return (
       <div
         className={`choice ${this.state.showMenu ? 'choice-active' : ''}`}
@@ -55,6 +53,7 @@ class Choices extends Component {
 Choices.propTypes = {
   fetchTracks: PropTypes.func.isRequired,
   activeChoiceId: PropTypes.string,
+  t: PropTypes.func
 };
 
 export default onClickOutside(Choices);

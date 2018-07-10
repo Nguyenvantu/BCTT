@@ -6,7 +6,7 @@ function ArtistResult(props) {
   return (
     <ul className='artist-result'>
       <div className='search-li-title'>
-        Artist
+        {props.t('artists')}
       </div>
       {
         props.artists.map(artist =>

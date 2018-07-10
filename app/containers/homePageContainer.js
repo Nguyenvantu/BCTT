@@ -4,6 +4,7 @@ import { HomePage } from '../components';
 import { changeActiveChart } from '../actions/chart';
 import { fetchTracks } from '../actions/home';
 import { download } from '../actions/song';
+import { translate } from 'react-i18next';
 import PropTypes from 'prop-types';
 
 class HomePageContainer extends Component {
@@ -41,10 +42,10 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps,
+export default translate('homePage')(connect(mapStateToProps,
   {
     changeActiveChart,
     download,
     fetchTracks,
-  })(HomePageContainer);
+  })(HomePageContainer));
 

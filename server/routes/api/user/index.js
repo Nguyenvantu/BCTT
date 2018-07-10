@@ -18,7 +18,7 @@ router.post('/signup', (req, res, next) => {
     const existingUser = yield User.findOne({ username });
 
     if (existingUser) {
-      const error = { status: 400, errors: { username: 'Tên đăng nhập đã tồn tại' } };
+      const error = { status: 400, errors: { username: 'username_exists' } };
       throw error;
     }
 
@@ -40,13 +40,13 @@ router.post('/login', (req, res, next) => {
   co(function* () {
     const user = yield User.findOne({ username });
     if (!user) {
-      const error = { status: 401, errors: { username: 'Tên đăng nhập không hợp lệ' } };
+      const error = { status: 401, errors: { username: 'username_invalid' } };
       throw error;
     }
 
     const isMatch = yield user.comparePassword(password);
     if (!isMatch) {
-      const error = { status: 401, errors: { password: 'Mật khẩu không hợp lệ' } };
+      const error = { status: 401, errors: { password: 'password_invalid' } };
       throw error;
     }
 

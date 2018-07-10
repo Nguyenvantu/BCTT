@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { translate } from 'react-i18next';
 import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
 import TopResult from './TopResult';
@@ -15,12 +16,13 @@ class SearchMenu extends Component {
   render() {
     const { top, data } = this.props.searchResult;
     if (!data) return null;
+    const { t } = this.props;
     return (
       <ul className='search-menu'>
         { top && <TopResult {...top} clearSearchResult={this.props.clearSearchResult}/> }
-        <SongResult songs={data.song || []} clearSearchResult={this.props.clearSearchResult} />
-        <ArtistResult artists={data.artist || []} clearSearchResult={this.props.clearSearchResult} />
-        <AlbumResult albums={data.album || []} clearSearchResult={this.props.clearSearchResult} />
+        <SongResult songs={data.song || []} clearSearchResult={this.props.clearSearchResult} t={t} />
+        <ArtistResult artists={data.artist || []} clearSearchResult={this.props.clearSearchResult} t={t} />
+        <AlbumResult albums={data.album || []} clearSearchResult={this.props.clearSearchResult} t={t} />
       </ul>
     );
   }
@@ -31,4 +33,4 @@ SearchMenu.propTypes = {
   clearSearchResult: PropTypes.func.isRequired,
 };
 
-export default onClickOutside(SearchMenu);
+export default translate('nav')(onClickOutside(SearchMenu));

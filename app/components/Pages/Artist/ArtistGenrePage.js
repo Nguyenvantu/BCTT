@@ -6,7 +6,7 @@ import ArtistCard from './ArtistCard';
 const AlbumGenrePage = (props) => {
   return (
     <div>
-      <GenreMenu type="artist"/>
+      <GenreMenu type="artist" t={props.t}/>
       <MainView type="artist" chunkSize={5} {...props} Card={ArtistCard}/>
     </div>
   );

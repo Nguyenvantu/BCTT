@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import QueueList from './QueueList';
 import './index.sass';
 
-function Queue({ songs, toggleQueue, clearQueue, removeSongFromQueue, show, fetchSong, songData }) {
+function Queue({ songs, toggleQueue, clearQueue, removeSongFromQueue, show, fetchSong, songData, t }) {
   return (
     <div className={`queue${show ? ' queue-visible' : ''}`}>
       <div className="queue-panel">
         <div className="queue-title">
-          Next Up
+          {t('nextUp')}
         </div>
         <div className="queue-clear">
-          <button onClick={clearQueue}>Clear</button>
+          <button onClick={clearQueue}>{t('clear')}</button>
         </div>
         <div className="queue-hide">
           <button className="sc-ir" onClick={toggleQueue}>Hide queue</button>

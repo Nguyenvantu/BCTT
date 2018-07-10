@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
+import { translate } from 'react-i18next';
 import { toggleModal } from '../../actions/ui';
 import { changeAlias } from '../../utils/func';
 import {
@@ -56,7 +57,7 @@ class Modal extends Component {
       <form onSubmit={this.handleOnSubmit.bind(this)}>
         <input
           type="text"
-          placeholder="Enter the playlist title"
+          placeholder={this.props.t('enterPlayListName')}
           className="form-control"
           ref={node => this.input = node}
         />
@@ -79,19 +80,19 @@ class Modal extends Component {
         <button
           className="modal-close-btn sc-ir"
           onClick={this.handleCloseModal.bind(this)}
-        >Create a playlist
+        >{this.props.t('createPlayList')}
           <i className="ion-close-round"></i>
         </button>
         {
           !this.props.playlists.length &&
           <div className="modal-warn">
-            You don't have any playlists yet
+            {this.props.t('noPlayList')}
           </div>
         }
         <button
           className="playlist-btn"
           onClick={this.handleOnClick.bind(this)}
-        >Create a playlist
+        >{this.props.t('createPlayList')}
           <i className="ion-plus"></i>
         </button>
         {this.renderInputField()}
@@ -126,4 +127,4 @@ Modal.propTypes = {
   authenticated: PropTypes.bool.isRequired,
 };
 
-export default onClickOutside(Modal);
+export default translate('homePage')(onClickOutside(Modal));

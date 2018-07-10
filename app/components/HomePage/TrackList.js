@@ -20,7 +20,7 @@ class TrackList extends React.Component {
   // }
 
   render() {
-    const { isFading } = this.props;
+    const { isFading, t } = this.props;
     return (
       <div className='hp-track-list-wrapper'>
         <ul className={`hp-track-list ${isFading ? 'isFading' : ''}`}>
@@ -50,7 +50,7 @@ class TrackList extends React.Component {
                   <div className="hp-track-toolbar">
                     <Track
                       downloadProgress={this.props.downloadProgress[id]} download={this.props.download}
-                      name={track.name} id={track.id} />
+                      name={track.name} id={track.id} t={t}/>
                     <button className='sc-ir'><i className="ion-android-share" title="share" /></button>
                     <button
                       className='sc-ir ignore-react-onclickoutside'

@@ -21,7 +21,8 @@ const initialState = {
     cover: '',
     artistName: '',
     avatar: '',
-    biography: {},
+    description: '',
+    dateOfBirth: ''
   },
 };
 
@@ -31,11 +32,21 @@ export default function (state = initialState, action) {
     return { ...state,
       pageChunks: chunk(range(action.numberOfPages), 7),
       artist: {
+        ...state.artist,
         cover: action.cover,
         avatar: action.avatar,
         artistName: action.artistName,
         song: { songs: action.songs, numberOfPages: action.numberOfPages },
       },
+    };
+  
+  case types.FETCH_SINGLE_ARTIST_BIOGRAPHY:
+    return { ...state,
+      artist: {
+        ...state.artist,
+        description: action.description,
+        dateOfBirth: action.dateOfBirth
+      }
     };
 
   case types.FETCH_DEFAULT_ARTISTS:

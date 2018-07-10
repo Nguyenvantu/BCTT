@@ -55,35 +55,36 @@ class LogInPage extends React.Component {
     const className = `auth-box animated ${this.state.animate &&
       (this.state.leave ? 'bounceOutLeft' : 'bounceInRight')}`;
     const errors = this.props.auth.errors;
+    const {t} = this.props;
 
     return (
       <div className={className}>
-        Log in to download songs for free
+        {t('titleSignIn')}
         <br />
         <br />
         <div>
           <form onSubmit={this.onSubmit.bind(this)}>
             <TextInputGroup
-              placeholder="Username"
+              placeholder={t('username')}
               name="username"
-              error={errors.username}
+              error={t(errors.username)}
               onChange={this.onChange.bind(this)}
 
             />
             <TextInputGroup
-              placeholder="Password"
+              placeholder={t('password')}
               name="password"
               type="password"
-              error={errors.password}
+              error={t(errors.password)}
               onChange={this.onChange.bind(this)}
             />
             <button type="submit" id="sign_up" disabled={this.props.auth.isProcessing}>
-              {!this.props.auth.isProcessing ? 'Log In' : '...Processing'}
+              {!this.props.auth.isProcessing ? t('signIn') : t('processing')}
             </button>
           </form>
         </div>
         <footer className="login-footer">
-          New here, <a href="#" onClick={this.goToSignUpPage.bind(this)}>Create an account</a>
+          {t('footerSignIn1')}, <a href="#" onClick={this.goToSignUpPage.bind(this)}>{t('footerSignIn2')}</a>
         </footer>
       </div>
     );

@@ -3,7 +3,7 @@
 nav
   height: 50px
   background: $dark-blue-1
-  padding: 0 50px
+  padding: 0 15px
   position: fixed
   width: 100%
   min-width: 1120px
@@ -14,7 +14,7 @@ nav
 .logo
   height: 100%
   float: left
-  width: 10%
+  width: 7%
   a
     height: 100%
     display: inline-block
@@ -29,7 +29,7 @@ nav
 
 .searchBar
   width: 35%
-  padding: 7px 20px
+  padding: 7px 10px
   float: left
   position: relative
   input
@@ -67,7 +67,7 @@ nav
     padding: 0 20px
     color: white
     float: left
-    font-size: 13px
+    font-size: 12px
 
   &-link-active
     &:before
@@ -77,9 +77,10 @@ nav
 
 
 .auth-btns
-  width: 15%
+  width: 23%
   height: 50px
   display: inline-block
+  white-space: nowrap
   a
     text-transform: uppercase
     display: inline-block
@@ -87,25 +88,35 @@ nav
     align-items: center
     justify-content: center
     height: 50px
-    font-size: 13px
-    padding: 5px 8px
+    font-size: 12px
     border-radius: 3px
-    width: 50%
+    width: 33%
     float: left
     color: white
-
+    padding: 0px 5px
 
     img
-      width: 20px
-      height: 20px
-      margin-right: 10px
+      width: 15px
+      height: 15px
+  .dropdown-lang
+    text-transform: none
+    display: inline-block
+    display: flex
+    align-items: center
+    justify-content: center
+    height: 50px
+    font-size: 12px
+    border-radius: 3px
+    width: 33%
+    float: left
+    color: white
 /* .sInLink
   background: #fab005 */
 /* .sUpLink
   background: $teal-1 */
 
 .navRight
-  width: 40%
+  width: 35%
   float: left
   height: 50px
   overflow: hidden
@@ -113,10 +124,9 @@ nav
 
 .user
   height: 50px
-  width: 15%
-  float: right
-  line-height: 50px
-  vertical-align: middle
+  width: 23%
+  display: inline-block
+  white-space: nowrap
   a
     text-transform: uppercase
     display: inline-block
@@ -124,17 +134,28 @@ nav
     align-items: center
     justify-content: center
     height: 50px
-    font-size: 13px
-    padding: 5px 8px
+    font-size: 12px
+    padding: 0px 5px
     border-radius: 3px
-    width: 50%
+    width: 33%
     float: left
     color: white
 
     &:first-child
       color: #15d2fd
     img
-      width: 20px
-      height: 20px
-      margin-right: 10px
+      width: 15px
+      height: 15px
+  .dropdown-lang
+    text-transform: none
+    display: inline-block
+    display: flex
+    align-items: center
+    justify-content: center
+    height: 50px
+    font-size: 13px
+    border-radius: 3px
+    width: 33%
+    float: left
+    color: white
 

@@ -6,43 +6,78 @@ import LazyloadImage from '../../LazyloadImage';
 import { Link } from 'react-router';
 import './index.sass';
 
-const ArtistPage = (props) => {
-  const { avatar, cover, songs, artistName, pageChunks, pageChunkIndex, suggestedArtists } = props;
+class ArtistPage extends React.Component {
+  state = { showArtistInfo: false };
 
-  return (
-    <div className="artist-page">
-      <WithBackgroundImage className="artist-page-header" src={cover}>
-        <div className="artist-box">
-          <LazyloadImage className="artist-avatar image-wrapper" src={avatar}>
-          </LazyloadImage>
-          <div className="aritst-name">
-            {artistName}
+  showArtistInfo = () => {
+    this.setState({ showArtistInfo: true });
+  }
+
+  truncateInfo = (info) => {
+    if (info.length > 100) { return info.substring(0, 100) + '...'; }
+    else return info;
+  }
+
+  render() {
+    const { avatar, cover, songs, artistName, pageChunks, pageChunkIndex, suggestedArtists, dateOfBirth, description,
+      replaceQueue, changePageChunkIndex, activePage, t } = this.props;
+    const { showArtistInfo } = this.state;
+
+    return (
+      <div className="artist-page">
+        <WithBackgroundImage className="artist-page-header" src={cover}>
+          <div className="artist-box">
+            <LazyloadImage className="artist-avatar image-wrapper" src={avatar}>
+            </LazyloadImage>
+            <div className="aritst-name">
+              {artistName}
+            </div>
+          </div>
+        </WithBackgroundImage>
+        <button onClick={() => replaceQueue(songs)} className="sc-ir" title="play" style={{ display: "block" }}>
+          <img src="/svg/play-button-inside-a-circle.svg" className="circle-play-icon" />
+        </button>
+        <div className="artist-playlist">
+          <Playlist className='' songs={songs} pathEntry="alias" />
+          <Pagination
+            pageChunks={pageChunks}
+            pageChunkIndex={pageChunkIndex}
+            type="single-artist"
+            artistName={artistName}
+            changePageChunkIndex={changePageChunkIndex}
+            activePage={activePage}
+          />
+          <div className='album-playlist-artist-info'>
+            <div style={{fontSize: "16px", color: "#973d4c", textTransform: "uppercase", marginBottom: "10px", 
+              borderBottom: "1px solid"}}>{t('biography') + " " + artistName}</div>
+            <div className="album-playlist-artist-thumb image-wrapper">
+              <img src={avatar} />
+            </div>
+            <div className='album-playlist-artist-description'>
+              <span style={{color: "black"}}>{t('dob') + ": " + dateOfBirth}</span>
+              <p>
+                {!showArtistInfo ? this.truncateInfo(description) : description}
+              </p>
+              {!showArtistInfo &&
+                <button
+                  className='sc-ir show-info-btn'
+                  onClick={this.showArtistInfo}>
+                  {t('showDes')}
+                </button>
+              }
+            </div>
           </div>
         </div>
-      </WithBackgroundImage>
-      <button onClick={() => props.replaceQueue(songs)} className="sc-ir" title="play" style={{display: "block"}}>
-        <img src="/svg/play-button-inside-a-circle.svg" className="circle-play-icon"/>
-      </button>
-      <div className="artist-playlist">
-        <Playlist className='' songs={songs} pathEntry="alias" />
-        <Pagination
-          pageChunks={pageChunks}
-          pageChunkIndex={pageChunkIndex}
-          type="single-artist"
-          artistName={artistName}
-          changePageChunkIndex={props.changePageChunkIndex}
-          activePage={props.activePage}
-        />
+        <div className="suggested-artists">
+          <div className="suggested-artists-title">{t('suggestedArtists')}</div>
+          {suggestedArtists.map((suggestedArtist, index) => <ArtistsList key={index} suggestedArtist={suggestedArtist} />)}
+        </div>
       </div>
-      <div className="suggested-artists">
-      <div className="suggested-artists-title">NGHỆ SĨ TƯƠNG TỰ</div>
-      {suggestedArtists.map((suggestedArtist, index) => <ArtistsList key={index} suggestedArtist={suggestedArtist}/>)}
-      </div>
-    </div>
-  );
+    );
+  }
 };
 
-const ArtistsList = ({suggestedArtist}) => 
+const ArtistsList = ({ suggestedArtist }) =>
   <div className="suggested-artist">
     <img src={suggestedArtist.thumb} title={suggestedArtist.name} />
     <div className="suggested-artist-info">
@@ -52,7 +87,7 @@ const ArtistsList = ({suggestedArtist}) =>
       >
         {suggestedArtist.name}
       </Link>
-    </div> 
+    </div>
   </div>
 
 export default ArtistPage;

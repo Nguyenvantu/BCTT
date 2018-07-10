@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { changeAlias } from '../../../utils/func';
 import LinksByComma from '../../LinksByComma';
 
-const SongList = ({ song, fetchSong, addSongToQueue }) => 
+const SongList = ({ song, fetchSong, addSongToQueue, t }) => 
   <div className="suggested-song" key={song.id}>
     <img src={song.thumbnail} alt="" />
     <div className="suggested-song-info">
@@ -20,12 +20,12 @@ const SongList = ({ song, fetchSong, addSongToQueue }) =>
       />
     </div>
     <div style={{ display: "flex" }}>
-      <button className='sc-ir ignore-react-onclickoutside' style={{ padding: "1px" }} title="Thêm vào play list"
+      <button className='sc-ir ignore-react-onclickoutside' style={{ padding: "1px" }} title={t('addToNextUp')}
         onClick={() => addSongToQueue(song)}
       >
         <img src="/svg/queue-add.svg" style={{ height: '33px', width: '33px', color: "red" }} />
       </button>
-      <button title="Phát"
+      <button title={t('play')}
         className='sc-ir ignore-react-onclickoutside' style={{ padding: "1px" }}
         onClick={() => fetchSong(song.name, song.id, false)}
       >
@@ -44,17 +44,17 @@ function SuggestedSection(props) {
   return (
     <div className="suggested-section">
       <div className="suggested-section-heading">
-        <span>Suggested</span>
+        <span>{props.t('suggested')}</span>
       </div>
       <div className="suggested-section-body suggested-left">
         {/* {songList({songList: list1, fetchSong })} */}
         {list1.map(song =>
-          <SongList key={song.id} song={song} fetchSong={props.fetchSong} addSongToQueue={props.addSongToQueue}/>)}
+          <SongList key={song.id} song={song} fetchSong={props.fetchSong} addSongToQueue={props.addSongToQueue} t={props.t}/>)}
       </div>
       <div className="suggested-section-body suggested-right">
         {/* {songList({songList: list2, fetchSong })} */}
         {list2.map(song =>
-          <SongList key={song.id} song={song} fetchSong={props.fetchSong} addSongToQueue={props.addSongToQueue}/>)}
+          <SongList key={song.id} song={song} fetchSong={props.fetchSong} addSongToQueue={props.addSongToQueue} t={props.t}/>)}
       </div>
     </div>
   );

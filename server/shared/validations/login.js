@@ -5,11 +5,11 @@ module.exports = function validateInput(data) {
   let errors = {};
 
   if (Validator.isEmpty(data.username || '')) {
-    errors.username = 'Username is required';
+    errors.username = 'required_username';
   }
 
   if (Validator.isEmpty(data.password || '')) {
-    errors.password = 'Password is required';
+    errors.password = 'required_password';
   }
 
   return {

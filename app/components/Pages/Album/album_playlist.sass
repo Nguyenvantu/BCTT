@@ -40,7 +40,7 @@
   .karaoke-info
     top: 30px
 
-.album-laylist-artist
+.album-playlist-artist
   &-thumb
     height: 90px
     width: 90px
@@ -79,6 +79,9 @@
   &-title
     color: #811432
     font-size: 18px
+    text-transform: uppercase
+    border-bottom: 1px solid
+    padding-bottom: 4px
    
 .suggested-album
   margin-top: 10px
@@ -92,11 +95,15 @@
     height: 50px
     padding: 3px 0 0 20px
     font-family: "Roboto", sans-serif
+    overflow: hidden
   &-name
     display: block
     font-size: 14px
     color: #27859b
     margin-bottom: 5px
+    text-overflow: ellipsis
+    overflow: hidden
+    white-space: nowrap
     &:hover
       text-decoration: underline
   &-artist

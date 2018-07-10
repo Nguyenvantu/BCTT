@@ -7,7 +7,7 @@ import { createPlaylist, deleteSong, deletePlaylist } from '../../../actions/use
 import { playUserPlaylist } from '../../../actions/queue';
 import { fetchSong, fetchSuggestedSongs } from '../../../actions/song';
 import LinksByComma from '../../LinksByComma';
-
+import { translate } from 'react-i18next';
 import './index.sass';
 
 class UserPage extends React.Component {
@@ -36,7 +36,7 @@ class UserPage extends React.Component {
       <form onSubmit={this.handleOnSubmit.bind(this)}>
         <input
           type="text"
-          placeholder="Enter the playlist title"
+          placeholder={this.props.t('enterPlayListName')}
           className="form-control"
           ref={node => this.input = node}
         />
@@ -52,7 +52,7 @@ class UserPage extends React.Component {
           <button
             className="playlist-btn"
             onClick={this.handleOnClick.bind(this)}
-          >Create a playlist
+          >{this.props.t('createPlayList')}
             <i className="ion-plus"></i>
           </button>
           {this.renderInputField()}
@@ -111,7 +111,7 @@ class Playlist extends React.Component {
 
   render() {
     const { songs, title } = this.props.playlist;
-    const { dispatch, playlist } = this.props;
+    const { dispatch, playlist, t } = this.props;
     const whichIcon = this.state.expand ? 'down' : 'right';
     const iconCLassName = `ion-arrow-${whichIcon}-b`;
 
@@ -123,14 +123,15 @@ class Playlist extends React.Component {
         >
           <div className="user-playlist-title">{title}</div>
           <div className="user-playlist-play-btn">
-            <button className="sc-ir playlist-play-btn" onClick={this.play.bind(this)}>
+            <button className="sc-ir playlist-play-btn" onClick={this.play.bind(this)} title="Play">
               <img src="/svg/play-button-inside-a-circle.svg" alt=""/>
             </button>
           </div>
-          <b>{songs.length}</b> songs
+          <b>{songs.length}</b> {t('songs')}
           <button
             className="sc-ir playlist-remove-btn"
             onClick={() => dispatch(deletePlaylist(title))}
+            title="Delete"
           >
             <i className="ion-android-close"></i>
           </button>
@@ -181,6 +182,7 @@ const List = ({ songs, dispatch, playlistTitle }) => {
               <button
                 className="sc-ir"
                 onClick={() => dispatch(deleteSong(playlistTitle, song.id))}
+                title="Delete"
               >
                 <i className="ion-android-close"></i>
               </button>
@@ -198,4 +200,4 @@ List.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-export default UserPage;
+export default translate('homePage')(UserPage);

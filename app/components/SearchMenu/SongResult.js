@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router';
 import { getSongUrl } from '../../utils/func';
 
-function SongResult({ songs, clearSearchResult }) {
+function SongResult({ songs, clearSearchResult, t }) {
   return (
     <ul className='song-result'>
       <div className='search-li-title search-song-title'>
-        Songs
+        {t('songs')}
       </div>
       {
         songs.map(song => (

@@ -11,7 +11,7 @@ const SongHeader = (props) => {
     downloadProgress,
     authenticated,
     redirectTo,
-    user,
+    user, t
   } = props;
   const artists = songData.artists_names && songData.artists_names.split(/\s*,\s*/);
 
@@ -34,14 +34,14 @@ const SongHeader = (props) => {
       </div>
       <div className="song-header-actions">
         <button className="sc-ir"
-          title="Dowload the song"
+          title={t('download')}
           onClick={() => download({
             songName: changeAlias(songData.name),
             id: songData.id,
           })}
         ><i className="ion-ios-download-outline"></i></button>
         <button className="sc-ir"
-          title="Add this song to your playlists"
+          title={t('addToPlayList')}
           onClick={() => {
             if (!(authenticated && user.username)) {
               // remove the dropdown from the interface
@@ -58,7 +58,7 @@ const SongHeader = (props) => {
           }}
         ><i className="ion-ios-plus-empty"></i></button>
       </div>
-      { (typeof downloadProgress[songData.id] !== 'undefined' && downloadProgress[songData.id] != -1) && <span>The song will be downloaded in a few seconds..</span> }
+      { (typeof downloadProgress[songData.id] !== 'undefined' && downloadProgress[songData.id] != -1) && <span>{t('processDownload')}...</span> }
     </div>
   );
 };

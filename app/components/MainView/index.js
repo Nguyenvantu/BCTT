@@ -32,11 +32,11 @@ MainView.propTypes = {
 };
 
 const AlbumView = (props) => {
-  const { params, chunkSize, defaultAlbums, albums, Card, location } = props;
+  const { params, chunkSize, defaultAlbums, albums, Card, location, t } = props;
   return (
     <div className="view">
       { !albums.length && location.pathname === '/albums' &&
-        <Default origins={defaultAlbums} Card={Card} chunkSize={chunkSize}/>
+        <Default origins={defaultAlbums} Card={Card} chunkSize={chunkSize} t={t}/>
       }
       { chunk(albums, chunkSize).map((chunk, index) =>
         <Row key={`row-chunk${index}`} chunk={chunk} Card={Card}/>
@@ -57,12 +57,12 @@ const AlbumView = (props) => {
 };
 
 const ArtistView = (props) => {
-  const { params, chunkSize, defaultArtists, artists, Card, location } = props;
+  const { params, chunkSize, defaultArtists, artists, Card, location, t } = props;
 
   return (
     <div className="view">
       { !artists.length && location.pathname === '/artists' &&
-        <Default origins={defaultArtists} Card={Card} chunkSize={chunkSize}/>
+        <Default origins={defaultArtists} Card={Card} chunkSize={chunkSize} t={t}/>
       }
 
       { chunk(artists, chunkSize).map((chunk, index) =>
@@ -84,15 +84,15 @@ const ArtistView = (props) => {
 };
 
 
-const Default = ({ origins, Card, chunkSize }) => (
+const Default = ({ origins, Card, chunkSize, t }) => (
   <div>
     { origins.map(origin =>
-      <DefaultCards key={origin.id} {...origin} Card={Card} chunkSize={chunkSize} />
+      <DefaultCards key={origin.id} {...origin} Card={Card} chunkSize={chunkSize} t={t}/>
     )}
   </div>
 );
 
-const DefaultCards = ({ title, id, albums, artists, Card, chunkSize }) => {
+const DefaultCards = ({ title, id, albums, artists, Card, chunkSize, t }) => {
   let href = '#';
   switch (id){
     case 'IWZ9Z08I': href = albums ? `/albums/Viet-Nam/${id}` : `/artists/Viet-Nam/${id}`; break;
@@ -104,7 +104,7 @@ const DefaultCards = ({ title, id, albums, artists, Card, chunkSize }) => {
   return <div className="view-cards">
     <div className="view-cards-title">
       <a href={href}>
-        {title} <i className='ion-chevron-right'></i>
+        {t(changeAlias(title))} <i className='ion-chevron-right'></i>
       </a>
     </div>
     { chunk(albums || artists, chunkSize).map((chunk, index) => (

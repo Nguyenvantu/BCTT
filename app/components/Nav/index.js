@@ -6,7 +6,9 @@ import debounce from 'lodash.debounce';
 import SearchMenu from '../SearchMenu';
 import { logout } from '../../actions/auth';
 import { clearUserPlaylist } from '../../actions/user_playlist';
+import { translate } from 'react-i18next';
 import './nav.sass';
+import './language.sass';
 
 class Nav extends React.Component {
   static contextTypes = {
@@ -47,6 +49,11 @@ class Nav extends React.Component {
     this.setState({ term: '', searchResult: {} });
   }
 
+  handleChangeLanguage = (code) => {
+    let { i18n } = this.props;
+    i18n.changeLanguage(code);
+  }
+
   logOut(e) {
     e.preventDefault();
     this.props.dispatch(clearUserPlaylist());
@@ -55,7 +62,7 @@ class Nav extends React.Component {
   }
 
   render() {
-    const { authenticated, user } = this.props.auth;
+    const { t, auth:{ authenticated, user} } = this.props;
 
     return (
       <nav>
@@ -69,7 +76,7 @@ class Nav extends React.Component {
             <i className="ion-search"></i>
             <input
               type="text"
-              placeholder="search for songs"
+              placeholder={t('search') + ",..."}
               value={this.state.term}
               onChange={this.handleOnChange.bind(this)}
             />
@@ -85,22 +92,22 @@ class Nav extends React.Component {
           <ul className="nav-menu">
             <li>
               <IndexLink to="/" className="animating_link" activeClassName="nav-menu-link-active">
-                Trang chủ
+                {t('home')}
               </IndexLink>
             </li>
             <li>
               <Link to="/charts" className="animating_link" activeClassName="nav-menu-link-active">
-                Bảng xếp hạng
+                {t('chart')}
               </Link>
             </li>
             <li>
               <Link to="/albums" className="animating_link" activeClassName="nav-menu-link-active">
-                Bộ sưu tập
+                {t('albums')}
               </Link>
             </li>
             <li>
               <Link to="/artists" className="animating_link" activeClassName="nav-menu-link-active">
-                Nghệ sĩ
+                {t('artists')}
               </Link>
             </li>
           </ul>
@@ -108,23 +115,26 @@ class Nav extends React.Component {
         {
           !authenticated
           ? <div className="auth-btns">
-            <Link to="/login" className="animating_link">
+            <Link to="/login" className="animating_link" activeClassName="nav-menu-link-active">
               <img src="/svg/login.svg" />
-              Đăng nhập
+              &nbsp;{t('signIn')}
             </Link>
-            <Link to="/signup" className="animating_link">
-              Đăng ký
+            <Link to="/signup" className="animating_link" activeClassName="nav-menu-link-active">
+              {t('register')}
             </Link>
+            <Language handleChangeLanguage={this.handleChangeLanguage} t={t}/>
           </div>
           : <div className="user">
-            <Link to={`/user/${user.username}`} className="animating_link ellipsis">
+            <Link to={`/user/${user.username}`} className="animating_link ellipsis" activeClassName="nav-menu-link-active">
               {user.username}
             </Link>
-            <a href="#" title="Log Out" onClick={this.logOut.bind(this)} className="animating_link">
+            <a href="#" title={t('signOut')} onClick={this.logOut.bind(this)} className="animating_link">
               <img src="/svg/sign-out-option.svg" />
             </a>
+            <Language handleChangeLanguage={this.handleChangeLanguage} t={t}/>
           </div>
         }
+        
       </nav>
     );
   }
@@ -138,4 +148,13 @@ Nav.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-export default Nav;
+export default translate('nav')(Nav);
+
+const Language = ({ handleChangeLanguage, t }) => 
+  <div className="animating_link dropdown-lang" style={{textTransform: "capitalize"}}>
+    <div className="dropbtn">{t('lang')}&nbsp;<i className="ion-chevron-down"></i></div>
+    <div className="dropdown-lang-content">
+      <div className="dropdown-lang-item" onClick={() => handleChangeLanguage('en')}>English</div>
+      <div className="dropdown-lang-item" onClick={() => handleChangeLanguage('vi')}>Việt Nam</div>
+    </div>
+  </div>

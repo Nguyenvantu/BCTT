@@ -8,6 +8,7 @@ import { addSongToStoreTemporarily } from '../actions/user_playlist';
 import { showAnalyzer, toggleModal } from '../actions/ui';
 import { addSongToQueue } from '../actions/queue';
 import { getSongUrl, isEmpty } from '../utils/func';
+import { translate } from 'react-i18next';
 
 class SongPage extends React.Component {
   componentDidMount() {
@@ -57,10 +58,11 @@ class SongPage extends React.Component {
           downloadProgress={this.props.downloadProgress}
           toggleModal={this.props.toggleModal}
           addSongToStoreTemporarily={this.props.addSongToStoreTemporarily}
+          t={this.props.t}
         />
         <KarokeContainer className='karaoke-song-page'/>
         <Pages.SongPageBody suggestedSongs={this.props.suggestedSongs} fetchSong={this.props.fetchSong}
-          addSongToQueue={this.props.addSongToQueue}
+          addSongToQueue={this.props.addSongToQueue} t={this.props.t}
         />
       </div>
     );
@@ -77,7 +79,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps,
+export default translate('player')(connect(mapStateToProps,
   {
     fetchSong,
     showAnalyzer,
@@ -86,5 +88,5 @@ export default connect(mapStateToProps,
     addSongToStoreTemporarily,
     addSongToQueue,
     toggleModal,
-  })(SongPage);
+  })(SongPage));
 

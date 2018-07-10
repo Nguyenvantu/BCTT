@@ -4,14 +4,11 @@ import { Queue } from '../components';
 import { clearQueue, removeSongFromQueue } from '../actions/queue';
 import { toggleQueue } from '../actions/ui';
 import { fetchSong } from '../actions/song';
+import { translate } from 'react-i18next'; 
 
 class QueueContainer extends Component {
-  // componentWillUnmount() {
-  //   console.log('unmount');
-  // }
 
   render() {
-    //console.log(this.props);
     return <Queue {...this.props}/>;
   }
 }
@@ -23,5 +20,5 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps,
-{ toggleQueue, clearQueue, removeSongFromQueue, fetchSong })(QueueContainer);
+export default translate('player')(connect(mapStateToProps,
+{ toggleQueue, clearQueue, removeSongFromQueue, fetchSong })(QueueContainer));
