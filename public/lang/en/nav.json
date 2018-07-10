@@ -1,0 +1,23 @@
+{
+  "home": "Home",
+  "chart": "Charts",
+  "albums": "Albums",
+  "artists": "Artists",
+  "search": "search for songs, aritsts",
+  "signIn": "Sign In",
+  "signOut": "Sign Out",
+  "register": "Sign Up",
+  "lang": "Language",
+  "songs": "Songs",
+  "titleSignIn": "Sign in to download songs for free",
+  "username": "Username",
+  "password": "Password",
+  "processing": "Processing...",
+  "footerSignIn1": "Don't have account?",
+  "footerSignIn2": "Create an account",
+  "required_username": "Username is required",
+  "required_password": "Password is required",
+  "username_exists": "Username already exist",
+  "username_invalid": "Invalid Username",
+  "password_invalid": "Invalid Password"
+}

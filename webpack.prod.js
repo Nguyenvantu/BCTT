@@ -7,7 +7,7 @@ const VENDOR_LIBS = [
   'react', 'react-dom', 'redux', 'axios', 'prop-types', 'redux-thunk',
   'react-router-redux', 'lodash.chunk', 'lodash.debounce', 'lodash.throttle',
   'react-router', 'react-onclickoutside', 'react-input-range', 'react-toastify',
-  'react-circular-progressbar', 'react-addons-css-transition-group',
+  'react-circular-progressbar', 'react-addons-css-transition-group', 'react-i18next', 'i18next', 'i18next-xhr-backend'
 ];
 
 module.exports = {

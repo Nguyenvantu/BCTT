@@ -1,0 +1,19 @@
+{
+  "popularVn": "Popular Vietnamese songs",
+  "popularKr": "Popular Korean songs",
+  "popularUsUk": "Popular US-UK songs",
+  "topUs": "TOP 10 US-UK",
+  "topVn": "TOP 10 V-POP",
+  "topKr": "TOP 10 K-POP",
+  "signOut": "Sign Out",
+  "register": "Register",
+  "lang": "Language",
+  "download": "download the track",
+  "addToNextUp": "Add to next up",
+  "addToPlaylist": "Add to playlist",
+  "share": "Share",
+  "createPlayList": "Create a playlist",
+  "noPlayList": "You don't have any playlists yet",
+  "enterPlayListName": "Enter the playlist's name",
+  "songs": "songs"
+}

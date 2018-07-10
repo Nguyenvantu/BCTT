@@ -84,7 +84,7 @@ class LogInPage extends React.Component {
           </form>
         </div>
         <footer className="login-footer">
-          {t('footerSignIn1')}, <a href="#" onClick={this.goToSignUpPage.bind(this)}>{t('footerSignIn2')}</a>
+          {t('footerSignIn1')} <a href="#" onClick={this.goToSignUpPage.bind(this)}>{t('footerSignIn2')}</a>
         </footer>
       </div>
     );

@@ -1,0 +1,23 @@
+{
+  "home": "Trang chủ",
+  "chart": "Bảng xếp hạng",
+  "albums": "Bộ sưu tập",
+  "artists": "Nghệ sĩ",
+  "search": "tìm kiếm bài hát, nghệ sĩ",
+  "signIn": "Đăng nhập",
+  "signOut": "Đăng xuất",
+  "register": "Đăng ký",
+  "lang": "Ngôn ngữ",
+  "songs": "Bài hát",
+  "titleSignIn": "Đăng nhập để tải nhạc miễn phí",
+  "username": "Tên đăng nhập",
+  "password": "Mật khẩu",
+  "processing": "Đang xử lý...",
+  "footerSignIn1": "Chưa có tài khoản?",
+  "footerSignIn2": "Tạo tài khoản",
+  "required_username": "Bạn chưa nhập tên đăng nhập",
+  "required_password": "Bạn chưa nhập mật khẩu",
+  "username_exists": "Tên đăng nhập đã tồn tại",
+  "username_invalid": "Tên đăng nhập không hợp lệ",
+  "password_invalid": "Mật khẩu không hợp lệ"
+}
