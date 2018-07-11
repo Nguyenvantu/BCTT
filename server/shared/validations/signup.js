@@ -5,30 +5,30 @@ module.exports = function validateInput(data) {
   let errors = {};
 
   if (Validator.isEmpty(data.username || '')) {
-    errors.username = 'Username is required';
+    errors.username = 'required_username';
   }
 
   if (!Validator.isAlphanumeric(data.username || '')) {
-    errors.username = 'Username must be alphanumeric';
+    errors.username = 'username_is_alphanumeric';
   }
 
-  if (!Validator.isLength(data.username, { min: 3, max: 16 })) {
-    errors.username = 'Username must be between 3 and 16 characters';
+  if (!Validator.isLength(data.username, { min: 3, max: 32 })) {
+    errors.username = 'username_must_be_3_32';
   }
 
   if (Validator.isEmpty(data.password || '')) {
-    errors.password = 'Password is required';
+    errors.password = 'required_password';
   }
 
   if (!Validator.isLength(data.password, { min: 6, max: undefined })) {
-    errors.password = 'Password must be at least 6 characters';
+    errors.password = 'password_least_6_char';
   }
 
   if (Validator.isEmpty(data.passwordConfirmation || '')) {
-    errors.passwordConfirmation = 'Password confirmation is required';
+    errors.passwordConfirmation = 'required_password_confirm';
   }
   if (!Validator.equals(data.password, data.passwordConfirmation)) {
-    errors.passwordConfirmation = 'Passwords must match';
+    errors.passwordConfirmation = 'password_mush_match';
   }
 
   return {

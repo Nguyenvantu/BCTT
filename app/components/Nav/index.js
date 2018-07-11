@@ -76,7 +76,7 @@ class Nav extends React.Component {
             <i className="ion-search"></i>
             <input
               type="text"
-              placeholder={t('search') + ",..."}
+              placeholder={t('search') + "..."}
               value={this.state.term}
               onChange={this.handleOnChange.bind(this)}
             />
@@ -151,7 +151,7 @@ Nav.propTypes = {
 export default translate('nav')(Nav);
 
 const Language = ({ handleChangeLanguage, t }) => 
-  <div className="animating_link dropdown-lang" style={{textTransform: "capitalize"}}>
+  <div className="animating_link dropdown-lang">
     <div className="dropbtn">{t('lang')}&nbsp;<i className="ion-chevron-down"></i></div>
     <div className="dropdown-lang-content">
       <div className="dropdown-lang-item" onClick={() => handleChangeLanguage('en')}>English</div>

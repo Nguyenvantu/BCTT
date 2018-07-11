@@ -19,5 +19,12 @@
   "required_password": "Bạn chưa nhập mật khẩu",
   "username_exists": "Tên đăng nhập đã tồn tại",
   "username_invalid": "Tên đăng nhập không hợp lệ",
-  "password_invalid": "Mật khẩu không hợp lệ"
+  "password_invalid": "Mật khẩu không hợp lệ",
+  "titleSignUp": "Điền vào bảng đăng ký bên dưới",
+  "confirm_password": "Nhập lại mật khẩu",
+  "username_is_alphanumeric": "Tên đăng nhập chứa ký tự không hợp lệ",
+  "password_least_6_char": "Mật khẩu phải chứa ít nhất 6 ký tự",
+  "required_password_confirm": "Bạn chưa nhập lại mật khẩu",
+  "password_mush_match": "Mật khẩu không trùng khớp",
+  "username_must_be_3_32": "Tên đăng nhập phải có tối thiểu 3 và tối đa 32 ký tự"
 }

@@ -53,33 +53,33 @@ class SignUpPage extends React.Component {
     const className = `auth-box animated ${this.state.animate &&
       (this.state.leave ? 'bounceOutLeft' : 'bounceInRight')}`;
     const errors = this.props.auth.errors;
-
+    const {t} = this.props;
     return (
       <div className={className}>
-        Sign Up Below:
+        {t('titleSignUp')}
         <br />
         <br />
         <div>
           <form onSubmit={this.onSubmit.bind(this)}>
             <TextInputGroup
-              placeholder="Username"
+              placeholder={t('username')}
               name="username"
-              error={errors.username}
+              error={t(errors.username)}
               onChange={this.onChange.bind(this)}
 
             />
             <TextInputGroup
               type="password"
-              placeholder="Password"
+              placeholder={t('password')}
               name="password"
-              error={errors.password}
+              error={t(errors.password)}
               onChange={this.onChange.bind(this)}
             />
             <TextInputGroup
               type="password"
-              placeholder="Confirm your password"
+              placeholder={t('confirm_password')}
               name="passwordConfirmation"
-              error={errors.passwordConfirmation}
+              error={t(errors.passwordConfirmation)}
               onChange={this.onChange.bind(this)}
             />
             <button
@@ -87,7 +87,7 @@ class SignUpPage extends React.Component {
               type="submit"
               disabled={this.props.auth.isProcessing}
             >
-              {!this.props.auth.isProcessing ? 'Sign Up' : '...Processing'}
+              {!this.props.auth.isProcessing ? t('register') : t('processing')}
             </button>
           </form>
         </div>

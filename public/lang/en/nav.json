@@ -19,5 +19,12 @@
   "required_password": "Password is required",
   "username_exists": "Username already exist",
   "username_invalid": "Invalid Username",
-  "password_invalid": "Invalid Password"
+  "password_invalid": "Invalid Password",
+  "titleSignUp": "Sign Up Below",
+  "confirm_password": "Confirm your password",
+  "username_is_alphanumeric": "Username contain invalid characters",
+  "password_least_6_char": "Password must be at least 6 characters",
+  "required_password_confirm": "Password confirmation is required",
+  "password_mush_match": "Passwords must match",
+  "username_must_be_3_32": "Username must be between 3 and 32 characters"
 }
