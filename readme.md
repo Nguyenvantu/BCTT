@@ -1,10 +1,3 @@
-## Features
-* login to create and listen to your playlists
-* download song when you are logged in
-* lazy, paginated fetching
-* player play/stop/forward/backward track
-* search tracks by name and artist
-
 ## Installation
 ### To run the app with Node.js and MongoDB
 > This app will fetch tracks from an external api, so there is no need for a database to store tracks, but we still need one for creating user's playlists
@@ -20,8 +13,6 @@ Open .env and adjust the `MONGODB_URI` to your MongoDB server name (localhost no
 2. Run `npm run dev:client` to start the frontend server
 
 Wait for the build process to complete
-
-![carbon](https://user-images.githubusercontent.com/20469909/41726824-29385c4a-759d-11e8-9c5c-15a48452ad6e.png)
 
 3. Run `npm run dev:server` to start the api server
 

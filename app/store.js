@@ -25,17 +25,17 @@ const persistedData = {
   },
 };
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(rootReducer, persistedData, composeEnhancers(
+let store;
+
+if (process.env.NODE_ENV !== 'production') {
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  store = createStore(rootReducer, persistedData, composeEnhancers(
     applyMiddleware(...middleware)
   ));
-
-// const enhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-//   applyMiddleware(...middleware),
-//   persistedData
-// });
-
-// const store = createStore(rootReducer, persistedData, applyMiddleware(...middleware) );
+}
+else{
+  store = createStore(rootReducer, persistedData, applyMiddleware(...middleware) );
+}
 
 // store.subscribe(_throttle(() => {
 //   saveQueueState(store.getState().queueState);

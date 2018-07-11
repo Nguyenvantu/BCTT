@@ -9,6 +9,15 @@
 @import "custom_scrollbar"
 @import "animating_link"
 
+
+@media only screen and (max-width: 1000px)
+  .container
+    padding: 50px 0px 0px 0px !important
+    margin-bottom: 100px !important
+@media only screen and (max-width: 1000px)
+  #app 
+    background-image: none !important
+
 *
   box-sizing: border-box
   ul
@@ -25,12 +34,6 @@ body
   font-family: 'Roboto', sans-serif
   font-size: 15px
 
-  min-width: 1020px
-
-#app
-  background-image: url(/images/big.jpg)
-  background-repeat: no-repeat
-  overflow: hidden
 .container
   padding: 50px 100px 0 100px
   background: white

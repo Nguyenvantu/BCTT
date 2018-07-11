@@ -80,7 +80,7 @@ class Modal extends Component {
         <button
           className="modal-close-btn sc-ir"
           onClick={this.handleCloseModal.bind(this)}
-        >{this.props.t('createPlayList')}
+        >
           <i className="ion-close-round"></i>
         </button>
         {
