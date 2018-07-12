@@ -54,9 +54,7 @@ function addSongToQueue(state, action) {
     let newState = { queue: [...state.queue, action.song], ids: [...state.ids, action.song.id] }
     saveQueueState(newState);
     toast.success(
-      <div className='custom-toast-content ellipsis'
-        title={`${action.song.name} was added to playlist`}
-      >
+      <div className='custom-toast-content'>
         <span>{action.song.name}</span>
         đã được thêm vào danh sách nghe
       </div>
@@ -64,12 +62,7 @@ function addSongToQueue(state, action) {
     return newState;
   }
   toast.warn(
-    <div className='custom-toast-content ellipsis'
-      title={`${action.song.name} was exists in playlist`}
-    >
-      <span>{action.song.name}</span>
-      đã có sẵn trong danh sách nghe
-    </div>
+    <div className="custom-toast-content"><span>{action.song.name}</span>đã có sẵn trong danh sách nghe</div>
   );
   
   return state;

@@ -108,11 +108,7 @@ export function download({ songName, id, filename }) {
       .catch(err => {
         dispatch(updateDownloadProgress(id, -1)); 
         toast.error(
-          <div className='custom-toast-content ellipsis'
-            title={`Can't download ${songName}, Error!`}
-          >
-            Không thể tải <span>{songName}</span>, có lỗi xảy ra!
-          </div>
+          <div className="custom-toast-content">Không thể tải <span>{songName}</span>, có lỗi xảy ra!"</div>
         )
         throw e;     
       });

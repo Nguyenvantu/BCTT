@@ -51,10 +51,8 @@ export function createPlaylist(title) {
         title,
       }))
       .catch(err => toast.error(
-        <div
-          className='custom-toast-content ellipsis'
-          title={`${title} playlist already exists`}
-          dangerouslySetInnerHTML={{ __html: err.response.data }}>
+        <div className='custom-toast-content' title={`${title} playlist already exists`}>
+          <span>{title}</span> playlist already exists
         </div>
       ));
   };
@@ -71,8 +69,8 @@ export function addSongToPlaylist(playlistTitle, songObj) {
           title: playlistTitle,
         });
 
-        toast(
-          <div className='custom-toast-content ellipsis'
+        toast.success(
+          <div className='custom-toast-content'
             title={`${songObj.name} was added to ${playlistTitle} playlist`}
           >
             <span>{songObj.name}</span>
