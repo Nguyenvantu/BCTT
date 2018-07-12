@@ -50,9 +50,9 @@ const SongHeader = (props) => {
 
             props.addSongToStoreTemporarily({
               name: songData.name,
-              artists: songData.artist,
+              artists: songData.artists,
               id: songData.id,
-              thumbnail: 'http://zmp3-photo-td.zadn.vn/noimage',
+              thumbnail: songData.thumbnail || 'http://zmp3-photo-td.zadn.vn/noimage',
             });
             props.toggleModal();
           }}

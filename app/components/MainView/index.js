@@ -4,6 +4,7 @@ import chunk from 'lodash.chunk';
 import Pagination from '../Pagination';
 import './index.sass';
 import { changeAlias } from '../../utils/func';
+import { Link } from 'react-router';
 
 const MainView = (props) => {
   const { type, isLoading } = props;
@@ -103,9 +104,9 @@ const DefaultCards = ({ title, id, albums, artists, Card, chunkSize, t }) => {
   }
   return <div className="view-cards">
     <div className="view-cards-title">
-      <a href={href}>
+      <Link to={href}>
         {t(changeAlias(title))} <i className='ion-chevron-right'></i>
-      </a>
+      </Link>
     </div>
     { chunk(albums || artists, chunkSize).map((chunk, index) => (
       <Row key={`row-chunk${index}`} chunk={chunk} Card={Card} chunkSize={chunkSize}/>

@@ -46,7 +46,6 @@ export function fetchArtists(genre, id, page) {
     dispatch(startLoading());
     axios.get(`/api/media/artists?genre=${genre}&id=${id}${pageQuery}`)
       .then(({ data }) => {
-        console.log(data)
         dispatch({
           type: types.FETCH_ARTISTS,
           artists: data.artists,

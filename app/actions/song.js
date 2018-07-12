@@ -6,6 +6,7 @@ import { togglePushRoute } from './queue';
 import { updateDownloadProgress } from './ui';
 import React from 'react';
 import { toast } from 'react-toastify';
+import FileSaver from 'file-saver';
 
 export function fetchSong(name, id, fetchSuggest = true) {
   return (dispatch, getState) => {
@@ -92,29 +93,28 @@ export function download({ songName, id, filename }) {
       responseType: 'arraybuffer',
       onDownloadProgress: progressEvent => {
         const percentCompleted = Math.floor((progressEvent.loaded * 100) / progressEvent.total);
-        // do whatever you like with the percentage complete
-        // maybe dispatch an action that will update a progress bar or something
         dispatch(updateDownloadProgress(id, percentCompleted));
       },
     })
       .then((response) => {
-        const blob = new Blob([response.data], { type: 'audio/mpeg' });
-        const link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.download = `${songName}.mp3`;
-        link.click();
+        // const blob = new Blob([response.data], { type: 'audio/mpeg' });
+        // const link = document.createElement('a');
+        // link.href = window.URL.createObjectURL(blob);
+        // link.download = `${songName}.mp3`;
+        // link.click();
+        FileSaver.saveAs(new Blob([response.data], { type: 'audio/mpeg' }), `${songName}.mp3`);
         setTimeout(() => dispatch(updateDownloadProgress(id, -1)), 1000)
       })
-      .catch(err => { 
+      .catch(err => {
         dispatch(updateDownloadProgress(id, -1)); 
         toast.error(
           <div className='custom-toast-content ellipsis'
-            title={`Can't download ${songName}, please try later!`}
+            title={`Can't download ${songName}, Error!`}
           >
-            Không thể tải <span>{songName}</span> ngay bây giờ, vui lòng thử lại sau!
+            Không thể tải <span>{songName}</span>, có lỗi xảy ra!
           </div>
         )
-        throw err; 
+        throw e;     
       });
   };
 }

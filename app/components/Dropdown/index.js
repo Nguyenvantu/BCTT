@@ -5,6 +5,8 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { isAuthenticated } from '../../HOC';
 import { translate } from 'react-i18next';
 import './index.sass';
+import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon, GooglePlusShareButton, GooglePlusIcon } from 'react-share';
+import { changeAlias } from '../../utils/func';
 
 class DropDown extends React.Component {
   state = { mounted: false };
@@ -46,6 +48,8 @@ class DropDown extends React.Component {
   }
 
   renderDropdown() {
+    const { name, id } = this.props
+    const shareUrl = `${window.location.origin}/song/${changeAlias(name)}/${id}`;
     return (
       <div className='dropdown'>
         <div
@@ -68,7 +72,31 @@ class DropDown extends React.Component {
         </div>
         <div className="dropdown-share">
           <i className="ion-android-share-alt"></i>
-          {this.props.t('share')}
+          {/* {this.props.t('share')} */}
+          <FacebookShareButton
+            url={shareUrl}
+            quote={name}
+            className="social-share"
+            >
+            <FacebookIcon
+              size={32}
+              round />
+          </FacebookShareButton>
+          <TwitterShareButton
+            url={shareUrl}
+            title={name}
+            className="social-share">
+            <TwitterIcon
+              size={32}
+              round />
+          </TwitterShareButton>
+          <GooglePlusShareButton
+            url={shareUrl}
+            className="social-share">
+            <GooglePlusIcon
+              size={32}
+              round />
+          </GooglePlusShareButton>
         </div>
       </div>
     );

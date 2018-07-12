@@ -25,12 +25,17 @@ export default function (ComposedComponent) {
       // delay the scroll event
 
       _throttle(() => {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 200) {
+        if (!document.getElementsByClassName("hp-track-list-wrapper") || !document.getElementsByClassName("home-nav"))
+          return;
+        const cW = document.getElementsByClassName("hp-track-list-wrapper")['0'].offsetHeight
+         + document.getElementsByClassName("home-nav")['0'].offsetHeight;
+        if ((window.innerHeight + window.scrollY) >= cW) {
           if (this.props.pageLoaded < NUMBER_OF_PAGES && !this.props.isLoading) {
             const page = this.props.pageLoaded + 1;
             this.props.fetchTracks(page, this.props.activeId);
           }
         }
+
       }, 100)();
     }
 
