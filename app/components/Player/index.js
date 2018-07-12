@@ -69,7 +69,7 @@ class Player extends React.PureComponent {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (nextState.isPlaying !== this.state.isPlaying) {
+    if (nextState.isPlaying !== this.state.isPlaying && !!this.audio) {
       if (nextState.isPlaying) {
         this.audio.play();
       } else {

@@ -11,7 +11,7 @@ const Track = (props) => {
   } = props;
   return (
     downloadProgress !== undefined && downloadProgress != -1
-      ? <CircularProgressbar percentage={downloadProgress} />
+      ? <CircularProgressbar percentage={downloadProgress} text={`${downloadProgress}%`}/>
       :
       <button className='sc-ir' onClick={() => download({ songName: changeAlias(name), id })}>
         <i className="ion-android-download" title={t('download')} />
