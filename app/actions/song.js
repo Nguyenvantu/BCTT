@@ -110,7 +110,7 @@ export function download({ songName, id, filename }) {
         toast.error(
           <div className="custom-toast-content">Không thể tải <span>{songName}</span>, có lỗi xảy ra!"</div>
         )
-        throw e;     
+        throw err;     
       });
   };
 }

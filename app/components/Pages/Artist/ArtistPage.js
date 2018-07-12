@@ -56,7 +56,7 @@ class ArtistPage extends React.Component {
             <div className='album-playlist-artist-description'>
               <span style={{color: "black"}}>{t('dob') + ": " + dateOfBirth}</span>
               <p>
-                {!showArtistInfo ? this.truncateInfo(description) : description}
+                {!showArtistInfo && description ? this.truncateInfo(description) : description}
               </p>
               {!showArtistInfo &&
                 <button

@@ -7,5 +7,5 @@ public/*
 !public/svg
 !public/images
 !public/lang
-yarn.lock
 package-lock.json
+yarn.lock

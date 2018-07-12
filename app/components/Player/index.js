@@ -21,19 +21,18 @@ class Player extends React.PureComponent {
       loop: false,
       isRandom: false
     };
-    // this.audio = React.createRef();
+    this.myRef = React.createRef();
   }
 
   componentDidMount() {
     // window.addEventListener('blur', this.windowBlur.bind(this));
-    this.audio = this.refs.audio;
-    this.audio.addEventListener('loadeddata', this.onLoadedData.bind(this));
-    this.audio.addEventListener('play', this.onPlay.bind(this));
-    this.audio.addEventListener('pause', this.onPause.bind(this));
-    this.audio.addEventListener('ended', this.onEnded.bind(this));
+    // this.myRef.current.addEventListener('loadeddata', this.onLoadedData.bind(this));
+    this.myRef.current.addEventListener('play', this.onPlay.bind(this));
+    this.myRef.current.addEventListener('pause', this.onPause.bind(this));
+    this.myRef.current.addEventListener('ended', this.onEnded.bind(this));
 
     // initialize the audio analyzer
-    initAnalyzer(this.audio);
+    initAnalyzer(this.myRef.current);
   }
 
   // windowBlur() {
@@ -47,20 +46,18 @@ class Player extends React.PureComponent {
   }
 
   onLoadedData() {
-    if (this.audio.readyState >= 2) {
-      this.audio.play();
-    }
+    // if (this.myRef.current.readyState >= 2) {
+    //   this.myRef.current.play();
+    // }
   }
 
   onPlay() {
     this.setState({ isPlaying: true })
     this.timer = requestInterval(this.update.bind(this), 20);
-    // start();
   }
 
   onPause() {
     clearRequestInterval(this.timer);
-    // stop();
   }
 
   onEnded() {
@@ -69,17 +66,16 @@ class Player extends React.PureComponent {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (nextState.isPlaying !== this.state.isPlaying && !!this.audio) {
+    if (nextState.isPlaying !== this.state.isPlaying) {
       if (nextState.isPlaying) {
-        this.audio.play();
+        this.myRef.current.play();
       } else {
-        this.audio.pause();
+        this.myRef.current.pause();
       }
     }
 
     if (this.props.songData.id !== nextProps.songData.id && !!this.timer) {
       clearRequestInterval(this.timer);
-      // stop();
     }
 
     if (!isTwoObjectEqual(nextProps.queueIds, this.props.queueIds) &&
@@ -87,7 +83,7 @@ class Player extends React.PureComponent {
       nextProps.queue[0]
     ) {
       const { name, id } = nextProps.queue[0];
-      this.props.fetchSong(changeAlias(name), id); // changeAlias {func}: escape ut8 character
+      this.props.fetchSong(changeAlias(name), id);
       if (/\/song\//.test(window.location.href)) {
         // only redirect if is on the song route
         browserHistory.push(`/song/${changeAlias(name)}/${id}`);
@@ -98,7 +94,7 @@ class Player extends React.PureComponent {
     const currentPercent = this.props.playerState.playedPercent;
 
     if (nextPercent != currentPercent && nextPercent) {
-      this.audio.currentTime = this.audio.duration * nextPercent / 100;
+      this.myRef.current.currentTime = this.myRef.current.duration * nextPercent / 100;
     }
   }
 
@@ -144,14 +140,8 @@ class Player extends React.PureComponent {
 
     if (alias) {
       this.props.fetchSong(alias, id)
-      // .then(() => {
-      //   continu();
-      // })
     } else {
-      this.props.fetchSong(changeAlias(name), id) // changeAlias {func}: escape ut8 character
-      // .then(() => {
-      //   continu();
-      // })
+      this.props.fetchSong(changeAlias(name), id)
     }
   }
 
@@ -161,8 +151,8 @@ class Player extends React.PureComponent {
 
   updateProgressbar() {
     let val = 0;
-    if (this.audio.currentTime > 0) {
-      val = (this.audio.currentTime / this.audio.duration * 100).toFixed(2);
+    if (this.myRef.current.currentTime > 0) {
+      val = (this.myRef.current.currentTime / this.myRef.current.duration * 100).toFixed(2);
     }
     if (!this.state.isSeeking) {
       this.setState({ progress: val });
@@ -184,10 +174,10 @@ class Player extends React.PureComponent {
       updateLyricPercent,
       updateLyric,
     } = this.props;
-    const currentTime = this.audio.currentTime;
+    const currentTime = this.myRef.current.currentTime;
     // reset lyric state
     if (currentTime > lyric[lyric.length - 1].end || currentTime) {
-      // clear lyric when the this.audio is playing with beat only
+      // clear lyric when the this.myRef.current is playing with beat only
       updateLyric([], []);
     }
 
@@ -222,10 +212,10 @@ class Player extends React.PureComponent {
       this.props.updateLyric([], []);
     }
 
-    this.audio.play();
+    this.myRef.current.play();
 
-    if (this.audio.duration) {
-      this.audio.currentTime = (value / 100) * this.audio.duration;
+    if (this.myRef.current.duration) {
+      this.myRef.current.currentTime = (value / 100) * this.myRef.current.duration;
     }
 
     this.setState({ isSeeking: false });
@@ -240,7 +230,7 @@ class Player extends React.PureComponent {
           autoPlay
           src={songData.source && songData.source['128']}
           crossOrigin = 'anonymous'
-          ref='audio'
+          ref={this.myRef}
           loop={this.state.loop}
         />
         <img
@@ -291,7 +281,7 @@ class Player extends React.PureComponent {
           </button>
         </div>
         <div className="player-seek">
-          <span>{(this.audio && this.audio.currentTime) ? formatTime(this.audio.currentTime) : '0:00'}</span>
+          <span>{(this.myRef.current && this.myRef.current.currentTime) ? formatTime(this.myRef.current.currentTime) : '0:00'}</span>
           <InputRange
             maxValue={100}
             minValue={0}
@@ -300,8 +290,8 @@ class Player extends React.PureComponent {
             onChangeComplete={this.handleChangeComplete.bind(this)}
           />
           <span>
-            {this.audio &&
-              (!isNaN(this.audio.duration) && formatTime(this.audio.duration))
+            {this.myRef.current &&
+              (!isNaN(this.myRef.current.duration) && formatTime(this.myRef.current.duration))
             }
           </span>
         </div>
