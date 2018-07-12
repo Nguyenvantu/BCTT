@@ -149,7 +149,7 @@ Playlist.propTypes = {
   songData: PropTypes.object.isRequired,
 };
 
-const List = ({ songs, dispatch, playlistTitle }) => {
+const List = ({ songs, dispatch, playlistTitle }) => {console.log(songs)
   return (
     <ul className="user-playlist-inside">
       <ReactCSSTransitionGroup
