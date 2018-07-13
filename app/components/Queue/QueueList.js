@@ -3,22 +3,33 @@ import { Link } from 'react-router';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { getSongUrl } from '../../utils/func';
 import LazyloadImage from '../LazyloadImage';
+import LinksByComma from '../LinksByComma';
 
 const Li = ({ name, id, thumbnail, alias, artist, artists, removeSongFromQueue, fetchSong, songData }) => {
+  const urlSong = getSongUrl(alias || name, id)
   return (
     <li >
       {songData.data.id === id ? <canvas id="analyser_render_2"></canvas> : null}
-      <LazyloadImage
-        src={thumbnail || 'http://zmp3-photo-td.zadn.vn/noimagex'}
-        className="queue-list-thumb"
-      />
+      <Link to={urlSong}>
+        <LazyloadImage
+          src={thumbnail || 'http://zmp3-photo-td.zadn.vn/noimagex'}
+          className="queue-list-thumb"
+        />
+      </Link>
       <div className="queue-list-info">
         <div className="queue-track-title ellipsis" title={name}>
-          <Link to={getSongUrl(alias || name, id)}>{name}</Link>
+          <Link to={urlSong}>{name}</Link>
         </div>
-        <div className="queue-track-artist ellipsis">
-          {artist || (artists && (Array.isArray(artists) ? artists.map(artist => artist.name).join(', ') : artists))}
-        </div>
+        {/* <div className="queue-track-artist ellipsis"> */}
+          <LinksByComma
+            className="queue-track-artist ellipsis"
+            data={artists || []}
+            titleEntry="name"
+            pathEntry="link"
+            definePath={(link) => link.replace('/nghe-si/', '/artist/')}
+            defineTitle={(title) => title.replace('Nhiều nghệ sĩ', 'Various artists')}
+          />
+        {/* </div> */}
       </div>
 
       <div className="queue-track-actions">

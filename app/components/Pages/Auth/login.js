@@ -59,9 +59,7 @@ class LogInPage extends React.Component {
 
     return (
       <div className={className}>
-        {t('titleSignIn')}
-        <br />
-        <br />
+        <center style={{marginBottom: "5px"}}>{t('titleSignIn')}</center>
         <div>
           <form onSubmit={this.onSubmit.bind(this)}>
             <TextInputGroup
@@ -84,7 +82,7 @@ class LogInPage extends React.Component {
           </form>
         </div>
         <footer className="login-footer">
-          {t('footerSignIn1')} <a href="#" onClick={this.goToSignUpPage.bind(this)}>{t('footerSignIn2')}</a>
+          {t('footerSignIn1')}&nbsp;<a href="#" onClick={this.goToSignUpPage.bind(this)}>{t('footerSignIn2')}</a>
         </footer>
       </div>
     );

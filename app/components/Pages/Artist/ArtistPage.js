@@ -10,7 +10,7 @@ class ArtistPage extends React.Component {
   state = { showArtistInfo: false };
 
   showArtistInfo = () => {
-    this.setState({ showArtistInfo: true });
+    this.setState({ showArtistInfo: !this.state.showArtistInfo });
   }
 
   truncateInfo = (info) => {
@@ -22,7 +22,6 @@ class ArtistPage extends React.Component {
     const { avatar, cover, songs, artistName, pageChunks, pageChunkIndex, suggestedArtists, dateOfBirth, description,
       replaceQueue, changePageChunkIndex, activePage, t } = this.props;
     const { showArtistInfo } = this.state;
-
     return (
       <div className="artist-page">
         <WithBackgroundImage className="artist-page-header" src={cover}>
@@ -48,7 +47,7 @@ class ArtistPage extends React.Component {
             activePage={activePage}
           />
           <div className='album-playlist-artist-info'>
-            <div style={{fontSize: "16px", color: "#973d4c", textTransform: "uppercase", marginBottom: "10px", 
+            <div style={{fontSize: "18px", color: "#973d4c", textTransform: "uppercase", marginBottom: "10px", 
               borderBottom: "1px solid"}}>{t('biography') + " " + artistName}</div>
             <div className="album-playlist-artist-thumb image-wrapper">
               <img src={avatar} />
@@ -58,11 +57,17 @@ class ArtistPage extends React.Component {
               <p>
                 {!showArtistInfo && description ? this.truncateInfo(description) : description}
               </p>
-              {!showArtistInfo &&
+              {!showArtistInfo ?
                 <button
                   className='sc-ir show-info-btn'
                   onClick={this.showArtistInfo}>
                   {t('showDes')}
+                </button>
+                :
+                <button
+                  className='sc-ir show-info-btn'
+                  onClick={this.showArtistInfo}>
+                  {t('hideDes')}
                 </button>
               }
             </div>

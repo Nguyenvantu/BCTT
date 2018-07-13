@@ -247,7 +247,7 @@ class Player extends React.PureComponent {
           </Link>
           <LinksByComma
             className="ellipsis player-info-artists comma"
-            data={songData.artists}
+            data={songData.artists || []}
             titleEntry="name"
             pathEntry="link"
             definePath={(link) => link.replace('/nghe-si/', '/artist/')}

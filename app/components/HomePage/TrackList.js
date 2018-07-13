@@ -25,17 +25,20 @@ class TrackList extends React.Component {
       <div className='hp-track-list-wrapper'>
         <ul className={`hp-track-list ${isFading ? 'isFading' : ''}`}>
           {this.props.tracks.map(track => {
-            let { id, name, thumbnail, artists, order } = track;
+            const { id, name, thumbnail, artists, order } = track;
+            const alias = changeAlias(name);
             return (
               <li key={track.id}>
                 {this.props.renderDropDown('Track', { id, name, thumbnail, artists })}
-                <div className="trackPosition">
-                  {order}
-                </div>
-                <LazyloadImage src={thumbnail} className='track-thumb image-wrapper' />
+                <Link to={`song/${alias}/${id}`}>
+                  <div className="trackPosition">
+                    {order}
+                  </div>  
+                  <LazyloadImage src={thumbnail} className='track-thumb image-wrapper' />
+                </Link>
                 <div className="trackDetail">
                   <div className="trackTitle">
-                    <Link to={`song/${changeAlias(name)}/${id}`}>{name}</Link>
+                    <Link to={`song/${alias}/${id}`}>{name}</Link>
                   </div>
                   <LinksByComma
                     className="trackArtist"

@@ -10,7 +10,7 @@ class AlbumPlaylist extends React.Component {
   state = { showArtistInfo: false };
 
   showArtistInfo() {
-    this.setState({ showArtistInfo: true });
+    this.setState({ showArtistInfo: !this.state.showArtistInfo });
   }
 
   truncateInfo(info) {
@@ -65,11 +65,17 @@ class AlbumPlaylist extends React.Component {
                 { !showArtistInfo ? this.truncateInfo(playlist.artist_info) : playlist.artist_info }
 
               </p>
-              { !showArtistInfo &&
+              { !showArtistInfo ?
                 <button
                   className='sc-ir show-info-btn'
                   onClick={this.showArtistInfo.bind(this)}>
                   {t('showDes')}
+                </button>
+                :
+                <button
+                  className='sc-ir show-info-btn'
+                  onClick={this.showArtistInfo.bind(this)}>
+                  {t('hideDes')}
                 </button>
               }
             </div>

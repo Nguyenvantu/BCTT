@@ -5,7 +5,9 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { isAuthenticated } from '../../HOC';
 import { translate } from 'react-i18next';
 import './index.sass';
-import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon, GooglePlusShareButton, GooglePlusIcon } from 'react-share';
+import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon, GooglePlusShareButton, GooglePlusIcon,
+  LinkedinShareButton, LinkedinIcon, ViberShareButton, ViberIcon, WhatsappShareButton, WhatsappIcon, TelegramIcon,
+  TelegramShareButton, EmailShareButton, EmailIcon } from 'react-share';
 import { changeAlias } from '../../utils/func';
 
 class DropDown extends React.Component {
@@ -49,7 +51,8 @@ class DropDown extends React.Component {
 
   renderDropdown() {
     const { name, id } = this.props
-    const shareUrl = `${window.location.origin}/song/${changeAlias(name)}/${id}`;
+    const shareUrl = `${window.location.host}/song/${changeAlias(name)}/${id}`;
+
     return (
       <div className='dropdown'>
         <div
@@ -73,11 +76,12 @@ class DropDown extends React.Component {
         <div className="dropdown-share">
           <i className="ion-android-share-alt"></i>
           {/* {this.props.t('share')} */}
+          <div className="share">
           <FacebookShareButton
             url={shareUrl}
             quote={name}
             className="social-share"
-            >
+            hashtag="#music_mp3">
             <FacebookIcon
               size={32}
               round />
@@ -97,6 +101,53 @@ class DropDown extends React.Component {
               size={32}
               round />
           </GooglePlusShareButton>
+          <TelegramShareButton
+            url={shareUrl}
+            title={name}
+            className="social-share"
+            >
+            <TelegramIcon
+              size={32}
+              round />
+          </TelegramShareButton>
+          <LinkedinShareButton
+            url={shareUrl}
+            title={name}
+            description={name}
+            className="social-share"
+            >
+            <LinkedinIcon
+              size={32}
+              round />
+          </LinkedinShareButton>
+          <ViberShareButton
+            url={shareUrl}
+            title={name}
+            className="social-share"
+            >
+            <ViberIcon
+              size={32}
+              round />
+          </ViberShareButton>
+          <WhatsappShareButton
+            url={shareUrl}
+            title={name}
+            className="social-share"
+            >
+            <WhatsappIcon
+              size={32}
+              round />
+          </WhatsappShareButton>
+          <EmailShareButton
+            url={shareUrl}
+            subject={name}
+            className="social-share"
+            >
+            <EmailIcon
+              size={32}
+              round />
+          </EmailShareButton>
+          </div>
         </div>
       </div>
     );

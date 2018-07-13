@@ -19,7 +19,7 @@ const SongList = ({ song, fetchSong, addSongToQueue, t }) =>
         defineTitle={(title) => title.replace('Nhiều nghệ sĩ', 'Various artists')}
       />
     </div>
-    <div style={{ display: "flex" }}>
+    <div className="suggested-song-action">
       <button className='sc-ir ignore-react-onclickoutside' style={{ padding: "1px" }} title={t('addToNextUp')}
         onClick={() => addSongToQueue(song)}
       >

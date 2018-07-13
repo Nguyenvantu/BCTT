@@ -56,9 +56,7 @@ class SignUpPage extends React.Component {
     const {t} = this.props;
     return (
       <div className={className}>
-        {t('titleSignUp')}
-        <br />
-        <br />
+        <center style={{marginBottom: "5px"}}>{t('titleSignUp')}</center>
         <div>
           <form onSubmit={this.onSubmit.bind(this)}>
             <TextInputGroup

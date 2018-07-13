@@ -20,12 +20,20 @@
       a 
         width: auto !important
         padding: 0 3vw !important
+        font-size: 3.3vmin !important
     .user a
       width: auto !important
       padding: 0 3vmin !important
     .user
       min-width: 100vmin !important
+ 
+  ::-webkit-scrollbar 
+    height: 0 !important
+    background: !important
 
+  /* optional: show position indicator in red */
+  ::-webkit-scrollbar-thumb
+    background: #e6e4e4 !important
 @media only screen and (max-width: 820px)
   .nav-menu a
     padding: 0 3vmin !important
@@ -54,7 +62,6 @@
     font-size: 7vmin !important
   .suggested-artists
     width: 100% !important
-    padding: 0 2vw !important
     margin: 0 0 8vh 0 !important
 
   .chart-wrapper
@@ -93,8 +100,7 @@
     top: 10vmax !important
     z-index: 301 !important
     div
-      height: auto !important
-      font-size: 2vmax !important
+      font-size: 2.1vmax !important
     &-lang-content
       position: fixed !important
       top: 50px !important
@@ -107,12 +113,17 @@
   .track-thumb
     width: 10vmax !important
     padding: 10px 10px 10px 0 !important
+  .trackTitle
+    margin-top: 2vmin !important
   .trackDetail
     width: calc(100% - 35% - 10vmax) !important
   .trackActions .hp-track-toolbar i
     font-size: 2.5vmax !important
   .trackActions
     width: 25% !important
+  .trackArtist
+    margin-top: 2vmin !important
+    font-size: 2vmax !important
   .trackArtist a
     font-size: 2vmax !important
   .choice
@@ -239,11 +250,16 @@
   .dropdown-lang
     width: auto !important
     padding: 0 3vw !important
+    .dropbtn
+      font-size: 3.5vmin !important
+
   .search-menu
     max-height: 60vh !important
     position: fixed !important
+  .auth-box
+    padding: 5vmin !important
   .auth-box-wrapper
-    max-width: 96vmin !important
+    max-width: 96vw !important
     max-height: calc(100vh - 50px - 8vh) !important
 
   .album-playlist
@@ -278,8 +294,9 @@
       padding: 1vw !important
   .suggested-albums
     width: 100vw !important
-    padding: 0 2vw !important
     margin: 0 0 8vh 0 !important
+  .suggested-song-info
+    padding: 1vw 0 0 2vw !important
 
   .user-page-left
     width: 100% !important
@@ -354,6 +371,7 @@
   text-align: center
   width: 10%
   float: left
+  color: #4b4747
 .trackDetail
   width: calc(100% - 40% - 80px)
   float: left
@@ -424,7 +442,6 @@ i.ion-more
 .choice
   width: 20%
   height: 40px
-  border-radius: 3px
   border: 1px solid #27DED5
   line-height: 40px
   vertical-align: middle

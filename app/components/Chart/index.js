@@ -35,15 +35,19 @@ Chart.propTypes = {
   renderDropDown: PropTypes.func.isRequired,
 };
 
-const ChartFirstItem = ({ name, order, id, artists, thumbnail, renderDropDown, toggleTrackDropDown, downloadProgress, download }) => (
+const ChartFirstItem = ({ name, order, id, artists, thumbnail, renderDropDown, toggleTrackDropDown, downloadProgress, download }) => {
+  const alias = changeAlias(name);
+  return (
   <li className="chart-item">
-    <div className="chart-item-order order-first">
-      {order}
-    </div>
+    <Link to={`/song/${alias}/${id}`}>
+      <div className="chart-item-order order-first">
+        {order}
+      </div>
+    </Link>
     <div className="chart-item-detail detail-first">
       <div className="chart-item-detail-left">
         <div className="chart-item-title ellipsis" title={name}>
-          <Link to={`/song/${changeAlias(name)}/${id}`}>{name}</Link>
+          <Link to={`/song/${alias}/${id}`}>{name}</Link>
         </div>
         <LinksByComma
           className="chart-item-artist ellipsis"
@@ -60,7 +64,7 @@ const ChartFirstItem = ({ name, order, id, artists, thumbnail, renderDropDown, t
             ? <CircularProgressbar percentage={downloadProgress[id]} text={`${downloadProgress[id]}%`}/>
             :
             <button className='sc-ir' onClick={() => download({
-              songName: changeAlias(name),
+              songName: alias,
               id,
             })}
             >
@@ -77,23 +81,28 @@ const ChartFirstItem = ({ name, order, id, artists, thumbnail, renderDropDown, t
     </div>
     {renderDropDown('Chart', { name, id, artists, thumbnail })}
   </li>
-);
+  );
+}
 
 ChartFirstItem.propTypes = {
   renderDropDown: PropTypes.func.isRequired,
 };
 
-const ChartItem = ({ name, order, id, thumbnail, artists, renderDropDown, toggleTrackDropDown, downloadProgress, download }) => (
+const ChartItem = ({ name, order, id, thumbnail, artists, renderDropDown, toggleTrackDropDown, downloadProgress, download }) => {
+  const alias = changeAlias(name);
+  return (
   <li className="chart-item">
-    <div className="chart-item-thumb">
-      <img src={thumbnail} />
-    </div>
+    <Link to={`/song/${alias}/${id}`}>
+      <div className="chart-item-thumb">
+        <img src={thumbnail} />
+      </div>
+    </Link>
     <div className="chart-item-detail">
       <div className="chart-item-detail-left">
         <div className="chart-item-order">{order}</div>
         <div className="chart-item-info">
           <div className="chart-item-title ellipsis" title={name}>
-            <Link to={`/song/${changeAlias(name)}/${id}`}>{name}</Link>
+            <Link to={`/song/${alias}/${id}`}>{name}</Link>
           </div>
           <LinksByComma
             className="chart-item-artist ellipsis"
@@ -111,7 +120,7 @@ const ChartItem = ({ name, order, id, thumbnail, artists, renderDropDown, toggle
             ? <CircularProgressbar percentage={downloadProgress[id]} text={`${downloadProgress[id]}%`}/>
             :
             <button className='sc-ir' onClick={() => download({
-              songName: changeAlias(name),
+              songName: alias,
               id,
             })}
             >
@@ -128,7 +137,8 @@ const ChartItem = ({ name, order, id, thumbnail, artists, renderDropDown, toggle
     </div>
     {renderDropDown('Chart', { name, id, artists, thumbnail })}
   </li>
-);
+  );
+}
 
 ChartItem.propTypes = {
   renderDropDown: PropTypes.func.isRequired,

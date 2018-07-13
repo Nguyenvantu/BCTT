@@ -29,6 +29,7 @@
   "release": "Release",
   "genres": "Genres",
   "showDes": "Show full description",
+  "hideDes": "Collapse",
   "suggestedAlbums": "Maybe you want to listen",
   "suggestedArtists": "Similar artists",
   "biography": "Biography",

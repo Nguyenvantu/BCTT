@@ -22,6 +22,9 @@
       > div
         height: inherit
 
+      &:hover
+        .chart-item-order
+          color:#fd1111
       &-order
         width: 20%
         float: left
@@ -29,15 +32,16 @@
         vertical-align: middle
         text-align: center
         line-height: 60px
+
       &-info
         width: 80%
         float: left
         padding-top: 5px
         padding-left: 10px
 
-
       &-thumb
        width: 20%
+       height: 100%
        float: left
        padding: 5px 8px
        img
@@ -69,6 +73,8 @@
         font-family: "Open Sans", sans-serif
         a
           color: white
+          &:hover
+            color: $light-blue
 
       &-title
         margin-top: 5px
@@ -78,6 +84,7 @@
           font-size: 14px
           &:hover
             text-decoration: underline
+            color: $light-blue
 
       &-artist
         margin-top: 2px
