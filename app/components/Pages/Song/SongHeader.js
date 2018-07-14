@@ -35,10 +35,16 @@ const SongHeader = (props) => {
       <div className="song-header-actions">
         <button className="sc-ir"
           title={t('download')}
-          onClick={() => download({
-            songName: changeAlias(songData.name),
-            id: songData.id,
-          })}
+          onClick={() => {
+            if (!(authenticated && user.username)) {
+              // remove the dropdown from the interface
+              return redirectTo('/login');
+            }
+            download({
+              songName: changeAlias(songData.name),
+              id: songData.id
+            })
+          }}
         ><i className="ion-ios-download-outline"></i></button>
         <button className="sc-ir"
           title={t('addToPlayList')}
@@ -58,7 +64,8 @@ const SongHeader = (props) => {
           }}
         ><i className="ion-ios-plus-empty"></i></button>
       </div>
-      { (typeof downloadProgress[songData.id] !== 'undefined' && downloadProgress[songData.id] != -1) && <span>{t('processDownload')}...</span> }
+      { (typeof downloadProgress[songData.id] !== 'undefined' && downloadProgress[songData.id] != -1) && 
+        <span>{`${t('processDownload')}... ${downloadProgress[songData.id]}%`}</span> }
     </div>
   );
 };

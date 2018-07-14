@@ -6,5 +6,9 @@
   "addToPlayList": "Add this song to your playlists",
   "processDownload": "The song will be downloaded in a few seconds",
   "addToNextUp": "Add this song to next up",
-  "play": "Play"
+  "play": "Play",
+  "lyric": "Lyric",
+  "version": "Version",
+  "show": "Show more",
+  "hide": "Collapse"
 }

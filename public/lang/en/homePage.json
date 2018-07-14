@@ -11,9 +11,12 @@
   "download": "download the track",
   "addToNextUp": "Add to next up",
   "addToPlaylist": "Add to playlist",
-  "share": "Share",
+  "share": "Share on",
   "createPlayList": "Create a playlist",
   "noPlayList": "You don't have any playlists yet",
   "enterPlayListName": "Enter the playlist's name",
-  "songs": "songs"
+  "songs": "songs",
+  "topUsFull": "TOP 10 US-UK",
+  "topVnFull": "TOP 10 Vietnamese",
+  "topKrFull": "TOP 10 Korean"
 }

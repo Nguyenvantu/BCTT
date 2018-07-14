@@ -24,6 +24,7 @@ class Nav extends React.Component {
   search(term) {
     axios.get(`/api/media/search?term=${term}`)
       .then(({ data }) => {
+        console.log(data)
         if (this.state.term.length) {
           this.setState({ searchResult: data });
         }

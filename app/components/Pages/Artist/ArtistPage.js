@@ -47,8 +47,7 @@ class ArtistPage extends React.Component {
             activePage={activePage}
           />
           <div className='album-playlist-artist-info'>
-            <div style={{fontSize: "18px", color: "#973d4c", textTransform: "uppercase", marginBottom: "10px", 
-              borderBottom: "1px solid"}}>{t('biography') + " " + artistName}</div>
+            <div className="suggested-artists-title">{t('biography') + " " + artistName}</div>
             <div className="album-playlist-artist-thumb image-wrapper">
               <img src={avatar} />
             </div>

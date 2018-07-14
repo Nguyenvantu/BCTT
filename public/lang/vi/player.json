@@ -6,5 +6,9 @@
   "addToPlayList": "Thêm bài này vào danh sách nhạc",
   "processDownload": "Bài hát sẽ được tải sau giây lát",
   "addToNextUp": "Thêm vào danh sách tiếp theo",
-  "play": "Phát"
+  "play": "Phát",
+  "lyric": "Lời bài hát",
+  "version": "Phiên bản",
+  "show": "Xem thêm",
+  "hide": "Thu gọn"
 }

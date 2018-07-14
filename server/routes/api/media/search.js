@@ -1,12 +1,12 @@
-const { request, spliceOne } = require('utils');
+const { request } = require('utils');
 
 module.exports = function (req, res, next) {
   const { term } = req.query;
-  const url = `https://ac.mm.mp3.zing.vn/complete/desktop?type=artist,album,video,song&num=3&query=${term}`;
+  const url = `https://ac.mm.mp3.zing.vn/complete/desktop?type=artist,album,song&num=5&query=${term}`;
   request(url)
     .then(data => {
       data = JSON.parse(data);
-      spliceOne(data.data, 2); // delete video section
+      // spliceOne(data.data, 2); // delete video section
 
       data.data = data.data.reduce((newObj, obj) => {
         const key = Object.keys(obj)[0];

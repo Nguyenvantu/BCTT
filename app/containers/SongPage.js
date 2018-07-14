@@ -50,19 +50,21 @@ class SongPage extends React.Component {
   }
 
   render() {
+    const { songData, download, downloadProgress, toggleModal, addSongToStoreTemporarily, t, suggestedSongs, fetchSong,
+      addSongToQueue } = this.props;
     return (
       <div>
         <Pages.SongHeader
-          songData={this.props.songData}
-          download={this.props.download}
-          downloadProgress={this.props.downloadProgress}
-          toggleModal={this.props.toggleModal}
-          addSongToStoreTemporarily={this.props.addSongToStoreTemporarily}
-          t={this.props.t}
+          songData={songData}
+          download={download}
+          downloadProgress={downloadProgress}
+          toggleModal={toggleModal}
+          addSongToStoreTemporarily={addSongToStoreTemporarily}
+          t={t}
         />
         <KarokeContainer className='karaoke-song-page'/>
-        <Pages.SongPageBody suggestedSongs={this.props.suggestedSongs} fetchSong={this.props.fetchSong}
-          addSongToQueue={this.props.addSongToQueue} t={this.props.t}
+        <Pages.SongPageBody suggestedSongs={suggestedSongs} fetchSong={fetchSong}
+          addSongToQueue={addSongToQueue} t={t} songData={songData}
         />
       </div>
     );

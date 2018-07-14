@@ -43,15 +43,15 @@ function SuggestedSection(props) {
   const list2 = props.songs.slice(11);
   return (
     <div className="suggested-section">
-      <div className="suggested-section-heading">
+      <div className="suggested-artists-title">
         <span>{props.t('suggested')}</span>
       </div>
-      <div className="suggested-section-body suggested-left">
+      <div className="suggested-section-body suggested-right">
         {/* {songList({songList: list1, fetchSong })} */}
         {list1.map(song =>
           <SongList key={song.id} song={song} fetchSong={props.fetchSong} addSongToQueue={props.addSongToQueue} t={props.t}/>)}
-      </div>
-      <div className="suggested-section-body suggested-right">
+      {/* </div>
+      <div className="suggested-section-body suggested-right"> */}
         {/* {songList({songList: list2, fetchSong })} */}
         {list2.map(song =>
           <SongList key={song.id} song={song} fetchSong={props.fetchSong} addSongToQueue={props.addSongToQueue} t={props.t}/>)}

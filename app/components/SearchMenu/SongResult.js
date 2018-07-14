@@ -11,8 +11,9 @@ function SongResult({ songs, clearSearchResult, t }) {
       {
         songs.map(song => (
           <li key={`song-result${song.id}`}>
-            <div className='search-li-detail search-song-detail'>
-              <div className='search-li-info search-song'>
+            <div className='search-li-detail'>
+              <img src={`http://image.mp3.zdn.vn/thumb/94_94/${song.thumb}`} alt='' />
+              <div className='search-li-info'>
                 <div>
                   <Link
                     to={getSongUrl(song.name, song.id)}

@@ -33,7 +33,7 @@ class Choices extends Component {
         className={`choice ${this.state.showMenu ? 'choice-active' : ''}`}
         onClick={this.toggle.bind(this)}
       >
-        {datas[activeChoiceId] || Object.values(datas)[0]}
+        <span className="choice-content">{datas[activeChoiceId] || Object.values(datas)[0]}</span>
         <i className="ion-chevron-down"></i>
         {
           this.state.showMenu &&

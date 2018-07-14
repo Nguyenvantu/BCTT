@@ -4,6 +4,7 @@ import { Pages } from '../components';
 import { getChart } from '../actions/chart';
 import { download } from '../actions/song';
 import PropTypes from 'prop-types';
+import { translate } from 'react-i18next';
 
 class ChartPage extends Component {
   static contextTypes = {
@@ -24,6 +25,7 @@ class ChartPage extends Component {
         vpop={this.props.vpop}
         download={this.downloadSong}
         downloadProgress={this.props.downloadProgress}
+        t={this.props.t}
       />
     );
   }
@@ -37,4 +39,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getChart, download })(ChartPage);
+export default translate('homePage')(connect(mapStateToProps, { getChart, download })(ChartPage));

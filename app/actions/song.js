@@ -31,6 +31,10 @@ export function fetchSong(name, id, fetchSuggest = true) {
           song: { name: state.songData.tempData[id].name, id, artists: state.songData.tempData[id].artists, thumbnail: state.songData.tempData[id].thumbnail },
         });
       dispatch({ type: types.FETCH_SONG_SUCCESS, data: state.songData.tempData[id] });
+      state.songData.tempData[id].text_lyrics.length ? 
+        dispatch({ type: types.FETCH_TEXT_LYRIC_SUCCESS, data: state.songData.tempData[id].text_lyrics })
+        :
+        dispatch(fetchLyricsSong(id))
     }
     else
       axios.get(`/api/media/song?name=${name}&id=${id}`)
@@ -43,6 +47,7 @@ export function fetchSong(name, id, fetchSuggest = true) {
             artistId: data.artistId
           };
           fetchSuggest && dispatch(fetchSuggestedSongs(ids));
+          dispatch(fetchLyricsSong(id));
           dispatch(togglePushRoute(false));
           state.queueState.ids.indexOf(id) === -1 &&
             dispatch({
@@ -66,7 +71,7 @@ export function resetSongData() {
 }
 
 export function fetchSuggestedSongs({ songId, artistId }) {
-  return (dispatch, ) => {
+  return (dispatch) => {
     axios.get(`${MEDIA_ENDPOINT}/suggested-song?artistId=${artistId}&songId=${songId}`)
       .then(({ data }) => {
         dispatch({
@@ -114,3 +119,19 @@ export function download({ songName, id, filename }) {
       });
   };
 }
+
+export function fetchLyricsSong(songId) {
+  return (dispatch) => {
+    axios.get(`https://mp3.zing.vn/xhr/lyrics/get-lyrics?media_id=${songId}`)
+      .then(({data}) => {console.log(data)
+        dispatch({
+          type: types.FETCH_TEXT_LYRIC_SUCCESS,
+          data: data.data, songId
+        })
+      })
+      .catch(err => dispatch({
+        type: types.FETCH_TEXT_LYRIC_FAILURE, songId
+      }));
+  };
+}
+

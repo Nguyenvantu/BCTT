@@ -83,7 +83,7 @@ class AlbumPlaylist extends React.Component {
         </div>
       </div>
       <div className="suggested-albums">
-        <div className="suggested-albums-title">{t('suggestedAlbums')}</div>
+        <div className="suggested-artists-title">{t('suggestedAlbums')}</div>
         {suggestedAlbums.map((suggestedAlbum, index) => <ArtistsList key={index} suggestedAlbum={suggestedAlbum}/>)}
       </div>
       </div>

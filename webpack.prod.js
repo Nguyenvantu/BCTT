@@ -22,7 +22,7 @@ module.exports = {
   },
   resolve: {
     extensions: [
-      '.js', '.sass', '.json',
+      '.js', '.sass', '.json'
     ],
     modules: ['node_modules', 'app', 'seed'],
   },
