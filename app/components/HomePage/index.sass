@@ -102,6 +102,7 @@
     right: 0px !important
     top: 10vmax !important
     z-index: 301 !important
+    max-width: 170px
     div
       font-size: 2.1vmax !important
     &-lang-content
@@ -201,14 +202,21 @@
   .karaoke
     height: 30vmax !important
 
+  .share
+    overflow-x: scroll
+    overflow-y: hidden
+
   .song-header
    
     &-info
       width: 60% !important
       padding-left: 1vmax !important
     &-actions
-      height: 9vmax !important
-      width: 30% !important
+      width: 40% !important
+      i 
+        font-size: 30px !important
+      .ion-android-share-alt
+        font-size: 20px !important
       button
         margin-left: 2vmax !important
     &-song-title
@@ -233,6 +241,8 @@
         &-right
           width: 100% !important
           margin-top: 3px !important
+      &-content
+        line-height: 20px !important
   .suggested-section
     width: 100% !important
     padding: 0px !important
@@ -418,9 +428,6 @@
       text-decoration: underline
 .trackArtist
   margin-top: 10px
-  text-overflow: ellipsis
-  white-space: nowrap
-  overflow: hidden
   a
     font-size: 12px
     color: $light-blue !important

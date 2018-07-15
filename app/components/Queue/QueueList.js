@@ -37,7 +37,7 @@ const Li = ({ name, id, thumbnail, alias, artist, artists, removeSongFromQueue, 
           <i className='ion-play'
             onClick={() => fetchSong(name, id)} title="play"></i>
           :
-          <i className='ion-play' style={{ color: "#85929e", cursor: "unset" }} title="playing..."></i>
+          <i className='ion-play' style={{ color: "transparent", cursor: "unset" }}></i>
         }
         <i className="ion-trash-b" onClick={() => removeSongFromQueue(id)} title="remove from list"></i>
       </div>

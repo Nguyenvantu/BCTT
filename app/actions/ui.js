@@ -12,9 +12,9 @@ export function hideAnalyzer() {
   };
 }
 
-export function toggleModal() {
+export function toggleModal(state = true) {
   return {
-    type: types.TOGGLE_MODAL,
+    type: types.TOGGLE_MODAL, state
   };
 }
 

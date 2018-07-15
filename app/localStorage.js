@@ -36,8 +36,9 @@ export function loadSongDataState() {
       isFetching: false,
       tempData: {}
     }
-
-    return JSON.parse(serializedSongState);
+    const songState = JSON.parse(serializedSongState);
+    songState.tempData[songState.data.id] = {...songState.data}
+    return songState;
   } catch (err) {
     return {
       data: {},

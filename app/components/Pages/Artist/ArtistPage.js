@@ -52,22 +52,26 @@ class ArtistPage extends React.Component {
               <img src={avatar} />
             </div>
             <div className='album-playlist-artist-description'>
-              <span style={{color: "black"}}>{t('dob') + ": " + dateOfBirth}</span>
-              <p>
-                {!showArtistInfo && description ? this.truncateInfo(description) : description}
-              </p>
-              {!showArtistInfo ?
-                <button
-                  className='sc-ir show-info-btn'
-                  onClick={this.showArtistInfo}>
-                  {t('showDes')}
-                </button>
-                :
-                <button
-                  className='sc-ir show-info-btn'
-                  onClick={this.showArtistInfo}>
-                  {t('hideDes')}
-                </button>
+              <span style={{color: "black"}}>{t('dob') + ": " + (dateOfBirth ? dateOfBirth : '--/--/--')}</span>
+              { !!description ?
+                <div>
+                <p>
+                  {!showArtistInfo && description ? this.truncateInfo(description) : description}
+                </p>
+                {!showArtistInfo ?
+                  <button
+                    className='sc-ir show-info-btn'
+                    onClick={this.showArtistInfo}>
+                    {t('showDes')}
+                  </button>
+                  :
+                  <button
+                    className='sc-ir show-info-btn'
+                    onClick={this.showArtistInfo}>
+                    {t('hideDes')}
+                  </button>
+                }
+                </div> : <p>No data...</p>
               }
             </div>
           </div>

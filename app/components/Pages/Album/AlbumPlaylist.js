@@ -61,22 +61,25 @@ class AlbumPlaylist extends React.Component {
               <img src={playlist.artist_thumb} />
             </div>
             <div className='album-playlist-artist-description'>
-              <p>
-                { !showArtistInfo ? this.truncateInfo(playlist.artist_info) : playlist.artist_info }
-
-              </p>
-              { !showArtistInfo ?
-                <button
-                  className='sc-ir show-info-btn'
-                  onClick={this.showArtistInfo.bind(this)}>
-                  {t('showDes')}
-                </button>
-                :
-                <button
-                  className='sc-ir show-info-btn'
-                  onClick={this.showArtistInfo.bind(this)}>
-                  {t('hideDes')}
-                </button>
+              { !!playlist.artist_info &&
+              <div>
+                <p>
+                  { !showArtistInfo ? this.truncateInfo(playlist.artist_info) : playlist.artist_info }
+                </p>
+                { !showArtistInfo ?
+                  <button
+                    className='sc-ir show-info-btn'
+                    onClick={this.showArtistInfo.bind(this)}>
+                    {t('showDes')}
+                  </button>
+                  :
+                  <button
+                    className='sc-ir show-info-btn'
+                    onClick={this.showArtistInfo.bind(this)}>
+                    {t('hideDes')}
+                  </button>
+                }
+              </div>
               }
             </div>
           </div>

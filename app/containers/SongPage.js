@@ -32,7 +32,7 @@ class SongPage extends React.Component {
       return;
     }
 
-    if (nextProps.canPushRoute && nextId !== this.props.songData.id) {
+    if (!!nextId && nextId !== this.props.songData.id) {
       browserHistory.push(getSongUrl(name, nextId));
       return;
     }
@@ -50,12 +50,14 @@ class SongPage extends React.Component {
   }
 
   render() {
-    const { songData, download, downloadProgress, toggleModal, addSongToStoreTemporarily, t, suggestedSongs, fetchSong,
-      addSongToQueue } = this.props;
+    const { songTemp, download, downloadProgress, toggleModal, addSongToStoreTemporarily, t, suggestedSongs, fetchSong,
+      addSongToQueue, params } = this.props;
+    const songTempData = songTemp[params.id] ? songTemp[params.id] : Object.create(null);
+
     return (
       <div>
         <Pages.SongHeader
-          songData={songData}
+          songData={songTempData}
           download={download}
           downloadProgress={downloadProgress}
           toggleModal={toggleModal}
@@ -64,7 +66,7 @@ class SongPage extends React.Component {
         />
         <KarokeContainer className='karaoke-song-page'/>
         <Pages.SongPageBody suggestedSongs={suggestedSongs} fetchSong={fetchSong}
-          addSongToQueue={addSongToQueue} t={t} songData={songData}
+          addSongToQueue={addSongToQueue} t={t} songData={songTempData}
         />
       </div>
     );
@@ -75,9 +77,10 @@ function mapStateToProps(state) {
   return {
     suggestedSongs: state.songData.suggestedSongs,
     songData: state.songData.data,
+    songTemp: state.songData.tempData,
     downloadProgress: state.UIState.downloadProgress,
     routing: state.routing,
-    canPushRoute: state.queueState.pushRoute,
+    // canPushRoute: state.queueState.pushRoute,
   };
 }
 

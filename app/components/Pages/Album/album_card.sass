@@ -7,13 +7,16 @@
     min-width: 190px
 
   &-image
+    width: 190px
+    height: 190px
+    overflow: hidden
     img
-      width: 190px
-      height: 190px
-    &:hover
-      transform: scale(1.1, 1.1)
-      transition: transform 0.2s
-
+      width: 100%
+      height: 100%
+      transition: all 0.2s
+      &:hover
+        transform: scale(1.3, 1.3)
+        
   &-detail
     // padding-right: 50px
     width: 190px
@@ -23,6 +26,9 @@
       font-size: 14px
     > div
       margin-bottom: 7px
+      text-overflow: ellipsis
+      white-space: nowrap
+      overflow: hidden
 
   &-title
     margin-top: 10px

@@ -45,15 +45,15 @@ class Player extends React.PureComponent {
     clearRequestInterval(this.timer);
   }
 
-  onLoadedData() {
+  // onLoadedData() {
     // if (this.myRef.current.readyState >= 2) {
     //   this.myRef.current.play();
     // }
-  }
+  // }
 
   onPlay() {
     this.setState({ isPlaying: true })
-    this.timer = requestInterval(this.update.bind(this), 20);
+    this.timer = requestInterval(this.update.bind(this), 15);
   }
 
   onPause() {
@@ -106,15 +106,18 @@ class Player extends React.PureComponent {
       if (queue[i].id === currId) {
         switch (prevOrnext) {
           case 'next':
+            if (length <= 1) return null;
             index = (i + 1) % length;
             // replay the queue if the index is equal the queue length otherwise play the next song
             break;
           case 'prev':
+            if (length <= 1) return null;
             index = (i + length - 1) % length;
             // play the last song in the queue if the index is 0 otherwise play the prev song
             break;
           case 'random':
-            let random = Math.floor(Math.random() * queue.length);
+            if (length <= 1) return null;
+            let random = 0
             while (random === i && queue.length > 1)
               random = Math.floor(Math.random() * queue.length);
             index = random;
@@ -127,7 +130,7 @@ class Player extends React.PureComponent {
       }
     }
 
-    return undefined;
+    return null;
   }
 
   playPrevOrNextSong(prevOrnext) {
@@ -138,7 +141,7 @@ class Player extends React.PureComponent {
 
     this.props.togglePushRoute(true); // enable .push for browserHistory
 
-    if (alias) {
+    if (!!alias) {
       this.props.fetchSong(alias, id)
     } else {
       this.props.fetchSong(changeAlias(name), id)
@@ -152,8 +155,9 @@ class Player extends React.PureComponent {
   updateProgressbar() {
     let val = 0;
     if (this.myRef.current.currentTime > 0) {
-      val = (this.myRef.current.currentTime / this.myRef.current.duration * 100).toFixed(2);
+      val = Math.round((this.myRef.current.currentTime / this.myRef.current.duration * 100));
     }
+    // console.log(Math.round(val))
     if (!this.state.isSeeking) {
       this.setState({ progress: val });
     }
@@ -203,11 +207,11 @@ class Player extends React.PureComponent {
     }
   }
 
-  handleChange(value) {
+  handleChange = (value) => {
     this.setState({ progress: value, isSeeking: true });
   }
 
-  handleChangeComplete(value) {
+  handleChangeComplete = (value) => {
     if (value == 100) {
       this.props.updateLyric([], []);
     }
@@ -222,7 +226,7 @@ class Player extends React.PureComponent {
   }
 
   render() {
-    const { songData, queue } = this.props;
+    const { songData, queue, t } = this.props;
     const { name, id } = songData;
     return (
       <div className='player'>
@@ -264,18 +268,21 @@ class Player extends React.PureComponent {
           <button
             className='sc-ir player-btn'
             onClick={this.playPrevOrNextSong.bind(this, 'prev')}
+            title={t('back')}
           >
             <i className="ion-ios-rewind" style={{color: "rgb(173, 181, 189)"}}></i>
           </button>
           <button
             className='sc-ir player-btn'
             onClick={this.togglePlayBtn.bind(this)}
+            title={this.state.isPlaying ? t('pause') : t('play')}
           >
             <i className={`ion-${this.state.isPlaying ? 'pause' : 'play'}`} style={{color: "rgb(173, 181, 189)"}}></i>
           </button>
           <button
             className='sc-ir player-btn'
             onClick={this.playPrevOrNextSong.bind(this, 'next')}
+            title={t('next')}
           >
             <i className="ion-ios-fastforward" style={{color: "rgb(173, 181, 189)"}}></i>
           </button>
@@ -285,9 +292,9 @@ class Player extends React.PureComponent {
           <InputRange
             maxValue={100}
             minValue={0}
-            value={parseInt(this.state.progress, 10)}
-            onChange={this.handleChange.bind(this)}
-            onChangeComplete={this.handleChangeComplete.bind(this)}
+            value={this.state.progress}
+            onChange={this.handleChange}
+            onChangeComplete={this.handleChangeComplete}
           />
           <span>
             {this.myRef.current &&
@@ -296,18 +303,23 @@ class Player extends React.PureComponent {
           </span>
         </div>
         <div className="player-other">
-          <button className="sc-ir" title="Loop">
+          <button className="sc-ir" title={t('loop')}>
             <i
               className="ion-loop"
               style={{ color: this.state.loop ? '#23B89A' : '#adb5bd' }}
-              onClick={() => this.setState({ loop: !this.state.loop })}
+              onClick={() => {
+                this.setState({ loop: !this.state.loop, isRandom: false })    
+                if (this.state.progress == 100) {
+                  this.myRef.current.play();
+                }
+              }}
             ></i>
           </button>
-          <button className="sc-ir" title="random">
+          <button className="sc-ir" title={t('random')}>
             <i
               className="ion-shuffle"
               style={{ color: this.state.isRandom ? '#23B89A' : '#adb5bd' }}
-              onClick={() => this.setState({ isRandom: !this.state.isRandom })}
+              onClick={() => this.setState({ isRandom: !this.state.isRandom, loop: false })}
             ></i>
           </button>
           <button

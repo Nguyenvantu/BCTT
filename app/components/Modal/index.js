@@ -19,10 +19,7 @@ class Modal extends Component {
   }
 
   handleClickOutside = () => {
-    this.setState({ leave: true });
-    setTimeout(() => {
-      this.props.dispatch(toggleModal());
-    }, 500);
+    this.handleCloseModal();
   }
 
   componentDidMount() {
@@ -36,7 +33,7 @@ class Modal extends Component {
   handleCloseModal() {
     this.setState({ leave: true });
     setTimeout(() => {
-      this.props.dispatch(toggleModal());
+      this.props.dispatch(toggleModal(false));
     }, 500);
   }
 

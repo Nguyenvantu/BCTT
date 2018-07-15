@@ -32,13 +32,13 @@ export function fetchSong(name, id, fetchSuggest = true) {
         });
       dispatch({ type: types.FETCH_SONG_SUCCESS, data: state.songData.tempData[id] });
       state.songData.tempData[id].text_lyrics.length ? 
-        dispatch({ type: types.FETCH_TEXT_LYRIC_SUCCESS, data: state.songData.tempData[id].text_lyrics })
+        dispatch({ type: types.FETCH_TEXT_LYRIC_SUCCESS, data: state.songData.tempData[id].text_lyrics, songId: id })
         :
         dispatch(fetchLyricsSong(id))
     }
     else
       axios.get(`/api/media/song?name=${name}&id=${id}`)
-        .then(({ data }) => {
+        .then(({ data }) => {console.log("á")
           data.cover = data.artist.cover;
           data.artistId = data.artist.id
           delete data.artist;
@@ -123,10 +123,10 @@ export function download({ songName, id, filename }) {
 export function fetchLyricsSong(songId) {
   return (dispatch) => {
     axios.get(`https://mp3.zing.vn/xhr/lyrics/get-lyrics?media_id=${songId}`)
-      .then(({data}) => {console.log(data)
+      .then(({data}) => {
         dispatch({
           type: types.FETCH_TEXT_LYRIC_SUCCESS,
-          data: data.data, songId
+          data: data.data ? data.data : [], songId
         })
       })
       .catch(err => dispatch({

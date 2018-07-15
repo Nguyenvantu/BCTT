@@ -61,26 +61,27 @@ class SongPageBody extends React.Component {
               <div className="song-body-lyric-header-left">
                 {t('lyric') + ": "}<b>{songData.name}</b>
               </div>
-              <div className="song-body-lyric-header-right">
-                {
-                  showLyricIndex != 0 ?
-                  <i className="active ion-ios-arrow-left" onClick={this.prevLyric}/> : <i/>
-                }
+              {!!text_lyrics.length &&
+                <div className="song-body-lyric-header-right">
+                  {
+                    showLyricIndex != 0 ?
+                    <i className="active ion-ios-arrow-left" onClick={this.prevLyric}/> : <i/>
+                  }
                   <span>{` ${t('version')}: ${showLyricIndex + 1}/${text_lyrics.length} `}</span>
-                {
-                  text_lyrics.length - 1 !== showLyricIndex ?
-                  <i className="active ion-ios-arrow-right" onClick={this.nextLyric}></i> : <i/>
-                }
-              </div>
+                  {
+                    text_lyrics.length - 1 !== showLyricIndex ?
+                    <i className="active ion-ios-arrow-right" onClick={this.nextLyric}></i> : <i/>
+                  }
+                </div>
+              }
             </div>
-            {
-              text_lyrics[showLyricIndex] &&
-              <div className="song-body-lyric-content"
-                dangerouslySetInnerHTML={{ 
-                  __html: this.truncateLyric(text_lyrics[showLyricIndex].content)
-                }}
-              />
-            }
+            <div className="song-body-lyric-content"
+              dangerouslySetInnerHTML={{ 
+                __html:  text_lyrics[showLyricIndex] ?
+                  this.truncateLyric(text_lyrics[showLyricIndex].content) :
+                  t('noDataLyric')
+              }}
+            />
             {
               (text_lyrics[showLyricIndex] && text_lyrics[showLyricIndex].content.length > 800) &&
               <span onClick={this.showFull} className="show-full-lyric">{!showFullLyric ? t('show') : t('hide')}</span>

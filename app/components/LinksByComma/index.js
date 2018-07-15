@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import './index.sass';
 
-const LinksByComma = ({ data, definePath, pathEntry, titleEntry, defineTitle, className }) =>
-  <div className={`comma ${className || ''}`}>
+const LinksByComma = ({ data, definePath, pathEntry, titleEntry, defineTitle, className }) =>{
+  return <div className={`comma ${className || ''}`}>
     {
       data.map((element, index) =>
         <Link
@@ -15,7 +15,7 @@ const LinksByComma = ({ data, definePath, pathEntry, titleEntry, defineTitle, cl
       )
     }
   </div>;
-
+}
 LinksByComma.propTypes = {
   data: PropTypes.array.isRequired,
   definePath: PropTypes.func,

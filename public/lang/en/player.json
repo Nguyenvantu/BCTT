@@ -10,5 +10,12 @@
   "lyric": "Lyric",
   "version": "Version",
   "show": "Show more",
-  "hide": "Collapse"
+  "hide": "Collapse",
+  "noDataLyric": "No data. This lyric will be update soon!",
+  "pause": "Pause",
+  "next": "Next",
+  "back": "Back",
+  "loop": "Loop this song",
+  "random": "Play ramdom",
+  "share": "Share on"
 }

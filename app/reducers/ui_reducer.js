@@ -31,7 +31,7 @@ export default function (state = initialState, action) {
     return { ...state, showQueue: !state.showQueue };
 
   case types.TOGGLE_MODAL:
-    return { ...state, showModal: !state.showModal };
+    return { ...state, showModal: action.state };
 
   case types.SLIDE_IN_RIGHT:
     return { ...state, slideInRight: true };
@@ -84,12 +84,14 @@ export default function (state = initialState, action) {
 function toggleTrackDropDown(state, action) {
   const { activeId, where } = action.dropDown;
 
+  const checkId = activeId !== state.dropDown.activeId;
+
   return {
     ...state,
     dropDown: {
-      where: where !== state.dropDown.where ? where : '',
-      activeId: activeId !== state.dropDown.activeId ? activeId : '',
-      show: activeId !== state.dropDown.activeId,
+      where: where !== state.dropDown.where || checkId ? where : '',
+      activeId: checkId ? activeId : '',
+      show: checkId
     },
   };
 }

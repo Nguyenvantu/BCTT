@@ -36,6 +36,7 @@
 
     &-content
       color: #5d5959
+      line-height: 25px
 
 /* .comment-section
   width: 40%
@@ -67,6 +68,9 @@
   &-song-title
     font-size: 16px
     margin-top: 5px
+    text-overflow: ellipsis
+    white-space: nowrap
+    overflow: hidden
   &-song-artist
     margin-top: 10px
     a
@@ -74,12 +78,12 @@
       &:hover
         color: #45B39D
   &-actions
-    width: 15%
+    width: 20%
     float: right
     display: flex
     align-items: center
     justify-content: center
-    height: 60px
+    height: 100%
 
     button
       margin-left: 15px
@@ -87,6 +91,8 @@
     i
       color: #fff !important
       font-size: 35px
+    .ion-android-share-alt
+      font-size: 25px
 
 .comment-section-heading
   color: #343a40
@@ -236,3 +242,31 @@
   &:hover
     cursor: pointer
     color: red
+
+.header-share
+  position: absolute
+  right: 0
+  top: 50px
+  z-index: 3
+
+.header-share-enter
+  opacity: 0.1
+
+.header-share-enter.header-share-enter-active
+  // transform: scale(1.2, 1.2)
+  opacity: 1
+  transition: opacity 600ms ease-in
+  // transition: transform 500ms ease-in
+  .social-share
+    transform: rotate(360deg)
+    transition: transform 1000ms
+
+.header-share-leave
+  // opacity: 1
+
+.header-share-leave.header-share-leave-active
+  // opacity: 0.01
+  // transition: opacity 300ms ease-in
+  .social-share
+    transform: scale(0, 0)
+    transition: transform 400ms

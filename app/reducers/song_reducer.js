@@ -11,12 +11,13 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
   case types.RESET_SONG_DATA:{
-    saveSongDataState({ ...initialState });
-    return { ...initialState, tempData: { ...state.tempData } };
+    const newState = {...state, data: {}, isFetching: false}
+    saveSongDataState({ ...newState, tempData: {} });
+    return newState;
   }
     
   case types.FETCH_SONG_SUCCESS:{
-    const newState = { ...state, data: action.data, isFetching: false, 
+    const newState = { ...state, data: {...state.data, ...action.data}, isFetching: false, 
       tempData: { ...state.tempData, [action.data.id]: { ...state.tempData[action.data.id], ...action.data} } };
     saveSongDataState({...newState, tempData: {}});
     return newState;

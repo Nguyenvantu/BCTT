@@ -1,18 +1,21 @@
 @import "colors"
 
 .artist
+  transition: all 0.2s
   &-image
-    &:hover
-      transform: scale(1.15, 1.15)
-    transition: transform .2s
+    width: 170px
+    height: 170px
+    overflow: hidden
   &-card
     width: 20%
-    padding-right: 25px
     float: left
     min-width: 170px
     img
-      width: 170px
-      height: 170px
+      width: 100%
+      height: 100%
+      transition: all 0.2s
+      &:hover
+        transform: scale(1.35, 1.35)
   &-detail
     width: 170px
     height: 50px

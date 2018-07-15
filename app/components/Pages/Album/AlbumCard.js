@@ -10,7 +10,7 @@ const AlbumCard = (props) => (
       <LazyloadImage className="album-image" src={props.cover} />
     </Link>
     <div className="album-detail">
-      <div className="album-title">
+      <div className="album-title" title={props.title}>
         <Link to={`/album/playlist/${props.alias}/${props.id}`}>{props.title}</Link>
       </div>
       <div className="album-artists">

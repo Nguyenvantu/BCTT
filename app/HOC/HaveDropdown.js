@@ -8,10 +8,10 @@ import { Dropdown } from '../components';
 
 export default function (ComposedComponent) {
   class HaveDropDown extends Component {
-    renderDropDown(where, { id, name, thumbnail, artists }) {
-      const { showDropdown, dropDownActiveId } = this.props;
-
-      return showDropdown && id === dropDownActiveId && where === this.props.where &&
+    renderDropDown(whereVar, { id, name, thumbnail, artists }) {
+      const { showDropdown, dropDownActiveId, where } = this.props;
+      // console.log(showDropdown, dropDownActiveId, where)
+      return showDropdown && id === dropDownActiveId && whereVar === this.props.where &&
         <Dropdown
           name={name}
           id={id}

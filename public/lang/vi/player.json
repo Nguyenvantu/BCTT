@@ -10,5 +10,12 @@
   "lyric": "Lời bài hát",
   "version": "Phiên bản",
   "show": "Xem thêm",
-  "hide": "Thu gọn"
+  "hide": "Thu gọn",
+  "noDataLyric": "Không có dữ liệu. Lời bài hát sẽ sớm được cập nhật!",
+  "pause": "Tạm dừng",
+  "next": "Bài kế",
+  "back": "Bài trước",
+  "loop": "Lặp bài này",
+  "random": "Phát ngẫu nhiên",
+  "share": "Chia sẻ qua"
 }

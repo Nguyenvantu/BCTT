@@ -5,6 +5,7 @@ import { updateLyric, updateLyricPercent } from '../actions/player';
 import { toggleQueue } from '../actions/ui';
 import { togglePushRoute } from '../actions/queue';
 import * as songActions from '../actions/song';
+import { translate } from 'react-i18next';
 
 class PlayerContainer extends Component {
   render() {
@@ -27,11 +28,11 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps,
+export default translate('player')(connect(mapStateToProps,
   { updateLyric,
     updateLyricPercent,
     toggleQueue,
     togglePushRoute,
     ...songActions,
-  })(PlayerContainer);
+  })(PlayerContainer));
 
