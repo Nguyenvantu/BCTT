@@ -9,26 +9,32 @@ function AlbumResult(props) {
         {props.t('albums')}
       </div>
       {
-        props.albums.map(album =>
-          <li key={`search-${album.id}`}>
+        props.albums.map(album => {
+          const link = `/album/playlist/${changeAlias(album.name)}/${album.id}`;
+          return <li key={`search-${album.id}`}>
             <div className='search-li-detail'>
-              <img src={`http://image.mp3.zdn.vn/thumb/94_94/${album.thumb}`} alt='' />
+              <Link
+                to={link}
+                onClick={() => props.clearSearchResult()} title={album.name}
+              >
+                <img src={`http://image.mp3.zdn.vn/thumb/94_94/${album.thumb}`} alt='' />
+              </Link>
               <div className='search-li-info'>
-                <div>
+                <div title={album.name}>
                   <Link
-                    to={`/album/playlist/${changeAlias(album.name)}/${album.id}`}
-                    onClick={() => props.clearSearchResult() }
+                    to={link}
+                    onClick={() => props.clearSearchResult()}
                   >
                     {album.name}
                   </Link>
                 </div>
-                <div className='search-li-artist'>
+                <div className='search-li-artist' title={album.artist}>
                   {album.artist}
                 </div>
               </div>
             </div>
           </li>
-        )
+        })
       }
     </ul>
   );

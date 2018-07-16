@@ -1,6 +1,11 @@
 @import 'colors'
 @import 'mixins'
 
+@media screen and (max-width: 1150px)
+  .container
+    padding: 50px 50px 0 50px !important
+  #analyzer 
+    padding: 0 50px !important
 
 @media screen and (max-width: 1000px)
   nav 
@@ -78,19 +83,12 @@
       padding: 0px !important
     &-chart:not(:first-child)
       margin-top: 30px !important
-  .chart .chart-list
-    margin-top: -12vmax !important
-  .chart .chart-item
-    height: 12vmax !important
-    margin: 0 !important
-  .chart .chart-item-order
-    display: flex !important
-    justify-content: center
-    align-items: center
-  .chart .chart-item-info
-    padding: 3vmin 0 0 0 !important
-  .chart .chart-item-detail-right
-    height: 100%
+  // .chart .chart-list
+  //   margin-top: -12vmax !important
+
+  // .chart .chart-item-info
+  //   padding: 3vmin 0 0 0 !important
+
   .chart .chart-item-thumb
     padding: 0 0 !important
   .chart .chart-item-detail-left

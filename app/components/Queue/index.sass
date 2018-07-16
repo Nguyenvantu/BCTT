@@ -89,9 +89,10 @@
   overflow-x: hidden
   overflow-y: auto
   li
-    height: 58px
+    height: 60px
     position: relative
-    margin-bottom: 5px
+    // margin-bottom: 5px
+    overflow: hidden
 
     &:hover
       background: linear-gradient(to right, unquote('#02ccba59'), #f2f2f2) !important
@@ -103,15 +104,21 @@
       opacity: 0.7
 
   &-thumb
-    padding: 5px 10px 5px 20px
+    padding: 0px 10px 0px 10px
     float: left
+    display: flex
+    align-items: center
+    height: 100%
+    // -webkit-animation: rotation 4s infinite linear !important
     img
-      width: 48px
-      height: 48px
+      width: 55px
+      height: 55px
       position: relative
+      border-radius: 50%
+      opacity: 1 !important
 
   &-info
-    width: calc(100% - 30% - 78px)
+    width: calc(75% - 75px)
     float: left
     padding: 10px
     padding-left: 0
@@ -120,8 +127,25 @@
       font-size: 12px
       position: relative
 
+.rotation 
+  -webkit-animation: rotation 4s infinite linear !important
+  animation: rotation 4s infinite linear !important
+  @-webkit-keyframes rotation
+    from 
+      -webkit-transform: rotate(0deg)
+    
+    to
+      -webkit-transform: rotate(359deg)
+  @keyframes rotation
+    from 
+      -webkit-transform: rotate(0deg)
+    
+    to
+      -webkit-transform: rotate(359deg)
+  // opacity: 1 !important
+
 .queue-track-actions
-  width: 30%
+  width: 25%
   float: left
   display: flex
   align-items: center
@@ -144,3 +168,6 @@
     font-size: 13px
   &:hover
     text-decoration: underline
+
+
+

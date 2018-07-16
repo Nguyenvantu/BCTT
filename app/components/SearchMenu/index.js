@@ -14,12 +14,12 @@ class SearchMenu extends Component {
   }
 
   render() {
-    const { top, data } = this.props.searchResult;
+    const { data } = this.props.searchResult;
     if (!data) return null;
-    const { t } = this.props;
+    const { t, clearSearchResult } = this.props;
     return (
       <ul className='search-menu'>
-        { top && <TopResult {...top} clearSearchResult={this.props.clearSearchResult}/> }
+        { data.top && <TopResult {...data.top} clearSearchResult={this.props.clearSearchResult} t={t}/> }
         <SongResult songs={data.song || []} clearSearchResult={this.props.clearSearchResult} t={t} />
         <ArtistResult artists={data.artist || []} clearSearchResult={this.props.clearSearchResult} t={t} />
         <AlbumResult albums={data.album || []} clearSearchResult={this.props.clearSearchResult} t={t} />

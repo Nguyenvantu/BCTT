@@ -61,23 +61,24 @@
   overflow: hidden
   padding-bottom: 10px
   border-bottom: 1px solid #D5DBDB
-  display: flex
-  
-  &-info
-    float: left
-    height: 50px
-    padding: 3px 0 0 20px
-    font-family: "Roboto", sans-serif
+
   &-name
-    display: block
+    display: flex
+    align-items: center
     font-size: 14px
-    color: #27859b
-    margin-bottom: 5px
+    height: 50px
     &:hover
-      text-decoration: underline
+      div
+        text-decoration: underline
+
+  &-info
+    // height: 100%
+    padding: 0 0 0 20px
+    font-family: "Roboto", sans-serif
+    color: #27859b
 
   img
-    display: block
-    width: 50px
-    height: 50px
+    width: 50px !important
+    height: 100%
     float: left
+    border-radius: 5px

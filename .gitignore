@@ -7,5 +7,6 @@ public/*
 !public/svg
 !public/images
 !public/lang
+!public/favicon.ico
 package-lock.json
 yarn.lock

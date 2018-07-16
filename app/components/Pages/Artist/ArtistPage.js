@@ -14,7 +14,7 @@ class ArtistPage extends React.Component {
   }
 
   truncateInfo = (info) => {
-    if (info.length > 100) { return info.substring(0, 100) + '...'; }
+    if (info.length > 450) { return info.substring(0, 450) + '...'; }
     else return info;
   }
 
@@ -26,7 +26,7 @@ class ArtistPage extends React.Component {
       <div className="artist-page">
         <WithBackgroundImage className="artist-page-header" src={cover}>
           <div className="artist-box">
-            <LazyloadImage className="artist-avatar image-wrapper" src={avatar}>
+            <LazyloadImage className="artist-avatar image-wrapper" src={avatar.replace('240_240', '165_165')}>
             </LazyloadImage>
             <div className="aritst-name">
               {artistName}
@@ -48,29 +48,31 @@ class ArtistPage extends React.Component {
           />
           <div className='album-playlist-artist-info'>
             <div className="suggested-artists-title">{t('biography') + " " + artistName}</div>
-            <div className="album-playlist-artist-thumb image-wrapper">
+            {/* <div className="album-playlist-artist-thumb image-wrapper">
               <img src={avatar} />
-            </div>
+            </div> */}
             <div className='album-playlist-artist-description'>
-              <span style={{color: "black"}}>{t('dob') + ": " + (dateOfBirth ? dateOfBirth : '--/--/--')}</span>
-              { !!description ?
+              <img src={avatar} />
+              <span style={{ color: "black" }}>{t('dob') + ": " + (dateOfBirth ? dateOfBirth : '--/--/--')}</span>
+              {!!description ?
                 <div>
-                <p>
-                  {!showArtistInfo && description ? this.truncateInfo(description) : description}
-                </p>
-                {!showArtistInfo ?
-                  <button
-                    className='sc-ir show-info-btn'
-                    onClick={this.showArtistInfo}>
-                    {t('showDes')}
-                  </button>
-                  :
-                  <button
-                    className='sc-ir show-info-btn'
-                    onClick={this.showArtistInfo}>
-                    {t('hideDes')}
-                  </button>
-                }
+                  <p>
+                    {!showArtistInfo && description ? this.truncateInfo(description) : description}
+                  </p>
+                  {description.length > 450 &&
+                    (!showArtistInfo ?
+                    <button
+                      className='sc-ir show-info-btn'
+                      onClick={this.showArtistInfo}>
+                      {t('showDes')}
+                    </button>
+                    :
+                    <button
+                      className='sc-ir show-info-btn'
+                      onClick={this.showArtistInfo}>
+                      {t('hideDes')}
+                    </button>)
+                  }
                 </div> : <p>No data...</p>
               }
             </div>
@@ -87,15 +89,17 @@ class ArtistPage extends React.Component {
 
 const ArtistsList = ({ suggestedArtist }) =>
   <div className="suggested-artist">
-    <img src={suggestedArtist.thumb} title={suggestedArtist.name} />
-    <div className="suggested-artist-info">
-      <Link
-        to={`/artist/${suggestedArtist.link.split('/')[2]}`}
-        className='suggested-artist-name'
-      >
+    <Link
+      to={`/artist/${suggestedArtist.link.split('/')[2]}`}
+      className='suggested-artist-name'
+    >
+      <img src={suggestedArtist.thumb.replace('240_240', '94_94')} title={suggestedArtist.name} />
+      <div className="suggested-artist-info">
+
         {suggestedArtist.name}
-      </Link>
-    </div>
+
+      </div>
+    </Link>
   </div>
 
 export default ArtistPage;

@@ -38,7 +38,7 @@ export function fetchSong(name, id, fetchSuggest = true) {
     }
     else
       axios.get(`/api/media/song?name=${name}&id=${id}`)
-        .then(({ data }) => {console.log("á")
+        .then(({ data }) => {
           data.cover = data.artist.cover;
           data.artistId = data.artist.id
           delete data.artist;

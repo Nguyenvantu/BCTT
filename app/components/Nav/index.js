@@ -24,7 +24,6 @@ class Nav extends React.Component {
   search(term) {
     axios.get(`/api/media/search?term=${term}`)
       .then(({ data }) => {
-        console.log(data)
         if (this.state.term.length) {
           this.setState({ searchResult: data });
         }
@@ -32,7 +31,7 @@ class Nav extends React.Component {
       .catch(err => { throw err; });
   }
 
-  handleOnChange(e) {
+  handleOnChange = (e) => {
     let term = e.target.value;
     if (!term) return this.setState({ term: '' });
     this.setState({ term });
@@ -46,16 +45,15 @@ class Nav extends React.Component {
     }
   }
 
-  clearSearchResult() {
+  clearSearchResult = () => {
     this.setState({ term: '', searchResult: {} });
   }
 
-  handleChangeLanguage = (code) => {
-    let { i18n } = this.props;
-    i18n.changeLanguage(code);
+  handleChangeLanguage = (code) => () =>  {
+    this.props.i18n.changeLanguage(code);
   }
 
-  logOut(e) {
+  logOut = (e) => {
     e.preventDefault();
     this.props.dispatch(clearUserPlaylist());
     this.props.dispatch(logout());
@@ -79,13 +77,13 @@ class Nav extends React.Component {
               type="text"
               placeholder={t('search') + "..."}
               value={this.state.term}
-              onChange={this.handleOnChange.bind(this)}
+              onChange={this.handleOnChange}
             />
           </div>
           { this.state.searchResult.result &&
             <SearchMenu
               searchResult={this.state.searchResult}
-              clearSearchResult={this.clearSearchResult.bind(this)}
+              clearSearchResult={this.clearSearchResult}
             />
           }
         </div>
@@ -129,7 +127,7 @@ class Nav extends React.Component {
             <Link to={`/user/${user.username}`} className="animating_link ellipsis" activeClassName="nav-menu-link-active">
               {user.username}
             </Link>
-            <a href="#" title={t('signOut')} onClick={this.logOut.bind(this)} className="animating_link">
+            <a href="#" title={t('signOut')} onClick={this.logOut} className="animating_link">
               <img src="/svg/sign-out-option.svg" />
             </a>
             <Language handleChangeLanguage={this.handleChangeLanguage} t={t}/>
@@ -155,7 +153,7 @@ const Language = ({ handleChangeLanguage, t }) =>
   <div className="animating_link dropdown-lang">
     <div className="dropbtn">{t('lang')}&nbsp;<i className="ion-chevron-down"></i></div>
     <div className="dropdown-lang-content">
-      <div className="dropdown-lang-item" onClick={() => handleChangeLanguage('en')}>English</div>
-      <div className="dropdown-lang-item" onClick={() => handleChangeLanguage('vi')}>Việt Nam</div>
+      <div className="dropdown-lang-item" onClick={handleChangeLanguage('en')}>English</div>
+      <div className="dropdown-lang-item" onClick={handleChangeLanguage('vi')}>Việt Nam</div>
     </div>
   </div>

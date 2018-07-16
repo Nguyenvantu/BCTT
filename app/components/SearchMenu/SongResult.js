@@ -9,24 +9,31 @@ function SongResult({ songs, clearSearchResult, t }) {
         {t('songs')}
       </div>
       {
-        songs.map(song => (
+        songs.map(song => {
+          const link = getSongUrl(song.name, song.id);
+          return (
           <li key={`song-result${song.id}`}>
             <div className='search-li-detail'>
-              <img src={`http://image.mp3.zdn.vn/thumb/94_94/${song.thumb}`} alt='' />
+              <Link
+                to={link}
+                onClick={() => clearSearchResult()} title={song.name}
+              >
+                <img src={`http://image.mp3.zdn.vn/thumb/94_94/${song.thumb}`} alt='' />
+              </Link>
               <div className='search-li-info'>
-                <div>
+                <div title={song.name}>
                   <Link
-                    to={getSongUrl(song.name, song.id)}
+                    to={link}
                     onClick={() => clearSearchResult()}
                   >{song.name}</Link>
                 </div>
-                <div className='search-li-artist'>
+                <div className='search-li-artist' title={song.artist}>
                   { song.artist }
                 </div>
               </div>
             </div>
           </li>
-        ))
+        )})
       }
     </ul>
   );

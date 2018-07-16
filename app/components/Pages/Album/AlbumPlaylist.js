@@ -28,7 +28,7 @@ class AlbumPlaylist extends React.Component {
       <div className='album-playlist'>
         <div className="album-playlist-header">
           <div className="album-playlist-thumb image-wrapper">
-            <img src={playlist.album_playlist_thumb} alt=""/>
+            <img src={playlist.album_playlist_thumb.replace('240_240', '165_165')} alt=""/>
           </div>
           <div className="ap-info">
             <div className="ap-title">
@@ -57,10 +57,11 @@ class AlbumPlaylist extends React.Component {
           <Playlist songs={playlist.songs} className='ap' pathEntry="alias" />
 
           <div className='album-playlist-artist-info'>
-            <div className="album-playlist-artist-thumb image-wrapper">
+            {/* <div className="album-playlist-artist-thumb image-wrapper">
               <img src={playlist.artist_thumb} />
-            </div>
+            </div> */}
             <div className='album-playlist-artist-description'>
+              <img src={playlist.artist_thumb} />
               { !!playlist.artist_info &&
               <div>
                 <p>
@@ -98,7 +99,11 @@ export default AlbumPlaylist;
 
 const ArtistsList = ({ suggestedAlbum }) => 
   <div className="suggested-album">
-    <img src={suggestedAlbum.thumbnail} title={suggestedAlbum.name} />
+    <Link
+      to={`/album/playlist/${suggestedAlbum.link.split('/')[2]}/${suggestedAlbum.id}`}
+    >
+      <img src={suggestedAlbum.thumbnail.replace('165_165', '94_94')} title={suggestedAlbum.name} />
+    </Link>
     <div className="suggested-album-info">
       <Link
         to={`/album/playlist/${suggestedAlbum.link.split('/')[2]}/${suggestedAlbum.id}`}

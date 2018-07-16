@@ -12,8 +12,8 @@ const Li = ({ name, id, thumbnail, alias, artist, artists, removeSongFromQueue, 
       {songData.data.id === id ? <canvas id="analyser_render_2"></canvas> : null}
       <Link to={urlSong}>
         <LazyloadImage
-          src={thumbnail || 'http://zmp3-photo-td.zadn.vn/noimagex'}
-          className="queue-list-thumb"
+          src={thumbnail || '/images/default.jpg'}
+          className={`queue-list-thumb ${songData.data.id === id ? 'rotation' : ''} `}
         />
       </Link>
       <div className="queue-list-info">
@@ -22,7 +22,7 @@ const Li = ({ name, id, thumbnail, alias, artist, artists, removeSongFromQueue, 
         </div>
         {/* <div className="queue-track-artist ellipsis"> */}
           <LinksByComma
-            className="queue-track-artist ellipsis"
+            className={`queue-track-artist ellipsis`}
             data={artists || []}
             titleEntry="name"
             pathEntry="link"
