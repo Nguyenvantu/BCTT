@@ -26,7 +26,7 @@ class ArtistPage extends React.Component {
       <div className="artist-page">
         <WithBackgroundImage className="artist-page-header" src={cover}>
           <div className="artist-box">
-            <LazyloadImage className="artist-avatar image-wrapper" src={avatar.replace('240_240', '165_165')}>
+            <LazyloadImage className="artist-avatar image-wrapper" src={avatar && avatar.replace('240_240', '165_165')}>
             </LazyloadImage>
             <div className="aritst-name">
               {artistName}

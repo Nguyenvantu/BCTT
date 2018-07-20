@@ -2,6 +2,7 @@ import axios from 'axios';
 import * as types from '../constant/action_constant';
 import { MEDIA_ENDPOINT } from '../constant/endpoint_constant';
 import { startLoading, finishLoading } from './ui';
+import { browserHistory } from 'react-router';
 
 export function clearAlbums() {
   return {
@@ -38,6 +39,7 @@ export function fetchDefaultAlbums() {
       })
       .catch(err => {
         dispatch(finishLoading());
+        browserHistory.push('/notfound/albums');
         throw err;
       });
   };
@@ -52,7 +54,6 @@ export function fetchAlbums(genre, id, page) {
       .then(({ data }) => {
         if (data.albums && data.albums.length) {
           dispatch({ type: types.FETCH_ALBUMS, albums: data.albums });
-
           dispatch(setNumberOfPages(data.numberOfPages));
           dispatch(finishLoading());
         }
@@ -75,10 +76,10 @@ export function fetchAlbumPlaylist(title, id) {
   return dispatch => {
     dispatch(fetchSuggestedAlbums(id));
     axios.get(`${MEDIA_ENDPOINT}/album_playlist?title=${title}&id=${id}`)
-      .then(({ data }) => {
+      .then(({ data }) => {console.log(data)
         dispatch({ type: types.FETCH_ALBUM_PLAYLIST, playlist: data });
       })
-      .catch(err => { throw err; });
+      .catch(err => {browserHistory.push('/notfound/album'); throw err; });
   };
 }
 

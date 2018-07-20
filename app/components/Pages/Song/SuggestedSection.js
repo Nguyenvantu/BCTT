@@ -8,7 +8,7 @@ const SongList = ({ song, fetchSong, addSongToQueue, t }) =>
     <img src={song.thumbnail} alt="" />
     <div className="suggested-song-info">
       <Link
-        to={`/song/${changeAlias(song.name)}/${song.id}`}
+        to={`/song/${changeAlias(song.name)}/${song.id}`} title={song.name}
         className='suggested-song-name'>{song.name}</Link>
       <LinksByComma
         className="trackArtist"

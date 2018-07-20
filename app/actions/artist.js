@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as types from '../constant/action_constant';
 import { startLoading, finishLoading } from './ui';
+import { browserHistory } from 'react-router';
 
 export function setNumberOfPages(numberOfPages) {
   return {
@@ -36,7 +37,7 @@ export function fetchDefaultArtists() {
         dispatch({ type: types.FETCH_DEFAULT_ARTISTS, defaultArtists: data.origins });
         dispatch(finishLoading());
       })
-      .catch(err => { dispatch(finishLoading()); throw err; });
+      .catch(err => { dispatch(finishLoading()); browserHistory.push('/notfound/artists'); throw err; });
   };
 }
 
@@ -53,7 +54,7 @@ export function fetchArtists(genre, id, page) {
         });
         dispatch(finishLoading());
       })
-      .catch(err => { dispatch(finishLoading()); throw err; });
+      .catch(err => { dispatch(finishLoading()); browserHistory.push('/notfound/artists'); throw err; });
   };
 }
 
@@ -76,6 +77,7 @@ export function fetchArtist(name, type = 'songs', page) {
     dispatch(fetchSuggestedArtists(name));
     axios.get(`/api/media/artist/${name}/${type}${pageQuery}`)
       .then(({ data }) => {
+        !data.artistName && browserHistory.push('/notfound');
         switch (type) {
         case 'songs':
           dispatch(fetchSong(data));
@@ -92,7 +94,7 @@ export function fetchArtist(name, type = 'songs', page) {
         default:
         }
       })
-      .catch(err => { throw err; });
+      .catch(err => {throw err; });
   };
 }
 

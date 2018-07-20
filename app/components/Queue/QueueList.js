@@ -8,8 +8,8 @@ import LinksByComma from '../LinksByComma';
 const Li = ({ name, id, thumbnail, alias, artist, artists, removeSongFromQueue, fetchSong, songData }) => {
   const urlSong = getSongUrl(alias || name, id)
   return (
-    <li >
-      {songData.data.id === id ? <canvas id="analyser_render_2"></canvas> : null}
+    <li className={songData.data.id === id ? 'playing' : ''}>
+      {/* {songData.data.id === id ? <canvas id="analyser_render_2"></canvas> : null} */}
       <Link to={urlSong}>
         <LazyloadImage
           src={thumbnail || '/images/default.jpg'}

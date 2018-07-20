@@ -53,7 +53,7 @@ class Player extends React.PureComponent {
 
   onPlay() {
     this.setState({ isPlaying: true })
-    this.timer = requestInterval(this.update.bind(this), 15);
+    this.timer = requestInterval(this.update.bind(this), 10);
   }
 
   onPause() {
@@ -236,6 +236,7 @@ class Player extends React.PureComponent {
           crossOrigin = 'anonymous'
           ref={this.myRef}
           loop={this.state.loop}
+          preload="metadata"
         />
         <img
           src={songData.thumbnail}
