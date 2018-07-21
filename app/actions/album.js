@@ -62,11 +62,11 @@ export function fetchAlbums(genre, id, page) {
   };
 }
 
-export function fetchSuggestedAlbums(id) {
+export function fetchSuggestedAlbums(id, artistId) {
   return dispatch => {
-    axios.get(`${MEDIA_ENDPOINT}/suggested-album?id=${id}`)
+    axios.get(`${MEDIA_ENDPOINT}/suggested-album?id=${id}&artistId=${artistId}`)
       .then(({ data }) => {
-        dispatch({type: types.FETCH_SUGGESTED_ALBUMS, data})
+        dispatch({type: types.FETCH_SUGGESTED_ALBUMS, data: data.data.items})
       })
       .catch(err => { throw err; });
   };
@@ -74,9 +74,10 @@ export function fetchSuggestedAlbums(id) {
 
 export function fetchAlbumPlaylist(title, id) {
   return dispatch => {
-    dispatch(fetchSuggestedAlbums(id));
     axios.get(`${MEDIA_ENDPOINT}/album_playlist?title=${title}&id=${id}`)
-      .then(({ data }) => {console.log(data)
+      .then(({ data }) => {
+        const artistId = data.songs[0] && data.songs[0].artist && data.songs[0].artist.id;
+        dispatch(fetchSuggestedAlbums(id, artistId));
         dispatch({ type: types.FETCH_ALBUM_PLAYLIST, playlist: data });
       })
       .catch(err => {browserHistory.push('/notfound/album'); throw err; });

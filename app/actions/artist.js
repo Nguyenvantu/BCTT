@@ -37,7 +37,7 @@ export function fetchDefaultArtists() {
         dispatch({ type: types.FETCH_DEFAULT_ARTISTS, defaultArtists: data.origins });
         dispatch(finishLoading());
       })
-      .catch(err => { dispatch(finishLoading()); browserHistory.push('/notfound/artists'); throw err; });
+      .catch(err => { dispatch(finishLoading()); browserHistory.push('/notfound'); throw err; });
   };
 }
 
@@ -54,7 +54,7 @@ export function fetchArtists(genre, id, page) {
         });
         dispatch(finishLoading());
       })
-      .catch(err => { dispatch(finishLoading()); browserHistory.push('/notfound/artists'); throw err; });
+      .catch(err => { dispatch(finishLoading()); browserHistory.push('/notfound'); throw err; });
   };
 }
 
@@ -77,7 +77,7 @@ export function fetchArtist(name, type = 'songs', page) {
     dispatch(fetchSuggestedArtists(name));
     axios.get(`/api/media/artist/${name}/${type}${pageQuery}`)
       .then(({ data }) => {
-        !data.artistName && browserHistory.push('/notfound');
+        !data.artistName && browserHistory.push('/notfound')
         switch (type) {
         case 'songs':
           dispatch(fetchSong(data));

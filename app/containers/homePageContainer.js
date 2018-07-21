@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { HomePage } from '../components';
 import { changeActiveChart } from '../actions/chart';
@@ -7,7 +7,7 @@ import { download } from '../actions/song';
 import { translate } from 'react-i18next';
 import PropTypes from 'prop-types';
 
-class HomePageContainer extends Component {
+class HomePageContainer extends React.PureComponent {
   static contextTypes = {
     router: PropTypes.object,
   }
