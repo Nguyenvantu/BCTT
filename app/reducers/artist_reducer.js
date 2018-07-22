@@ -70,7 +70,7 @@ export default function (state = initialState, action) {
 
   case types.FETCH_SUGGESTED_ARTISTS:
     return {
-      ...state, suggestedArtists: [...action.data]
+      ...state, suggestedArtists: action.data.length ? [...action.data] : [...state.suggestedArtists]
     }
 
   default:

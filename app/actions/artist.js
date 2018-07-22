@@ -61,7 +61,7 @@ export function fetchArtists(genre, id, page) {
 export function fetchSuggestedArtists(name) {
   return dispatch => {
     axios.get(`/api/media/suggested-artist?name=${name}`)
-      .then(({ data }) => {
+      .then(({ data }) => {console.log(data);
         dispatch({
           type: types.FETCH_SUGGESTED_ARTISTS,
           data: data.datas
@@ -74,13 +74,13 @@ export function fetchSuggestedArtists(name) {
 export function fetchArtist(name, type = 'songs', page) {
   const pageQuery = page ? `?page=${page}` : '';
   return dispatch => {
-    dispatch(fetchSuggestedArtists(name));
     axios.get(`/api/media/artist/${name}/${type}${pageQuery}`)
       .then(({ data }) => {
         !data.artistName && browserHistory.push('/notfound')
         switch (type) {
         case 'songs':
           dispatch(fetchSong(data));
+          dispatch(fetchSuggestedArtists(name));
           break;
 
         case 'albums':
