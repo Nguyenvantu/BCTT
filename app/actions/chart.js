@@ -10,19 +10,19 @@ const popTypes = {
 export function getChart(popType) {
   return dispatch => {
     axios.get(`/api/media/chart/${popTypes[popType]}`)
-      .then(({ data: res }) => {
-        if (res.msg === 'Success') {
+      .then(({data}) => {
+        if (data.msg === 'Success') {
           switch (popType) {
           case 'pop':
-            dispatch({ type: types.FETCH_POP_CHART, pop: res.data });
+            dispatch({ type: types.FETCH_POP_CHART, pop: data.data });
             break;
 
           case 'kpop':
-            dispatch({ type: types.FETCH_KPOP_CHART, kpop: res.data });
+            dispatch({ type: types.FETCH_KPOP_CHART, kpop: data.data });
             break;
 
           case 'vpop':
-            dispatch({ type: types.FETCH_VPOP_CHART, vpop: res.data });
+            dispatch({ type: types.FETCH_VPOP_CHART, vpop: data.data });
             break;
 
           default:

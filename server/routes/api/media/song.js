@@ -5,7 +5,6 @@ const lrcParser = require('lrc-parser');
 
 module.exports = async function getSong(req, res, next) {
   const { name, id } = req.query;
-  // TO DO: use async await when targeting node 8.0
   // co(function* () {
   try {
     const html = await request(`https://mp3.zing.vn/bai-hat/${name}/${id}.html`);
@@ -16,22 +15,31 @@ module.exports = async function getSong(req, res, next) {
       throw new Error("can't find the resource URL")
     }
     
-    const resource = await request(`https://mp3.zing.vn/xhr/media/get-source?type=audio&key=${match[2]}`);
-    let data = JSON.parse(resource).data;
+    // const resource = await request(`https://mp3.zing.vn/xhr/media/get-source?type=audio&key=${match[2]}`);
+    // let data = JSON.parse(resource).data;
 
     // data.lyric now is a url
-    if (!data.lyric.trim()) {
-      data.lyric = [];
-    }
-    else{
-      const lrcFile = await request(data.lyric);
-      data.lyric = lrcParser(lrcFile).scripts;
-    }
-    res.json(data)
+    // if (!data.lyric.trim()) {
+    //   data.lyric = [];
+    // }
+    // else{
+    //   const lrcFile = await request(data.lyric);
+    //   data.lyric = lrcParser(lrcFile).scripts;
+    // }
+    // res.json(data)
+    res.json({url: `https://mp3.zing.vn/xhr/media/get-source?type=audio&key=${match[2]}`})
+
   }
   catch(err){
     next(err);
   }
+
+
+
+
+
+
+
   // co(function* () {
   //   const html = yield request(`https://mp3.zing.vn/bai-hat/${name}/${id}.html`);
   //   const regex = /media\/get-source\?type=audio&key=.{33}/; // get the resouce url

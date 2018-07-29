@@ -61,7 +61,7 @@ export function fetchArtists(genre, id, page) {
 export function fetchSuggestedArtists(name) {
   return dispatch => {
     axios.get(`/api/media/suggested-artist?name=${name}`)
-      .then(({ data }) => {console.log(data);
+      .then(({ data }) => {
         dispatch({
           type: types.FETCH_SUGGESTED_ARTISTS,
           data: data.datas
