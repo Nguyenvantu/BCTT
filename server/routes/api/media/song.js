@@ -15,19 +15,19 @@ module.exports = async function getSong(req, res, next) {
       throw new Error("can't find the resource URL")
     }
     
-    // const resource = await request(`https://mp3.zing.vn/xhr/media/get-source?type=audio&key=${match[2]}`);
-    // let data = JSON.parse(resource).data;
+    const resource = await request(`https://mp3.zing.vn/xhr/media/get-source?type=audio&key=${match[2]}`);
+    let data = JSON.parse(resource).data;
 
     // data.lyric now is a url
-    // if (!data.lyric.trim()) {
-    //   data.lyric = [];
-    // }
-    // else{
-    //   const lrcFile = await request(data.lyric);
-    //   data.lyric = lrcParser(lrcFile).scripts;
-    // }
-    // res.json(data)
-    res.json({url: `https://mp3.zing.vn/xhr/media/get-source?type=audio&key=${match[2]}`})
+    if (!data.lyric.trim()) {
+      data.lyric = [];
+    }
+    else{
+      const lrcFile = await request(data.lyric);
+      data.lyric = lrcParser(lrcFile).scripts;
+    }
+    res.json(data)
+    // res.json({url: `https://mp3.zing.vn/xhr/media/get-source?type=audio&key=${match[2]}`})
 
   }
   catch(err){
