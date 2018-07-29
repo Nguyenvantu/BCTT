@@ -42,7 +42,7 @@ class Player extends React.PureComponent {
   // }
 
   componentWillUnmount() {
-    clearRequestInterval(this.timer);
+    this.timer && clearRequestInterval(this.timer);
   }
 
   // onLoadedData() {
