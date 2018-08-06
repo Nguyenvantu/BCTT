@@ -1,6 +1,6 @@
 import React from 'react';
 
-const componentName = () => (
+export const PlayerLoader = () => (
   <div className='player-loading'>
     <div className="player-overlay" />
     <div className='player-loader'>
@@ -8,6 +8,3 @@ const componentName = () => (
     </div>
   </div>
 );
-
-
-export default componentName;

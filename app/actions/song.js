@@ -12,9 +12,9 @@ import FileSaver from 'file-saver';
 export function fetchSong(name, id, fetchSuggest = true) {
   return (dispatch, getState) => {
     let state = getState();
-    dispatch({ type: types.START_FETCHING_SONG });
     dispatch({ type: types.RESET_SONG_DATA });
-
+    dispatch({ type: types.START_FETCHING_SONG });
+    
     if (!!state.songData.tempData[id]) {
       if (fetchSuggest)
         !state.songData.tempData[id].suggested ?

@@ -58,7 +58,7 @@ class DropDown extends React.Component {
           className="dropdown-nextup"
           onClick={this.handleDropdownNextUp.bind(this)}
         >
-          <img src="/svg/queue-add.svg" alt="" />
+          <img src="/svg/queue-next.svg" alt="" style={{ height: '30px', width: '30px', marginRight: '5px' }}/>
           {t('addToNextUp')}
         </div>
         <div
@@ -66,8 +66,7 @@ class DropDown extends React.Component {
           onClick={this.handleDropdownAdd.bind(this)}
         >
           <img
-            src="/svg/queue-next.svg"
-            style={{ height: '30px', width: '30px', marginRight: '5px' }}
+            src="/svg/queue-add.svg"
             alt=""
           />
           {t('addToPlaylist')}

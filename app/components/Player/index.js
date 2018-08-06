@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import InputRange from 'react-input-range';
 import { Link, browserHistory } from 'react-router';
-import PlayerLoader from './PlayerLoader';
+import { PlayerLoader } from './PlayerLoader';
 import { initAnalyzer, frameLooper } from '../../utils/initAnalyzer';
 import LinksByComma from '../LinksByComma';
 import { requestInterval, clearRequestInterval } from '../../requestInterval';
@@ -228,6 +228,7 @@ class Player extends React.PureComponent {
   render() {
     const { songData, queue, t } = this.props;
     const { name, id } = songData;
+
     return (
       <div className='player'>
         <audio

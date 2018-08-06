@@ -27,11 +27,11 @@ class App extends React.Component {
   }
 }
 
-function mapStateToProps({ songData, UIState, auth }) {
+function mapStateToProps({ queueState, UIState, auth }) {
   const { showQueue, showAnalyzer, slideInRight } = UIState;
 
   return {
-    showPlayer: Object.keys(songData.data).length,
+    showPlayer: queueState.ids.length,
     showAnalyzer,
     showQueue,
     slideInRight,

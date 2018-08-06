@@ -11,7 +11,7 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
   case types.RESET_SONG_DATA:{
-    const newState = {...state, data: {}, isFetching: false}
+    const newState = {...state, data: {}}
     saveSongDataState({ ...newState, tempData: {} });
     return newState;
   }

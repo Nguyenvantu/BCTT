@@ -54,7 +54,7 @@ class TrackList extends React.Component {
                     <Track
                       downloadProgress={this.props.downloadProgress[id]} download={this.props.download}
                       name={track.name} id={track.id} t={t}/>
-                    <button className='sc-ir'><i className="ion-android-share" title="share" /></button>
+                    {/* <button className='sc-ir'><i className="ion-android-share" title="share" /></button> */}
                     <button
                       className='sc-ir ignore-react-onclickoutside'
                       onClick={this.props.toggleTrackDropDown.bind(null, id, 'Track')}>
